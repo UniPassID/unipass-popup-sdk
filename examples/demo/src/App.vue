@@ -136,12 +136,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
 import { UPEvent, UPEventType } from "@unipasswallet/popup-types";
 import { UniPassPopupSDK, ChainType } from "@unipasswallet/popup-sdk";
 import { ERC20ABI } from "./assets/erc20.abi";
 import { isAddress, formatEther, parseEther } from "ethers/lib/utils";
 import { Contract } from "ethers";
+import { ElMessage } from "element-plus";
 
 const DAI_ADDRESS = "0x6Cc8f0b5607E1F947E83667368881A1BCCc3f1C4";
 
@@ -165,7 +166,7 @@ export default defineComponent({
       upRangers: new UniPassPopupSDK({
         chainType: ChainType.mainnet,
         upCoreConfig: {
-          domain: "localhost:3000",
+          domain: "localhost:1900",
           protocol: "http",
         },
       }),
@@ -181,7 +182,7 @@ export default defineComponent({
   methods: {
     bindCopy() {
       this.$clipboard(this.myAddress);
-      this.$message.success("copy succeeded");
+      ElMessage.success("copy succeeded");
     },
     async connect() {
       console.log("connect clicked");
@@ -200,7 +201,7 @@ export default defineComponent({
             const { type, body } = event;
             if (type === UPEventType.REGISTER) {
               console.log("account", body);
-              this.$message.success("a user register");
+              ElMessage.success("a user register");
             }
           },
         });
@@ -210,7 +211,7 @@ export default defineComponent({
 
         await this.refreshBalance();
       } catch (err) {
-        this.$message.error(err as string);
+        ElMessage.error(err as string);
         console.log("connect err", err);
       }
     },
@@ -228,7 +229,7 @@ export default defineComponent({
     },
     onAddressChanged() {
       if (!isAddress(this.toAddress)) {
-        this.$message.error("address invalid");
+        ElMessage.error("address invalid");
       }
     },
     async refreshBalance() {
@@ -261,7 +262,7 @@ export default defineComponent({
         console.log("resp", resp);
         this.sig = JSON.stringify(resp);
       } catch (err) {
-        this.$message.error(err as string);
+        ElMessage.error(err as string);
         console.log("auth err", err);
       }
     },
@@ -273,18 +274,18 @@ export default defineComponent({
           this.sig
         );
         if (ret === true) {
-          this.$message.success("verify signature success");
+          ElMessage.success("verify signature success");
         } else {
-          this.$message.error("verify signature failed");
+          ElMessage.error("verify signature failed");
         }
       } catch (err) {
-        this.$message.error(err as string);
+        ElMessage.error(err as string);
         console.log("auth err", err);
       }
     },
     async sendRPG() {
       if (Number(this.myRPGBalance) < Number(this.toAmount)) {
-        this.$message.error("balance is not enough");
+        ElMessage.error("balance is not enough");
         return;
       }
       try {
@@ -304,23 +305,23 @@ export default defineComponent({
         });
         if (await this.checkTxStatus(this.txHash)) {
           console.log("send RPG success", this.txHash);
-          this.$message.success(`send RPG success, tx hash = ${this.txHash}`);
+          ElMessage.success(`send RPG success, tx hash = ${this.txHash}`);
         } else {
-          this.$message.error(`send RPG failed, tx hash = ${this.txHash}`);
+          ElMessage.error(`send RPG failed, tx hash = ${this.txHash}`);
         }
         await this.refreshBalance();
       } catch (err) {
-        this.$message.error(err as string);
+        ElMessage.error(err as string);
         console.log("err", err);
       }
     },
     async sendToken() {},
-    async executeCall() {}
+    async executeCall() {},
   },
 });
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 #page-demo {
   max-width: 480px;
   margin: 0 auto;
