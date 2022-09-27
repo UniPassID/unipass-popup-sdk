@@ -1,0 +1,16 @@
+{
+  "name": "@unipass-wallet/web-popup-sdk",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "johnz",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "examples/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "start": "yarn --cwd backend start",
+    "build": "yarn --cwd frontend build"
+  }
+}
