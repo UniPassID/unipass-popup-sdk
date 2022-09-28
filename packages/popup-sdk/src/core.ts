@@ -70,11 +70,31 @@ export class UniPassPopupSDK {
     this._config.rangersRPC = options.nodeRPC || defaultConfig.rangersRPC;
   }
 
+  private getProviderUrl(chainId: number): string {
+    const urls = [
+      {
+        chainId: 9527,
+        url: 'https://node.wallet.unipass.id/rangers-robin'
+      },
+      {
+        chainId: 2025,
+        url: 'https://node.wallet.unipass.id/rangers-mainnet'
+      }
+    ]
+
+    return urls.find(x=>x.chainId === chainId)!.url;
+  }
+
   /**
    * initialize Rangers with user's username and email
    */
   public async login(options?: UPConnectOptions): Promise<UPAccount> {
     this._account = await connect(options)
+
+    let chainId = options?.chain?.id;
+    if(!chainId) chainId = this._config?.chainType === ChainType.mainnet ? 2025: 9527
+
+    this._provider = new JsonRpcProvider(this.getProviderUrl(chainId))
     this._initialized = true;
 
     return this._account;

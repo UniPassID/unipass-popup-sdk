@@ -135,190 +135,178 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { computed, defineComponent, reactive, ref } from "vue";
 import { UPEvent, UPEventType } from "@unipasswallet/popup-types";
 import { UniPassPopupSDK, ChainType } from "@unipasswallet/popup-sdk";
 import { ERC20ABI } from "./assets/erc20.abi";
 import { isAddress, formatEther, parseEther } from "ethers/lib/utils";
-import { Contract } from "ethers";
+import { Contract, providers } from "ethers";
 import { ElMessage } from "element-plus";
 
-const DAI_ADDRESS = "0x6Cc8f0b5607E1F947E83667368881A1BCCc3f1C4";
+const DAI_ADDRESS = "0x25c58Aa062Efb4f069bD013De3e3C5797fb40651";
 
-export default defineComponent({
-  data() {
-    return {
-      message: "TO BE SIGNED MESSAGE abc",
-      sig: "",
-      activeTab: "sign_transaction",
-      tokenType: "RPG",
-      myAddress: "",
-      myRPGBalance: "0.00",
-      myTokenBalance: "0.00",
-      toAddress: "0x8291507Afda0BBA820efB6DFA339f09C9465215C",
-      toAmount: "0.01",
-      toFeeAmount: "0.000001",
-      toDescription: "描述测试描述测试描述测试",
-      toTheme: "dark",
-      txHash: "",
-      form: {},
-      upRangers: new UniPassPopupSDK({
-        chainType: ChainType.mainnet,
-        upCoreConfig: {
-          domain: "localhost:1900",
-          protocol: "http",
-        },
-      }),
-    };
-  },
-  computed: {
-    myBalanceFormat(): string {
-      const balance =
-        this.tokenType === "RPG" ? this.myRPGBalance : this.myTokenBalance;
-      return `${balance} ${this.tokenType}`;
-    },
-  },
-  methods: {
-    bindCopy() {
-      this.$clipboard(this.myAddress);
-      ElMessage.success("copy succeeded");
-    },
-    async connect() {
-      console.log("connect clicked");
-      try {
-        const account = await this.upRangers.login({
-          email: true,
-          evmKeys: true,
-          chain: {
-            id: 2025,
-            name: "Rangers Protocol Mainnet",
-          },
-          theme: this.toTheme as any,
-          appName: "Rangers Demo",
-          eventListener: (event: UPEvent) => {
-            console.log("event", event);
-            const { type, body } = event;
-            if (type === UPEventType.REGISTER) {
-              console.log("account", body);
-              ElMessage.success("a user register");
-            }
-          },
-        });
-        console.log("account", account);
+const myAddress = ref("");
+const toTheme = ref("dark");
+const activeTab = ref("sign_transaction");
+const message = ref("TO BE SIGNED MESSAGE abc");
+const sig = ref("");
 
-        this.myAddress = account.address;
-
-        await this.refreshBalance();
-      } catch (err) {
-        ElMessage.error(err as string);
-        console.log("connect err", err);
-      }
-    },
-    async checkTxStatus(txHash: string) {
-      let tryTimes = 0;
-      while (tryTimes++ < 3) {
-        const receipt = await this.upRangers
-          .getProvider()
-          .getTransactionReceipt(txHash);
-
-        if (receipt) return receipt.status;
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-      }
-      return false;
-    },
-    onAddressChanged() {
-      if (!isAddress(this.toAddress)) {
-        ElMessage.error("address invalid");
-      }
-    },
-    async refreshBalance() {
-      this.myRPGBalance = formatEther(
-        await this.upRangers.getProvider().getBalance(this.myAddress)
-      );
-
-      const tokenContract = new Contract(
-        DAI_ADDRESS,
-        ERC20ABI,
-        this.upRangers.getProvider()
-      );
-      this.myTokenBalance = formatEther(
-        await tokenContract.balanceOf(this.myAddress)
-      );
-    },
-    logout() {
-      console.log("connect clicked");
-      this.upRangers.logout();
-      this.myAddress = "";
-    },
-    async signMessage() {
-      console.log("authorize clicked");
-      this.sig = "";
-      console.log({
-        message: this.message,
-      });
-      try {
-        const resp = await this.upRangers.signMessage(this.message);
-        console.log("resp", resp);
-        this.sig = JSON.stringify(resp);
-      } catch (err) {
-        ElMessage.error(err as string);
-        console.log("auth err", err);
-      }
-    },
-
-    async verifySig() {
-      try {
-        const ret = await this.upRangers.isValidSignature(
-          this.message,
-          this.sig
-        );
-        if (ret === true) {
-          ElMessage.success("verify signature success");
-        } else {
-          ElMessage.error("verify signature failed");
-        }
-      } catch (err) {
-        ElMessage.error(err as string);
-        console.log("auth err", err);
-      }
-    },
-    async sendRPG() {
-      if (Number(this.myRPGBalance) < Number(this.toAmount)) {
-        ElMessage.error("balance is not enough");
-        return;
-      }
-      try {
-        const tx = {
-          to: this.toAddress,
-          value: parseEther(this.toAmount),
-          data: "0x",
-        };
-
-        this.txHash = await this.upRangers.sendTransaction(tx, {
-          feeToken: {
-            address: "0x0000000000000000000000000000000000000000",
-            symbol: "RPG",
-            decimals: 18,
-          },
-          feeAmount: parseEther(this.toFeeAmount),
-        });
-        if (await this.checkTxStatus(this.txHash)) {
-          console.log("send RPG success", this.txHash);
-          ElMessage.success(`send RPG success, tx hash = ${this.txHash}`);
-        } else {
-          ElMessage.error(`send RPG failed, tx hash = ${this.txHash}`);
-        }
-        await this.refreshBalance();
-      } catch (err) {
-        ElMessage.error(err as string);
-        console.log("err", err);
-      }
-    },
-    async sendToken() {},
-    async executeCall() {},
+const tokenType = ref("RPG");
+const myRPGBalance = ref("0.00");
+const myTokenBalance = ref("0.00");
+const toAddress = ref("0x8291507Afda0BBA820efB6DFA339f09C9465215C");
+const toAmount = ref("0.01");
+const toFeeAmount = ref("0.000001");
+const toDescription = ref("描述测试描述测试描述测试");
+const txHash = ref("");
+const form = reactive({});
+const upRangers = new UniPassPopupSDK({
+  chainType: ChainType.mainnet,
+  upCoreConfig: {
+    domain: "localhost:1900",
+    protocol: "http",
   },
 });
+
+const myBalanceFormat = computed(() => {
+  const balance = tokenType.value === "RPG" ? myRPGBalance.value : myTokenBalance.value;
+  return `${balance} ${tokenType.value}`;
+});
+
+const bindCopy = () => {
+  // this.$clipboard(this.myAddress);
+  ElMessage.success("copy succeeded");
+};
+const connect = async () => {
+  console.log("connect clicked");
+  try {
+    const account = await upRangers.login({
+      email: true,
+      evmKeys: true,
+      chain: {
+        // id: 2025,
+        id: 9527,
+        name: "Rangers Protocol Testnet",
+      },
+      theme: toTheme as any,
+      appName: "Rangers Demo",
+      eventListener: (event: UPEvent) => {
+        console.log("event", event);
+        const { type, body } = event;
+        if (type === UPEventType.REGISTER) {
+          console.log("account", body);
+          ElMessage.success("a user register");
+        }
+      },
+    });
+    console.log("account", account);
+
+    myAddress.value = account.address;
+
+    await refreshBalance();
+  } catch (err) {
+    ElMessage.error(err as string);
+    console.log("connect err", err);
+  }
+};
+
+const checkTxStatus = async (txHash: string) => {
+  let tryTimes = 0;
+  while (tryTimes++ < 3) {
+    const receipt = await upRangers.getProvider().getTransactionReceipt(txHash);
+
+    if (receipt) return receipt.status;
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+  }
+  return false;
+};
+const onAddressChanged = () => {
+  if (!isAddress(toAddress.value)) {
+    ElMessage.error("address invalid");
+  }
+};
+const refreshBalance = async () => {
+  const provider = upRangers.getProvider();
+  const balance =  await provider.getBalance(myAddress.value)
+  myRPGBalance.value = formatEther(balance);
+  
+
+  const tokenContract = new Contract(
+    DAI_ADDRESS,
+    ERC20ABI,
+    upRangers.getProvider()
+  );
+  myTokenBalance.value = formatEther(await tokenContract.balanceOf(myAddress.value));
+};
+const logout = () => {
+  console.log("connect clicked");
+  upRangers.logout();
+  myAddress.value = "";
+};
+
+const signMessage = async () => {
+  console.log("authorize clicked");
+  sig.value = "";
+  console.log({
+    message: message,
+  });
+  try {
+    const resp = await upRangers.signMessage(message.value);
+    console.log("resp", resp);
+    sig.value = JSON.stringify(resp);
+  } catch (err) {
+    ElMessage.error(err as string);
+    console.log("auth err", err);
+  }
+};
+
+const verifySig = async () => {
+  try {
+    const ret = await upRangers.isValidSignature(message.value, sig.value);
+    if (ret === true) {
+      ElMessage.success("verify signature success");
+    } else {
+      ElMessage.error("verify signature failed");
+    }
+  } catch (err) {
+    ElMessage.error(err as string);
+    console.log("auth err", err);
+  }
+};
+const sendRPG = async () => {
+  if (Number(myRPGBalance) < Number(toAmount)) {
+    ElMessage.error("balance is not enough");
+    return;
+  }
+  try {
+    const tx = {
+      to: toAddress,
+      value: parseEther(toAmount.value),
+      data: "0x",
+    };
+    txHash.value = await upRangers.sendTransaction(tx, {
+      feeToken: {
+        address: "0x0000000000000000000000000000000000000000",
+        symbol: "RPG",
+        decimals: 18,
+      },
+      feeAmount: parseEther(toFeeAmount.value),
+    });
+    if (await checkTxStatus(txHash.value)) {
+      console.log("send RPG success", txHash);
+      ElMessage.success(`send RPG success, tx hash = ${txHash}`);
+    } else {
+      ElMessage.error(`send RPG failed, tx hash = ${txHash}`);
+    }
+    await refreshBalance();
+  } catch (err) {
+    ElMessage.error(err as string);
+    console.log("err", err);
+  }
+};
+const sendToken = async () => {};
+const executeCall = () => {};
 </script>
 
 <style lang="scss">
@@ -327,7 +315,7 @@ export default defineComponent({
   margin: 0 auto;
   overflow: hidden;
   position: relative;
-  background: #F5F5FF;
+  background: #f5f5ff;
 
   > * {
     z-index: 1;
@@ -367,7 +355,7 @@ export default defineComponent({
     border-radius: 24px;
     margin: 30px auto 0px;
     width: 100%;
-    background: #FFFFFF;
+    background: #ffffff;
     padding: 0px 0 21px;
     overflow: hidden;
 

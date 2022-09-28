@@ -19,7 +19,9 @@ function serviceEndPoint(type: UPMessageType) {
   if (type === 'UP_LOGIN') {
     return getConfig().upConnectUrl;
   } else if (type === 'UP_SIGN_MESSAGE') {
-    return getConfig().upAuthUrl;
+    return getConfig().upSignMessageUrl;
+  } else if (type === 'UP_TRANSACTION') {
+    return getConfig().upSignMessageUrl;
   } else if (type === 'UP_READY') {
     return getConfig().upLoadingUrl;
   }
@@ -35,6 +37,7 @@ export function pop(message: UPMessage, opts?: MessageHandler) {
   const onReady = opts?.onReady || noop;
   const onResponse = opts?.onResponse || noop;
 
+  console.log('add event listener')
   window.addEventListener('message', internal);
   const { popup, unmount } = renderPop(serviceEndPoint(message.type));
   return { send, close };
