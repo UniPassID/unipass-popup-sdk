@@ -57,7 +57,7 @@ const initUser = async () => {
     }
   }
   // userStore.path
-  for (const path of ['/connect', '/sign', '/sign-message']) {
+  for (const path of ['/connect', '/sign-message', '/send-transaction']) {
     if (pathname.startsWith(path)) {
       userStore.path = pathname + search + hash
     }

@@ -82,7 +82,7 @@ export const useLoginStore = defineStore({
         await userStore.update(user)
         // reset loginStore
         this.$reset()
-        router.push('/')
+        router.replace(userStore.path || '/')
       }
     },
   },

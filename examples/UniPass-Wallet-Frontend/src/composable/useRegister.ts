@@ -97,7 +97,7 @@ export const useRegisterLoading = () => {
             const userStore = useUserStore()
             await userStore.update(user)
             localStorage.setItem('email', user.email)
-            router.replace('/')
+            router.replace(userStore.path || '/')
           }
           // timeout
           if (date.isBefore(dayjs())) {
