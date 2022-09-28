@@ -35,7 +35,26 @@ export const useUserStore = defineStore({
     const env = process.env.VUE_APP_Net === 'testnet' ? 'test' : 'prod'
     return {
       unipassWallet: UnipassWalletProvider.getInstance({ env }),
-      user: {} as User,
+      user: {
+        email: '',
+        account: '',
+        keyset: {
+          hash: '',
+          masterKeyAddress: '',
+          keysetJson: '',
+        },
+        sessionKey: {
+          localKey: {
+            keystore: '',
+            address: '',
+          },
+          // aesKey: CryptoKey
+          authorization: '',
+          expires: 0,
+          weight: 0,
+        },
+        committed: false,
+      } as User,
       // https://test.wallet.unipass.id/api/v1/config
       mailServices: [] as string[],
       policyAddress: '',

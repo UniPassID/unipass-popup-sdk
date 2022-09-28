@@ -1,6 +1,6 @@
 <template>
   <div id="page-sign">
     <up-header-connect hide-chain />
-    <up-sign />
+    <up-sign class="transaction" />
   </div>
 </template>

@@ -370,7 +370,7 @@ export const useGuardian = () => {
   }
 
   const init = () => {
-    const keysetJson = userStore.user?.keyset.keysetJson
+    const keysetJson = userStore.user.keyset.keysetJson
     if (keysetJson) {
       const keyset = JSON.parse(keysetJson)
       const list = keyset.slice(2, -1)

@@ -40,6 +40,9 @@ init2FA()
 
 <style lang="scss">
 #page-setting-2FA {
+  h4 {
+    text-align: left;
+  }
   .box {
     padding-top: 10px;
     display: flex;

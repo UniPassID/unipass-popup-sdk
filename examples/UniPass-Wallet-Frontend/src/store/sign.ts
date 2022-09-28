@@ -1,4 +1,4 @@
-import { TransactionType, SignType } from '@/utils/useUniPass'
+import { TransactionType } from '@/utils/useUniPass'
 import { useUserStore } from '@/store/user'
 import chainsConfig, { TokenInfo } from '@/service/chains-config'
 import router from '@/plugins/router'
@@ -12,18 +12,14 @@ interface Card {
 export const useSignStore = defineStore({
   id: 'sign',
   state: (): {
-    type: SignType
     cards: Card[]
-    message: string
     feeSymbol: string
     loading: boolean
     authChainNode: string
     coin: TokenInfo
   } => {
     return {
-      type: 'message',
       cards: [],
-      message: '',
       feeSymbol: '',
       loading: false,
       authChainNode: '',

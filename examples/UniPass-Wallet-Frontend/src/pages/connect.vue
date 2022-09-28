@@ -45,8 +45,6 @@ import {
   postMessage,
 } from '@unipasswallet/popup-utils'
 
-import { onBeforeUnmount, onMounted } from 'vue'
-
 const isDark = useDark()
 onMounted(() => {
   registerPopupHandler((event: MessageEvent) => {
@@ -73,7 +71,6 @@ onBeforeUnmount(() => {
 })
 
 const userStore = useUserStore()
-
 const approve = () => {
   const user = userStore.user
   postMessage(

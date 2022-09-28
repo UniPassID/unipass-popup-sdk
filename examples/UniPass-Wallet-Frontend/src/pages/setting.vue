@@ -27,7 +27,7 @@
         <div>{{ $t('Guardian') }}</div>
       </div>
       <div class="right">
-        <div class="now">{{ hasGuardian ? '' : '未设置' }}</div>
+        <div class="now"></div>
         <up-icon name="jump" />
       </div>
     </router-link>
@@ -69,21 +69,12 @@
 </template>
 
 <script lang="ts" setup>
-import { useUserStore } from '@/store/user'
 import { useUniPass } from '@/utils/useUniPass'
 
-const userStore = useUserStore()
 const unipass = useUniPass()
 const i18n = useI18n()
 const isDark = useDark()
 const { t: $t } = useI18n()
-
-const hasGuardian = ref(true)
-const keysetJson = userStore.user?.keyset.keysetJson
-if (keysetJson) {
-  const guardians = JSON.parse(keysetJson).slice(2, -1)
-  hasGuardian.value = guardians.length > 0
-}
 
 const changeLanguage = () => {
   i18n.locale.value = i18n.locale.value === 'en' ? 'zh' : 'en'

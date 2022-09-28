@@ -6,9 +6,9 @@
           <img src="@/assets/img/index/avatar.svg" />
         </div>
         <div class="right">
-          <div class="email">{{ userStore.user?.email }}</div>
-          <div class="address" @click="unipass.copy(userStore.user?.account || '')">
-            <span>{{ unipass.formatAddress(userStore.user?.account || '') }}</span>
+          <div class="email">{{ userStore.user.email }}</div>
+          <div class="address" @click="unipass.copy(userStore.user.account)">
+            <span>{{ unipass.formatAddress(userStore.user.account) }}</span>
             <up-icon name="copy" />
           </div>
         </div>

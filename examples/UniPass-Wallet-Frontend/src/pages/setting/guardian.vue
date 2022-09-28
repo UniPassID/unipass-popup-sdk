@@ -18,7 +18,7 @@
           <div class="name">{{ $t('RegisterAccount') }}</div>
           <div class="score">60</div>
         </div>
-        <div class="email">{{ userStore.user?.email }}</div>
+        <div class="email">{{ userStore.user.email }}</div>
       </div>
       <el-checkbox
         v-for="(guardian, i) in form.guardians"

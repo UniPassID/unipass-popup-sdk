@@ -6,9 +6,9 @@
           <img src="@/assets/img/index/avatar.svg" />
         </div>
         <div class="right">
-          <div class="email">{{ userStore.user?.email }}</div>
-          <div class="address" @click="unipass.copy(address)">
-            <span>{{ unipass.formatAddress(address) }}</span>
+          <div class="email">{{ userStore.user.email }}</div>
+          <div class="address" @click="unipass.copy(userStore.user.account)">
+            <span>{{ unipass.formatAddress(userStore.user.account) }}</span>
             <up-icon name="copy" />
           </div>
         </div>
@@ -54,7 +54,9 @@
 
     <div class="recovering" v-if="recovering.isPending">
       <div class="progress">
-        <router-link :to="{ path: '/recovery/loading', query: { address } }">
+        <router-link
+          :to="{ path: '/recovery/loading', query: { address: userStore.user.account } }"
+        >
           <el-progress
             :text-inside="true"
             :format="(percentage) => `${percentage}% Recovering...`"
@@ -110,11 +112,11 @@
         <div class="qrcode">
           <img v-if="addressQRCode" :src="addressQRCode" class="qr-code" />
         </div>
-        <div class="address">{{ address }}</div>
-        <a class="view" target="_blank" :href="`${explorer}/address/${address}`">
+        <div class="address">{{ userStore.user.account }}</div>
+        <a class="view" target="_blank" :href="`${explorer}/address/${userStore.user.account}`">
           {{ $t('ViewInExplorer') }}
         </a>
-        <up-button class="copy" type="primary" @click="unipass.copy(address)">
+        <up-button class="copy" type="primary" @click="unipass.copy(userStore.user.account)">
           {{ $t('CopyAddress') }}
         </up-button>
       </template>
@@ -143,8 +145,6 @@ const {
   // methods
   sendCoin,
 } = useIndex()
-
-const address = computed(() => userStore.user?.account || '')
 </script>
 
 <style lang="scss">

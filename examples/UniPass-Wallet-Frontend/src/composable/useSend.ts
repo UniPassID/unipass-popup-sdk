@@ -70,7 +70,6 @@ export const useSend = () => {
     if (!formElement.value) return
     formElement.value.validate(async (ok: boolean) => {
       if (ok) {
-        signStore.type = 'transaction'
         signStore.cards = [
           {
             show: true,

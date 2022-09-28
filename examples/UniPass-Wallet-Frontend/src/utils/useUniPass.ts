@@ -181,6 +181,4 @@ export const useKeyPermit = async (user: User, msg: string) => {
   return sessionKeyPermit
 }
 
-export type SignType = 'message' | 'transaction'
-
 export type TransactionType = 'send-token' | 'token-approval' | 'contract-call'

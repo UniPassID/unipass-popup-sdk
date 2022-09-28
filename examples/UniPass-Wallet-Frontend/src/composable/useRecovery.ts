@@ -199,7 +199,7 @@ export const useRecoveryGuardian = () => {
   }
 
   onBeforeMount(async () => {
-    if (userStore.user?.step === 'recovery') {
+    if (userStore.user.step === 'recovery') {
       user = userStore.user
       const guardianEmail = getGuardianEmailData(user.keyset.keysetJson)
       form.guardians = guardianEmail.map((item) => {

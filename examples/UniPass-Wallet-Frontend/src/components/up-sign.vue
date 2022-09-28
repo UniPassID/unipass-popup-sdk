@@ -1,6 +1,6 @@
 <template>
-  <div class="up-sign" :class="signStore.type">
-    <template v-if="signStore.type === 'transaction'">
+  <div class="up-sign">
+    <slot name="main">
       <div class="t1">{{ $t('SignTransaction') }}</div>
       <div class="chain-box">
         <div class="chain" :class="signStore.coin.chain">On {{ signStore.coin.chain }}</div>
@@ -41,48 +41,28 @@
           </el-radio>
         </el-radio-group>
       </div>
-    </template>
-    <template v-else>
-      <div class="t1">{{ $t('RequestSignature') }}</div>
-      <div class="t2">{{ $t('Details') }}</div>
-      <div class="line"></div>
-      <div class="label">{{ $t('Signatory') }}</div>
-      <div class="user">
-        <div class="left">
-          <img src="@/assets/img/index/avatar.svg" />
-        </div>
-        <div class="right">
-          <div class="email">{{ userStore.user?.email }}</div>
-          <div class="address">{{ unipass.formatAddress(userStore.user?.account || '') }}</div>
-        </div>
+    </slot>
+    <slot name="footer">
+      <div class="btns">
+        <up-button type="info" @click="$emit('cancel')" :disabled="signStore.loading">
+          {{ $t('Cancel') }}
+        </up-button>
+        <up-button
+          type="primary"
+          @click="sign"
+          :loading="signStore.loading"
+          :disabled="!signStore.feeSymbol"
+        >
+          {{ $t('Sign') }}
+        </up-button>
       </div>
-      <div class="label">{{ $t('FromWeb') }}</div>
-      <div class="from">
-        <img src="@/assets/img/connect/from.svg" />
-        <span>https://eth.com</span>
-      </div>
-      <div class="label">{{ $t('Message') }}</div>
-      <el-input type="textarea" :rows="8" resize="none" v-model="signStore.message" readonly />
-    </template>
-    <div class="btns">
-      <up-button type="info" @click="$emit('cancel')" :disabled="signStore.loading">
-        {{ $t('Cancel') }}
-      </up-button>
-      <up-button
-        type="primary"
-        @click="sign"
-        :loading="signStore.loading"
-        :disabled="!signStore.feeSymbol"
-      >
-        {{ $t('Sign') }}
-      </up-button>
-    </div>
+    </slot>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useSign } from '@/composable/useSign'
-const { unipass, userStore, isDark, signStore, sign } = useSign()
+const { userStore, isDark, signStore, sign } = useSign()
 </script>
 
 <style lang="scss">
