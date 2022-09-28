@@ -156,11 +156,11 @@ const myRPGBalance = ref("0.00");
 const myTokenBalance = ref("0.00");
 const toAddress = ref("0x8291507Afda0BBA820efB6DFA339f09C9465215C");
 const toAmount = ref("0.01");
-const toFeeAmount = ref("0.000001");
-const toDescription = ref("描述测试描述测试描述测试");
+// const toFeeAmount = ref("0.000001");
+// const toDescription = ref("描述测试描述测试描述测试");
 const txHash = ref("");
 const form = reactive({});
-const upRangers = new UniPassPopupSDK({
+const upWallet = new UniPassPopupSDK({
   chainType: ChainType.mainnet,
   upCoreConfig: {
     domain: "localhost:1900",
@@ -169,7 +169,8 @@ const upRangers = new UniPassPopupSDK({
 });
 
 const myBalanceFormat = computed(() => {
-  const balance = tokenType.value === "RPG" ? myRPGBalance.value : myTokenBalance.value;
+  const balance =
+    tokenType.value === "RPG" ? myRPGBalance.value : myTokenBalance.value;
   return `${balance} ${tokenType.value}`;
 });
 
@@ -181,7 +182,7 @@ const bindCopy = () => {
 const connect = async () => {
   console.log("connect clicked");
   try {
-    const account = await upRangers.login({
+    const account = await upWallet.login({
       email: true,
       evmKeys: true,
       chain: {
@@ -212,7 +213,7 @@ const connect = async () => {
 const checkTxStatus = async (txHash: string) => {
   let tryTimes = 0;
   while (tryTimes++ < 3) {
-    const receipt = await upRangers.getProvider().getTransactionReceipt(txHash);
+    const receipt = await upWallet.getProvider().getTransactionReceipt(txHash);
     if (receipt) return receipt.status;
     await new Promise((resolve) => setTimeout(resolve, 1000));
   }
@@ -226,21 +227,23 @@ const onAddressChanged = () => {
 };
 
 const refreshBalance = async () => {
-  const provider = upRangers.getProvider();
-  const balance =  await provider.getBalance(myAddress.value)
+  const provider = upWallet.getProvider();
+  const balance = await provider.getBalance(myAddress.value);
   myRPGBalance.value = formatEther(balance);
 
   const tokenContract = new Contract(
     DAI_ADDRESS,
     ERC20ABI,
-    upRangers.getProvider()
+    upWallet.getProvider()
   );
-  myTokenBalance.value = formatEther(await tokenContract.balanceOf(myAddress.value));
+  myTokenBalance.value = formatEther(
+    await tokenContract.balanceOf(myAddress.value)
+  );
 };
 
 const logout = () => {
   console.log("connect clicked");
-  upRangers.logout();
+  upWallet.logout();
   myAddress.value = "";
 };
 
@@ -251,7 +254,7 @@ const signMessage = async () => {
     message: message,
   });
   try {
-    const resp = await upRangers.signMessage(message.value);
+    const resp = await upWallet.signMessage(message.value);
     console.log("resp", resp);
     sig.value = JSON.stringify(resp);
   } catch (err) {
@@ -262,7 +265,7 @@ const signMessage = async () => {
 
 const verifySig = async () => {
   try {
-    const ret = await upRangers.isValidSignature(message.value, sig.value);
+    const ret = await upWallet.isValidSignature(message.value, sig.value);
     if (ret === true) {
       ElMessage.success("verify signature success");
     } else {
@@ -284,14 +287,15 @@ const sendRPG = async () => {
       from: myAddress.value,
       to: toAddress.value,
       value: parseEther(toAmount.value),
+      amount: "0.001",
       data: "0x",
     };
-    txHash.value = await upRangers.sendTransaction(tx);
+    txHash.value = await upWallet.sendTransaction(tx);
     if (await checkTxStatus(txHash.value)) {
       console.log("send RPG success", txHash);
-      ElMessage.success(`send RPG success, tx hash = ${txHash}`);
+      ElMessage.success(`send RPG success, tx hash = ${txHash.value}`);
     } else {
-      ElMessage.error(`send RPG failed, tx hash = ${txHash}`);
+      ElMessage.error(`send RPG failed, tx hash = ${txHash.value}`);
     }
     await refreshBalance();
   } catch (err) {
@@ -303,7 +307,6 @@ const sendRPG = async () => {
 const sendToken = async () => {};
 
 const executeCall = () => {};
-
 </script>
 
 <style lang="scss">

@@ -1,7 +1,5 @@
 node_modules
-*/node_modules
-*/.vscode
-*/dist
-*/build
-*/UniPass-Wallet-Frontend
-
+.vscode
+dist
+build
+/examples/UniPass-Wallet-Frontend
