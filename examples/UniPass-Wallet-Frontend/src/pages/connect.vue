@@ -37,6 +37,7 @@
 </template>
 
 <script setup lang="ts">
+import { useUserStore } from '@/store/user'
 import { UPAccount, UPMessage, UPResponse } from '@unipasswallet/popup-types'
 import {
   registerPopupHandler,
@@ -46,39 +47,41 @@ import {
 
 import { onBeforeUnmount, onMounted } from 'vue'
 
-// message handler
-function messageHandler(event: MessageEvent) {
-  if (typeof event.data !== 'object') return
-  if (event.data.type !== 'UP_LOGIN') return
-  try {
-    const { payload } = event.data as UPMessage
-    console.log('payload', payload)
-  } catch (err) {
-    console.log('err', err)
-  }
-}
-
+const isDark = useDark()
 onMounted(() => {
-  registerPopupHandler(messageHandler)
+  registerPopupHandler((event: MessageEvent) => {
+    if (typeof event.data !== 'object') return
+    if (event.data.type !== 'UP_LOGIN') return
+    try {
+      const { payload, appSetting } = event.data as UPMessage
+      console.log('payload', payload)
+      console.log('appSetting', appSetting)
+      if (appSetting?.theme === 'dark') {
+        isDark.value = true
+      }
+      if (appSetting?.theme === 'light') {
+        isDark.value = false
+      }
+    } catch (err) {
+      console.log('err', err)
+    }
+  })
 })
 
 onBeforeUnmount(() => {
   unregisterPopupHandler()
 })
 
+const userStore = useUserStore()
+
 const approve = () => {
+  const user = userStore.user
   postMessage(
     new UPMessage(
       'UP_RESPONSE',
-      JSON.stringify(
-        new UPResponse(
-          'APPROVE',
-          new UPAccount('0x7b5Bd7c9E3A0D0Ef50A9b3aCF5d1AcD58C3590d1', 'johnz@lay2.dev', true),
-        ),
-      ),
+      JSON.stringify(new UPResponse('APPROVE', new UPAccount(user.account, user.email, true))),
     ),
   )
-  console.log('approved')
 }
 
 const reject = () => {
@@ -88,7 +91,6 @@ const reject = () => {
       JSON.stringify(new UPResponse('DECLINE', 'user reject signature')),
     ),
   )
-  console.log('reject')
 }
 </script>
 

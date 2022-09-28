@@ -185,7 +185,13 @@ const bindCopy = () => {
 };
 
 const connect = async () => {
-  console.log("connect clicked");
+  upWallet.updateConfig({
+    appSettings: {
+      theme: toTheme.value as UniPassTheme,
+      appName: "Rangers Demo",
+      appIcon: "",
+    },
+  });
   try {
     const account = await upWallet.login({
       email: true,

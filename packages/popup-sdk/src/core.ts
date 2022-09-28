@@ -52,7 +52,21 @@ export class UniPassPopupSDK {
 
     this._config.nodeRPC = options.nodeRPC || defaultConfig.nodeRPC;
 
-    this._config.appSettings = options.appSettings || {appName: 'MyDemo'}
+    this._config.appSettings = options.appSettings || { appName: 'MyDemo' };
+  }
+  public updateConfig(options: PopupSDKOption) {
+    if (!this._config) {
+      return;
+    }
+    if (options.chainType) {
+      this._config.chainType = options.chainType;
+    }
+    if (options.nodeRPC) {
+      this._config.nodeRPC = options.nodeRPC;
+    }
+    if (options.appSettings) {
+      this._config.appSettings = options.appSettings;
+    }
   }
 
   /**

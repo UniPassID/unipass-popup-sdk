@@ -48,12 +48,21 @@ const initSuffixes = async () => {
   }
 }
 const initUser = async () => {
-  for (const path of ['/login', '/register', '/recovery', '/404', '/connect', '/sign']) {
-    if (window.location.pathname.startsWith(path)) {
+  const { pathname, search, hash } = window.location
+  // not need user
+  for (const path of ['/login', '/register', '/recovery', '/404']) {
+    if (pathname.startsWith(path)) {
       inited.value = true
       return
     }
   }
+  // userStore.path
+  for (const path of ['/connect', '/sign', '/sign-message']) {
+    if (pathname.startsWith(path)) {
+      userStore.path = pathname + search + hash
+    }
+  }
+
   const unipassWallet = userStore.unipassWallet
   const isLoggedIn = await unipassWallet.isLoggedIn()
   const user = await db.getUser()
