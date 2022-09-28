@@ -1,4 +1,8 @@
-import { ChainType, Environment, AppSettings } from "@unipasswallet/popup-types";
+import {
+  ChainType,
+  Environment,
+  AppSettings,
+} from '@unipasswallet/popup-types';
 
 const UP_DOMAIN = 'wallet.unipass.id';
 
@@ -18,8 +22,8 @@ export interface WalletURL {
 var config: UP_API_CONFIG = {
   upDomain: UP_DOMAIN,
   upConnectUrl: `https://${UP_DOMAIN}/connect`,
-  upSignMessageUrl: `https://${UP_DOMAIN}/send`,
-  upTransactionUrl: `https://${UP_DOMAIN}/send`,
+  upSignMessageUrl: `https://${UP_DOMAIN}/sign-message`,
+  upTransactionUrl: `https://${UP_DOMAIN}/send-transaction`,
   upLoadingUrl: `https://${UP_DOMAIN}/connect/loading`,
 };
 
@@ -32,8 +36,8 @@ export default (option: WalletURL) => {
   config = {
     upDomain: domain,
     upConnectUrl: `${protocol}://${domain}/connect`,
-    upSignMessageUrl: `${protocol}://${domain}/send`,
-    upTransactionUrl: `${protocol}://${domain}/send`,
+    upSignMessageUrl: `${protocol}://${domain}/sign-message`,
+    upTransactionUrl: `${protocol}://${domain}/send-transaction`,
     upLoadingUrl: `${protocol}://${domain}/connect/loading`,
   };
   return config;
@@ -54,14 +58,13 @@ export const UP_TEST_CONFIG: PopupSDKConfig = {
   nodeRPC: 'https://node.wallet.unipass.id/polygon-mumbai',
   chainType: 'polygon',
   env: 'test',
-
 };
 
 // default mainnet config
 export const UP_MAIN_CONFIG: PopupSDKConfig = {
   nodeRPC: 'https://node.wallet.unipass.id/polygon-mainnet',
   chainType: 'polygon',
-  env: 'prod'
+  env: 'prod',
 };
 
 // config options
