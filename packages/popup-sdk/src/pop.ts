@@ -71,6 +71,7 @@ export function pop(message: UPMessage, opts?: MessageHandler) {
 
   function send(msg: UPMessage) {
     try {
+      console.log('post popup msg', msg)
       popup?.postMessage(JSON.parse(JSON.stringify(msg || {})), '*');
     } catch (error) {
       console.error('Popup Send Error', msg, error);

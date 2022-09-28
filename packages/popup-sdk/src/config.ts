@@ -1,6 +1,8 @@
+import { ChainType, Environment, AppSettings } from "@unipasswallet/popup-types";
+
 const UP_DOMAIN = 'wallet.unipass.id';
 
-export type UP_CONFIG = {
+export type UP_API_CONFIG = {
   upDomain: string;
   upConnectUrl: string;
   upSignMessageUrl: string;
@@ -13,7 +15,7 @@ export interface WalletURL {
   protocol?: 'https' | 'http';
 }
 
-var config: UP_CONFIG = {
+var config: UP_API_CONFIG = {
   upDomain: UP_DOMAIN,
   upConnectUrl: `https://${UP_DOMAIN}/connect`,
   upSignMessageUrl: `https://${UP_DOMAIN}/send`,
@@ -39,34 +41,38 @@ export default (option: WalletURL) => {
 
 export const getConfig = () => config;
 
-export enum ChainType {
-  testnet = 0,
-  mainnet = 1,
-}
-
 export interface PopupSDKConfig {
-  rangersRPC: string; // Rangers Node RPC List
-  chainType: ChainType; // Chain ID
+  env: Environment;
+  chainType: ChainType;
+  nodeRPC: string;
+
+  appSettings?: AppSettings;
 }
 
 // default testnet config
 export const UP_TEST_CONFIG: PopupSDKConfig = {
-  rangersRPC: 'https://node.wallet.unipass.id/rangers-robin',
-  chainType: ChainType.testnet,
+  nodeRPC: 'https://node.wallet.unipass.id/polygon-mumbai',
+  chainType: 'polygon',
+  env: 'test',
+
 };
 
 // default mainnet config
 export const UP_MAIN_CONFIG: PopupSDKConfig = {
-  rangersRPC: '',
-  chainType: ChainType.mainnet,
+  nodeRPC: 'https://node.wallet.unipass.id/polygon-mainnet',
+  chainType: 'polygon',
+  env: 'prod'
 };
 
 // config options
 export type PopupSDKOption = {
   readonly nodeRPC?: string; // Rangers Node RPC list
   readonly chainType?: ChainType; // Chain ID
+  readonly env?: Environment;
 
-  readonly upCoreConfig?: WalletURL; // UniPass up-core sdk configuration options
+  readonly walletUrl?: WalletURL; // UniPass up-core sdk configuration options
+
+  readonly appSettings?: AppSettings;
 
   readonly [key: string]: any; // other options
 };

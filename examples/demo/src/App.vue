@@ -137,8 +137,8 @@
 
 <script setup lang="ts">
 import { computed, reactive, ref } from "vue";
-import { UPEvent, UPEventType } from "@unipasswallet/popup-types";
-import { UniPassPopupSDK, ChainType } from "@unipasswallet/popup-sdk";
+import { UniPassTheme, UPEvent, UPEventType } from "@unipasswallet/popup-types";
+import { UniPassPopupSDK } from "@unipasswallet/popup-sdk";
 import { ERC20ABI } from "./assets/erc20.abi";
 import { isAddress, formatEther, parseEther } from "ethers/lib/utils";
 import { Contract } from "ethers";
@@ -156,13 +156,18 @@ const myRPGBalance = ref("0.00");
 const myTokenBalance = ref("0.00");
 const toAddress = ref("0x8291507Afda0BBA820efB6DFA339f09C9465215C");
 const toAmount = ref("0.01");
-// const toFeeAmount = ref("0.000001");
-// const toDescription = ref("描述测试描述测试描述测试");
 const txHash = ref("");
 const form = reactive({});
 const upWallet = new UniPassPopupSDK({
-  chainType: ChainType.mainnet,
-  upCoreConfig: {
+  env: "test",
+  chainType: "rangers",
+  nodeRPC: "https://node.wallet.unipass.id/rangers-robin",
+  appSettings: {
+    theme: toTheme.value as UniPassTheme,
+    appName: "Rangers Demo",
+    appIcon: "",
+  },
+  walletUrl: {
     domain: "localhost:1900",
     protocol: "http",
   },
@@ -184,14 +189,6 @@ const connect = async () => {
   try {
     const account = await upWallet.login({
       email: true,
-      evmKeys: true,
-      chain: {
-        // id: 2025,
-        id: 9527,
-        name: "Rangers Protocol Testnet",
-      },
-      theme: toTheme as any,
-      appName: "Rangers Demo",
       eventListener: (event: UPEvent) => {
         console.log("event", event);
         const { type, body } = event;
@@ -286,8 +283,7 @@ const sendRPG = async () => {
     const tx = {
       from: myAddress.value,
       to: toAddress.value,
-      value: parseEther(toAmount.value),
-      amount: "0.001",
+      value: parseEther(toAmount.value).toHexString(),
       data: "0x",
     };
     txHash.value = await upWallet.sendTransaction(tx);
