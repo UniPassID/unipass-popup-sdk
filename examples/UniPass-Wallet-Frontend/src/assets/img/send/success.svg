@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="95px" height="95px" viewBox="0 0 95 95" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组</title>
+    <defs>
+        <linearGradient x1="0%" y1="16.7604809%" x2="100%" y2="83.2395191%" id="linearGradient-1">
+            <stop stop-color="#398BFF" offset="0%"></stop>
+            <stop stop-color="#8864FF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="0%" y1="0%" x2="100%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#398BFF" offset="0%"></stop>
+            <stop stop-color="#8864FF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="移动端" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="交易成功" transform="translate(-140.000000, -190.000000)" fill-rule="nonzero">
+            <g id="编组" transform="translate(140.000000, 190.000000)">
+                <path d="M66.6748047,31.1962891 L61.8657227,31.1962891 C60.8198242,31.1962891 59.8251953,31.6987305 59.2099609,32.5600586 L44.0908203,54.9135742 L35.7900391,44.7827148 C35.1748047,43.9316406 34.1904297,43.4189453 33.1342773,43.4189453 L28.3251953,43.4189453 C27.6586914,43.4189453 27.269043,44.1777344 27.6586914,44.7211914 L41.4350586,62.4399414 C42.7373047,64.2548828 45.434082,64.2548828 46.7363281,62.4399414 L67.3310547,32.4985352 C67.730957,31.9550781 67.3413086,31.1962891 66.6748047,31.1962891 Z" id="路径" stroke="url(#linearGradient-1)" fill="url(#linearGradient-1)"></path>
+                <path d="M47.5,0 C21.2689732,0 0,21.2689732 0,47.5 C0,73.7310268 21.2689732,95 47.5,95 C73.7310268,95 95,73.7310268 95,47.5 C95,21.2689732 73.7310268,0 47.5,0 Z M47.5,85 C26.7943548,85 10,68.2056452 10,47.5 C10,26.7943548 26.7943548,10 47.5,10 C68.2056452,10 85,26.7943548 85,47.5 C85,68.2056452 68.2056452,85 47.5,85 Z" id="形状" fill="url(#linearGradient-2)"></path>
+            </g>
+        </g>
+    </g>
+</svg>
