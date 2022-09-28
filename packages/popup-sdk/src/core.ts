@@ -1,8 +1,8 @@
 import {
-  Token,
   UPAuthMessage,
   UPAccount,
-  UPConnectOptions
+  UPConnectOptions,
+  UPTransactionMessage,
 } from '@unipasswallet/popup-types';
 import config, {
   ChainType,
@@ -11,28 +11,14 @@ import config, {
   UP_MAIN_CONFIG,
   UP_TEST_CONFIG,
 } from './config';
-import { BigNumber, BytesLike, Transaction } from 'ethers';
+import { BytesLike } from 'ethers';
 import { connect, disconnect } from './connect';
 import { authorize } from './authorize';
 import { hexlify, toUtf8Bytes } from 'ethers/lib/utils';
 import { JsonRpcProvider } from '@ethersproject/providers';
+import { sendTransaction } from './send-transaction';
 
-const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
-
-export interface TxFeeOption {
-  feeToken: Token;
-  feeAmount: BigNumber;
-}
-
-const DEFAULT_FEE_OPTION: TxFeeOption = {
-  feeToken: {
-    address: ZERO_ADDRESS,
-    symbol: 'RPG',
-    decimals: 18,
-  },
-  feeAmount: BigNumber.from('1'),
-};
-
+export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 export class UniPassPopupSDK {
   private _config: PopupSDKConfig | undefined;
   private _account: UPAccount | undefined;
@@ -82,7 +68,7 @@ export class UniPassPopupSDK {
       }
     ]
 
-    return urls.find(x=>x.chainId === chainId)!.url;
+    return urls.find(x => x.chainId === chainId)!.url;
   }
 
   /**
@@ -92,7 +78,7 @@ export class UniPassPopupSDK {
     this._account = await connect(options)
 
     let chainId = options?.chain?.id;
-    if(!chainId) chainId = this._config?.chainType === ChainType.mainnet ? 2025: 9527
+    if (!chainId) chainId = this._config?.chainType === ChainType.mainnet ? 2025 : 9527
 
     this._provider = new JsonRpcProvider(this.getProviderUrl(chainId))
     this._initialized = true;
@@ -134,18 +120,10 @@ export class UniPassPopupSDK {
    * @returns the send transaction hash
    */
   public async sendTransaction(
-    _transaction: Pick<Transaction, "to" | "value" | "data">,
-    feeOption?: TxFeeOption
+    _transaction: UPTransactionMessage
   ): Promise<string> {
     this.checkInitialized();
-    if (!feeOption) {
-      feeOption = DEFAULT_FEE_OPTION;
-    }
-    // const { feeToken, feeAmount, description } = feeOption;
-
-    // TODO: send transaction to unipass
-    throw new Error("unimplemented")
-
+    return await sendTransaction(_transaction);
   }
 
 

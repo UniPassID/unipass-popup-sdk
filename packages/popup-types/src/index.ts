@@ -45,6 +45,19 @@ constructor(
 ) {}
 }
 
+export type Environment = "dev" | "test" | "prod";
+export type ChainType = "polygon" | "bsc" | "rangers";
+
+export class UPTransactionMessage {
+  constructor(
+    public readonly from: string,
+    public readonly to: string,
+    public readonly amount: string,
+    public readonly data: string
+  ) {}
+}
+
+
 type RESPONSE_TYPE = 'APPROVE' | 'DECLINE' | 'TransactionHash' | 'Signature'
 export class UPResponse {
 constructor(

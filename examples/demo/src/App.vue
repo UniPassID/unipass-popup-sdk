@@ -73,12 +73,12 @@
           <el-form-item label="Amount:" prop="address">
             <el-input v-model="toAmount" clearable />
           </el-form-item>
-          <el-form-item label="Fee(RPG):" prop="fee">
+          <!-- <el-form-item label="Fee(RPG):" prop="fee">
             <el-input v-model="toFeeAmount" clearable />
           </el-form-item>
           <el-form-item label="Description:" prop="description">
             <el-input v-model="toDescription" clearable />
-          </el-form-item>
+          </el-form-item> -->
         </el-form>
         <br />
         <div v-if="tokenType === 'RPG'">
@@ -136,12 +136,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineComponent, reactive, ref } from "vue";
+import { computed, reactive, ref } from "vue";
 import { UPEvent, UPEventType } from "@unipasswallet/popup-types";
 import { UniPassPopupSDK, ChainType } from "@unipasswallet/popup-sdk";
 import { ERC20ABI } from "./assets/erc20.abi";
 import { isAddress, formatEther, parseEther } from "ethers/lib/utils";
-import { Contract, providers } from "ethers";
+import { Contract } from "ethers";
 import { ElMessage } from "element-plus";
 
 const DAI_ADDRESS = "0x25c58Aa062Efb4f069bD013De3e3C5797fb40651";
@@ -151,7 +151,6 @@ const toTheme = ref("dark");
 const activeTab = ref("sign_transaction");
 const message = ref("TO BE SIGNED MESSAGE abc");
 const sig = ref("");
-
 const tokenType = ref("RPG");
 const myRPGBalance = ref("0.00");
 const myTokenBalance = ref("0.00");
@@ -178,6 +177,7 @@ const bindCopy = () => {
   // this.$clipboard(this.myAddress);
   ElMessage.success("copy succeeded");
 };
+
 const connect = async () => {
   console.log("connect clicked");
   try {
@@ -201,9 +201,7 @@ const connect = async () => {
       },
     });
     console.log("account", account);
-
     myAddress.value = account.address;
-
     await refreshBalance();
   } catch (err) {
     ElMessage.error(err as string);
@@ -215,22 +213,22 @@ const checkTxStatus = async (txHash: string) => {
   let tryTimes = 0;
   while (tryTimes++ < 3) {
     const receipt = await upRangers.getProvider().getTransactionReceipt(txHash);
-
     if (receipt) return receipt.status;
     await new Promise((resolve) => setTimeout(resolve, 1000));
   }
   return false;
 };
+
 const onAddressChanged = () => {
   if (!isAddress(toAddress.value)) {
     ElMessage.error("address invalid");
   }
 };
+
 const refreshBalance = async () => {
   const provider = upRangers.getProvider();
   const balance =  await provider.getBalance(myAddress.value)
   myRPGBalance.value = formatEther(balance);
-  
 
   const tokenContract = new Contract(
     DAI_ADDRESS,
@@ -239,6 +237,7 @@ const refreshBalance = async () => {
   );
   myTokenBalance.value = formatEther(await tokenContract.balanceOf(myAddress.value));
 };
+
 const logout = () => {
   console.log("connect clicked");
   upRangers.logout();
@@ -274,6 +273,7 @@ const verifySig = async () => {
     console.log("auth err", err);
   }
 };
+
 const sendRPG = async () => {
   if (Number(myRPGBalance) < Number(toAmount)) {
     ElMessage.error("balance is not enough");
@@ -281,18 +281,12 @@ const sendRPG = async () => {
   }
   try {
     const tx = {
-      to: toAddress,
+      from: myAddress.value,
+      to: toAddress.value,
       value: parseEther(toAmount.value),
       data: "0x",
     };
-    txHash.value = await upRangers.sendTransaction(tx, {
-      feeToken: {
-        address: "0x0000000000000000000000000000000000000000",
-        symbol: "RPG",
-        decimals: 18,
-      },
-      feeAmount: parseEther(toFeeAmount.value),
-    });
+    txHash.value = await upRangers.sendTransaction(tx);
     if (await checkTxStatus(txHash.value)) {
       console.log("send RPG success", txHash);
       ElMessage.success(`send RPG success, tx hash = ${txHash}`);
@@ -305,8 +299,11 @@ const sendRPG = async () => {
     console.log("err", err);
   }
 };
+
 const sendToken = async () => {};
+
 const executeCall = () => {};
+
 </script>
 
 <style lang="scss">
