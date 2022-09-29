@@ -9,9 +9,12 @@ import { Wallet } from '@unipasswallet/wallet'
 
 import { CancelLockKeysetHashTxBuilder } from '@unipasswallet/transaction-builders'
 import { User, useUserStore } from './user'
+import { RpcRelayer } from '@unipasswallet/relayer'
+import { unipassWalletContext } from '@unipasswallet/network/dist'
+import { constants } from 'ethers'
 
 export const useRecoveryStore = defineStore({
-  id: 'recoveryStore',
+  id: 'recovery',
   state: () => {
     return {
       email: '',
@@ -167,23 +170,45 @@ export const useRecoveryStore = defineStore({
         digestHash,
       )
       const keyset = await buildSignKeyset(user.keyset.keysetJson, signature)
+      const relayer = new RpcRelayer(
+        process.env.VUE_APP_Relayer as string,
+        unipassWalletContext,
+        blockchain.getProvider(),
+      )
       const keyWallet = new Wallet({
         address: user.account,
         keyset,
         provider: blockchain.getProvider(),
+        relayer: relayer,
       })
-      const tx = (await txBuilder.generateSignature(keyWallet, [0])).build()
+      console.log(keyWallet)
+      const nonce = await keyWallet.relayer?.getNonce(keyWallet.address)
+
+      let tx = (await txBuilder.generateSignature(keyWallet, [0])).build()
+
+      console.log({ tx })
+      const transactionData = await keyWallet.toTransaction(
+        {
+          type: 'Execute',
+          transactions: [tx],
+          sessionKeyOrSignerIndex: [],
+          gasLimit: constants.Zero,
+        },
+        nonce,
+      )
+      tx = transactionData[0]
+      console.log({ transactionData })
       txBuilder.signature
-      console.log({ signature: txBuilder.signature })
+      console.log({ signature: txBuilder.signature, gasLimit: tx.gasLimit })
       const cancelResData = await api.cancelRecovery({
         email: user.email,
         metaNonce,
         signature: txBuilder.signature,
         transaction: {
           callType: tx.callType,
-          gasLimit: tx.gasLimit,
+          gasLimit: tx.gasLimit.toHexString(),
           target: tx.target,
-          value: tx.value,
+          value: tx.gasLimit.toHexString(),
           data: tx.data,
         },
       })

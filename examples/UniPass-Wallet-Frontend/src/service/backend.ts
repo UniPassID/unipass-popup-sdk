@@ -224,9 +224,9 @@ export interface CancelRecoveryInput {
   signature: string
   transaction: {
     callType: CallType
-    gasLimit: BigNumber
+    gasLimit: string
     target: BytesLike
-    value: BigNumber
+    value: string
     data: BytesLike
   }
 }
