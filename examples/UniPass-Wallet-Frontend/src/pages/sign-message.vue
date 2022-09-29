@@ -40,13 +40,13 @@
 
 <script setup lang="ts">
 import { useSign } from '@/composable/useSign'
+import { upError } from '@/utils/useUniPass'
 import { UPAuthMessage, UPMessage, UPResponse } from '@unipasswallet/popup-types'
 import {
   registerPopupHandler,
   unregisterPopupHandler,
   postMessage,
 } from '@unipasswallet/popup-utils'
-import { ElMessage } from 'element-plus'
 import { arrayify, toUtf8String } from 'ethers/lib/utils'
 
 const { unipass, userStore, isDark } = useSign()
@@ -71,7 +71,7 @@ onMounted(() => {
         auth.referrer = window.document.referrer
         auth.from = from
         if (auth.from !== userStore.user.account) {
-          ElMessage.error('address inconsistent')
+          upError('address inconsistent')
         }
       }
     } catch (err) {

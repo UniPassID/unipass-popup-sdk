@@ -12,19 +12,8 @@ import {
   unregisterPopupHandler,
   postMessage,
 } from '@unipasswallet/popup-utils'
-import { ElMessage } from 'element-plus'
-import { arrayify, toUtf8String } from 'ethers/lib/utils'
 
-const { unipass, userStore, isDark, signStore } = useSign()
-
-const auth = reactive({
-  loading: false,
-  from: '',
-  referrer: '',
-  to: '',
-  value: '',
-  data: '',
-})
+const { userStore, signStore } = useSign()
 
 onMounted(() => {
   registerPopupHandler((event: MessageEvent) => {
@@ -33,17 +22,8 @@ onMounted(() => {
     try {
       const { payload, appSetting } = event.data as UPMessage
       userStore.initAppSetting(appSetting)
-      signStore.initAppSetting(appSetting)
-      if (payload) {
-        const { from, to, value, data } = JSON.parse(payload) as UPTransactionMessage
-        auth.referrer = window.document.referrer
-        auth.from = from
-        auth.to = to
-        auth.value = value
-        auth.data = data
-        if (auth.from !== userStore.user.account) {
-          ElMessage.error('address inconsistent')
-        }
+      if (appSetting && payload) {
+        signStore.initPopUp(appSetting, JSON.parse(payload) as UPTransactionMessage)
       }
     } catch (err) {
       console.error('err', err)
@@ -55,13 +35,7 @@ onBeforeUnmount(() => {
   unregisterPopupHandler()
 })
 
-const approve = async () => {
-  const { unipassWallet } = userStore
-  auth.loading = true
-  // const sig = await unipassWallet.signMessage(auth.msg)
-  // postMessage(new UPMessage('UP_RESPONSE', JSON.stringify(new UPResponse('APPROVE', sig))))
-  auth.loading = false
-}
+const approve = async () => {}
 
 const reject = () => {
   postMessage(
