@@ -30,11 +30,9 @@ const assets = {
   async getAssets(account: string) {
     const promiseArray = []
     for (const chain of chainsConfig) {
-      promiseArray.push(await this.getAsset(account, chain))
+      promiseArray.push(this.getAsset(account, chain))
     }
-    // const resArray = await Promise.all(promiseArray)
-    const resArray = promiseArray
-
+    const resArray = await Promise.all(promiseArray)
     const result = []
     for (const tokens of resArray) {
       for (const token of tokens) {
@@ -44,64 +42,69 @@ const assets = {
     return result
   },
   async getAsset(account: string, chain: Chain) {
-    const calls = []
-    for (let i = 0; i < chain.tokens.length; i++) {
-      const token = chain.tokens[i]
-      const contractAddress = token.contractAddress
-      if (contractAddress === '0x0000000000000000000000000000000000000000') {
-        calls.push({
-          target: multicallAddress,
-          call: ['getEthBalance(address)(uint256)', account],
-          returns: [[`TOKEN_BALANCE_${i}`, (val: any) => val]],
-        })
-      } else {
-        calls.push({
-          target: contractAddress,
-          call: ['symbol()(string)'],
-          returns: [[`TOKEN_SYMBOL_${i}`, (val: any) => val]],
-        })
-        calls.push({
-          target: contractAddress,
-          call: ['name()(string)'],
-          returns: [[`TOKEN_NAME_${i}`, (val: any) => val]],
-        })
+    try {
+      const calls = []
+      for (let i = 0; i < chain.tokens.length; i++) {
+        const token = chain.tokens[i]
+        const contractAddress = token.contractAddress
+        if (contractAddress === '0x0000000000000000000000000000000000000000') {
+          calls.push({
+            target: multicallAddress,
+            call: ['getEthBalance(address)(uint256)', account],
+            returns: [[`TOKEN_BALANCE_${i}`, (val: any) => val]],
+          })
+        } else {
+          calls.push({
+            target: contractAddress,
+            call: ['symbol()(string)'],
+            returns: [[`TOKEN_SYMBOL_${i}`, (val: any) => val]],
+          })
+          calls.push({
+            target: contractAddress,
+            call: ['name()(string)'],
+            returns: [[`TOKEN_NAME_${i}`, (val: any) => val]],
+          })
 
-        calls.push({
-          target: contractAddress,
-          call: ['decimals()(uint256)'],
-          returns: [[`TOKEN_DECIMAL_${i}`, (val: any) => val]],
-        })
+          calls.push({
+            target: contractAddress,
+            call: ['decimals()(uint256)'],
+            returns: [[`TOKEN_DECIMAL_${i}`, (val: any) => val]],
+          })
 
-        calls.push({
-          target: contractAddress,
-          call: ['balanceOf(address)(uint256)', account],
-          returns: [[`TOKEN_BALANCE_${i}`, (val: any) => val]],
+          calls.push({
+            target: contractAddress,
+            call: ['balanceOf(address)(uint256)', account],
+            returns: [[`TOKEN_BALANCE_${i}`, (val: any) => val]],
+          })
+        }
+      }
+      const {
+        results: { transformed },
+      } = await aggregate(calls, {
+        rpcUrl: chain.RPC,
+        multicallAddress,
+      })
+      const result = []
+      for (let i = 0; i < chain.tokens.length; i++) {
+        const token = chain.tokens[i]
+        const contractAddress = token.contractAddress
+        const isNative = contractAddress === '0x0000000000000000000000000000000000000000'
+        const decimals = isNative ? token.decimals : Number(transformed[`TOKEN_DECIMAL_${i}`])
+        result.push({
+          chain: chain.chain,
+          symbol: isNative ? token.symbol : transformed[`TOKEN_SYMBOL_${i}`],
+          name: isNative ? token.symbol : transformed[`TOKEN_NAME_${i}`],
+          decimals,
+          balance: formatUnits(transformed[`TOKEN_BALANCE_${i}`], decimals),
+          gasFee: token.gasFee,
+          contractAddress,
         })
       }
+      return result
+    } catch (err) {
+      console.error('load asset error', err)
+      return []
     }
-    const {
-      results: { transformed },
-    } = await aggregate(calls, {
-      rpcUrl: chain.RPC,
-      multicallAddress,
-    })
-    const result = []
-    for (let i = 0; i < chain.tokens.length; i++) {
-      const token = chain.tokens[i]
-      const contractAddress = token.contractAddress
-      const isNative = contractAddress === '0x0000000000000000000000000000000000000000'
-      const decimals = isNative ? token.decimals : Number(transformed[`TOKEN_DECIMAL_${i}`])
-      result.push({
-        chain: chain.chain,
-        symbol: isNative ? token.symbol : transformed[`TOKEN_SYMBOL_${i}`],
-        name: isNative ? token.symbol : transformed[`TOKEN_NAME_${i}`],
-        decimals,
-        balance: formatUnits(transformed[`TOKEN_BALANCE_${i}`], decimals),
-        gasFee: token.gasFee,
-        contractAddress,
-      })
-    }
-    return result
   },
 
   getTransferData(toAddress: string, value: BigNumber, erc20ContractAddress: string): string {

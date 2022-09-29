@@ -14,8 +14,8 @@
   "dependencies": {
     "@makerdao/multicall": "^0.12.0",
     "@unipasswallet/popup-utils": "0.0.1",
-    "@unipasswallet/provider": "^0.0.1-alpha.17",
-    "@unipasswallet/sdk": "^0.0.1-alpha.17",
+    "@unipasswallet/provider": "^0.0.1-alpha.19",
+    "@unipasswallet/sdk": "^0.0.1-alpha.18",
     "@vue/babel-plugin-transform-vue-jsx": "^1.4.0",
     "bignumber.js": "^9.1.0",
     "lindell-ecdsa-wasm": "^0.2.0"

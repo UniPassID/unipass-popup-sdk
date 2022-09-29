@@ -33,9 +33,16 @@ export const useUserStore = defineStore({
   id: 'userStore',
   state: () => {
     // env = dev | test | prod
-    const env = process.env.VUE_APP_Net === 'testnet' ? 'test' : 'prod'
+    // const env = process.env.VUE_APP_Net === 'testnet' ? 'test' : 'prod'
     return {
-      unipassWallet: UnipassWalletProvider.getInstance({ env }),
+      unipassWallet: UnipassWalletProvider.getInstance({
+        env: 'dev',
+        relayer_config: {
+          bsc: 'https://d.wallet.unipass.vip/relayer-bsc',
+          rangers: 'https://d.wallet.unipass.vip/relayer-rangers',
+          polygon: 'https://d.wallet.unipass.vip/relayer-polygon',
+        },
+      }),
       user: {
         email: '',
         account: '',

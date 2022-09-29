@@ -159,11 +159,11 @@ const toAmount = ref("0.01");
 const txHash = ref("");
 const form = reactive({});
 const upWallet = new UniPassPopupSDK({
-  env: "test",
-  chainType: "rangers",
-  nodeRPC: "https://node.wallet.unipass.id/rangers-robin",
+  env: "dev",
+  chainType: "polygon",
+  nodeRPC: "https://node.wallet.unipass.id/polygon-mumbai",
   appSettings: {
-    chain: "rangers",
+    chain: "polygon",
     theme: toTheme.value as UniPassTheme,
     appName: "Rangers Demo",
     appIcon: "",
@@ -286,7 +286,8 @@ const sendRPG = async () => {
   }
   upWallet.updateConfig({
     appSettings: {
-      chain: "rangers",
+      // chain: "rangers",
+      chain: "polygon",
     },
   });
 

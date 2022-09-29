@@ -125,40 +125,40 @@ export const useSend = () => {
 }
 
 export const useSendLoading = () => {
-  const userStore = useUserStore()
+  // const userStore = useUserStore()
   const route = useRoute()
   const hash = (route.query.hash as string) || ''
   const chain = (route.query.chain as ChainType) || ''
-  const icon = ref<IconType>('')
-  const title = ref('')
+  const icon = ref<IconType>('success')
+  const title = ref('Send Successfully')
 
-  let polling: NodeJS.Timer | undefined
-  onBeforeMount(async () => {
-    const date = dayjs().add(2, 'minute')
-    polling = setInterval(async () => {
-      const wallet = await userStore.unipassWallet.wallet(chain)
-      const res = await wallet.provider?.getTransactionReceipt(hash)
-      if (res) {
-        clearInterval(polling)
-        if (res.status === 1) {
-          icon.value = 'success'
-          title.value = 'Send Successfully'
-        } else {
-          icon.value = 'error'
-          title.value = 'Send Failed'
-        }
-      }
-      // timeout
-      if (date.isBefore(dayjs())) {
-        clearInterval(polling)
-        icon.value = 'warning'
-        title.value = 'Send Timeout'
-      }
-    }, 4000)
-  })
-  onUnmounted(() => {
-    clearInterval(polling)
-  })
+  // let polling: NodeJS.Timer | undefined
+  // onBeforeMount(async () => {
+  //   const date = dayjs().add(2, 'minute')
+  //   polling = setInterval(async () => {
+  //     const wallet = await userStore.unipassWallet.wallet(chain)
+  //     const res = await wallet.provider?.getTransactionReceipt(hash)
+  //     if (res) {
+  //       clearInterval(polling)
+  //       if (res.status === 1) {
+  //         icon.value = 'success'
+  //         title.value = 'Send Successfully'
+  //       } else {
+  //         icon.value = 'error'
+  //         title.value = 'Send Failed'
+  //       }
+  //     }
+  //     // timeout
+  //     if (date.isBefore(dayjs())) {
+  //       clearInterval(polling)
+  //       icon.value = 'warning'
+  //       title.value = 'Send Timeout'
+  //     }
+  //   }, 4000)
+  // })
+  // onUnmounted(() => {
+  //   clearInterval(polling)
+  // })
 
   const explorer = computed(() => {
     if (chain === 'polygon') {

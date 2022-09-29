@@ -63,15 +63,18 @@ const initUser = async () => {
     }
   }
 
-  const unipassWallet = userStore.unipassWallet
-  const isLoggedIn = await unipassWallet.isLoggedIn()
   const user = await db.getUser()
-  if (isLoggedIn && user) {
+  if (user) {
     userStore.update(user)
   } else {
     userStore.exit()
   }
   inited.value = true
+
+  const unipassWallet = userStore.unipassWallet
+  unipassWallet.isLoggedIn().then((isLoggedIn) => {
+    if (!isLoggedIn) userStore.exit()
+  })
 }
 
 const inited = ref(false)
