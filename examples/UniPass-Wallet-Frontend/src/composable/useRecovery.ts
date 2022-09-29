@@ -7,7 +7,7 @@ import db from '@/store/db'
 import router from '@/plugins/router'
 import { useUniPass } from '@/utils/useUniPass'
 import { calculateGuardianWeight, getGuardianEmailData } from '@/utils/rbac'
-import { GuardiansStatus } from './useGuardian'
+import { GuardiansStatus } from '@/composable/useGuardian'
 
 export const useRecovery = () => {
   const { t: $t } = useI18n()

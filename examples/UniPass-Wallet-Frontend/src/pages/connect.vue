@@ -44,22 +44,14 @@ import {
   unregisterPopupHandler,
   postMessage,
 } from '@unipasswallet/popup-utils'
-
-const isDark = useDark()
+const userStore = useUserStore()
 onMounted(() => {
   registerPopupHandler((event: MessageEvent) => {
     if (typeof event.data !== 'object') return
     if (event.data.type !== 'UP_LOGIN') return
     try {
-      const { payload, appSetting } = event.data as UPMessage
-      console.log('payload', payload)
-      console.log('appSetting', appSetting)
-      if (appSetting?.theme === 'dark') {
-        isDark.value = true
-      }
-      if (appSetting?.theme === 'light') {
-        isDark.value = false
-      }
+      const { appSetting } = event.data as UPMessage
+      userStore.initAppSetting(appSetting)
     } catch (err) {
       console.log('err', err)
     }
@@ -70,7 +62,6 @@ onBeforeUnmount(() => {
   unregisterPopupHandler()
 })
 
-const userStore = useUserStore()
 const approve = () => {
   const user = userStore.user
   postMessage(

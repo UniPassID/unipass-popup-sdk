@@ -1,5 +1,5 @@
-export type Environment = "dev" | "test" | "prod";
-export type ChainType = "polygon" | "bsc" | "rangers";
+export type Environment = 'dev' | 'test' | 'prod';
+export type ChainType = 'polygon' | 'bsc' | 'rangers';
 
 export type UPMessageType =
   | 'UP_READY'
@@ -9,14 +9,14 @@ export type UPMessageType =
   | 'UP_TRANSACTION'
   | 'UP_LOGIN'
   | 'UP_EVENT'
-  | 'UP_ERROR'
+  | 'UP_ERROR';
 
 export class UPAccount {
   constructor(
     public address: string,
     public email?: string,
-    public newborn?: boolean,
-  ) { }
+    public newborn?: boolean
+  ) {}
 }
 
 // ---------- AUTHORIZE ----------
@@ -27,17 +27,14 @@ export enum UPEventType {
 export class UPEvent {
   constructor(
     public readonly type: UPEventType,
-    public readonly body: UPAccount,
-  ) { }
+    public readonly body: UPAccount
+  ) {}
 }
 
-export type UPEventListener = (event: UPEvent) => void
+export type UPEventListener = (event: UPEvent) => void;
 
 export class UPAuthMessage {
-  constructor(
-    public readonly from: string,
-    public readonly msg: string,
-  ) { }
+  constructor(public readonly from: string, public readonly msg: string) {}
 }
 
 export class UPTransactionMessage {
@@ -46,26 +43,30 @@ export class UPTransactionMessage {
     public readonly to: string,
     public readonly value: string,
     public readonly data: string
-  ) { }
+  ) {}
 }
 
-
-type RESPONSE_TYPE = 'APPROVE' | 'DECLINE' 
+type RESPONSE_TYPE = 'APPROVE' | 'DECLINE';
 export class UPResponse {
   constructor(
     public readonly type: RESPONSE_TYPE,
-    public readonly data: UPAccount | string,
-  ) { }
+    public readonly data: UPAccount | string
+  ) {}
 }
 
 export type AppSettings = {
-  appName?: string
-  appIcon?: string
-  theme?: UniPassTheme
-}
+  chain?: ChainType;
+  appName?: string;
+  appIcon?: string;
+  theme?: UniPassTheme;
+};
 
 export class UPMessage {
-  constructor(public type: UPMessageType, public payload?: string, public appSetting?: AppSettings) { }
+  constructor(
+    public type: UPMessageType,
+    public payload?: string,
+    public appSetting?: AppSettings
+  ) {}
 }
 
 // ------------ CONNECT ------------
@@ -75,6 +76,6 @@ export enum UniPassTheme {
 }
 
 export type UPConnectOptions = {
-  email?: boolean
-  eventListener?: UPEventListener
-}
+  email?: boolean;
+  eventListener?: UPEventListener;
+};

@@ -64,13 +64,7 @@ onMounted(() => {
     if (event.data.type !== 'UP_SIGN_MESSAGE') return
     try {
       const { payload, appSetting } = event.data as UPMessage
-      console.log('payload', payload)
-      console.log('appSetting', appSetting)
-      if (appSetting?.theme === 'dark') {
-        isDark.value = true
-      } else if (appSetting?.theme === 'light') {
-        isDark.value = false
-      }
+      userStore.initAppSetting(appSetting)
       if (payload) {
         const { from, msg } = JSON.parse(payload) as UPAuthMessage
         auth.msg = toUtf8String(arrayify(msg))

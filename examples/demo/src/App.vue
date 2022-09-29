@@ -154,7 +154,7 @@ const sig = ref("");
 const tokenType = ref("RPG");
 const myRPGBalance = ref("0.00");
 const myTokenBalance = ref("0.00");
-const toAddress = ref("0x8291507Afda0BBA820efB6DFA339f09C9465215C");
+const toAddress = ref("0x61E428AaB6347765eFc549eae7bd740aA886A707");
 const toAmount = ref("0.01");
 const txHash = ref("");
 const form = reactive({});
@@ -163,6 +163,7 @@ const upWallet = new UniPassPopupSDK({
   chainType: "rangers",
   nodeRPC: "https://node.wallet.unipass.id/rangers-robin",
   appSettings: {
+    chain: "rangers",
     theme: toTheme.value as UniPassTheme,
     appName: "Rangers Demo",
     appIcon: "",
@@ -188,8 +189,6 @@ const connect = async () => {
   upWallet.updateConfig({
     appSettings: {
       theme: toTheme.value as UniPassTheme,
-      appName: "Rangers Demo",
-      appIcon: "",
     },
   });
   try {
@@ -259,7 +258,7 @@ const signMessage = async () => {
   try {
     const resp = await upWallet.signMessage(message.value);
     console.log("resp", resp);
-    sig.value = JSON.stringify(resp);
+    sig.value = resp;
   } catch (err) {
     ElMessage.error(err as string);
     console.log("auth err", err);
@@ -281,10 +280,16 @@ const verifySig = async () => {
 };
 
 const sendRPG = async () => {
-  if (Number(myRPGBalance) < Number(toAmount)) {
+  if (Number(myRPGBalance.value) < Number(toAmount.value)) {
     ElMessage.error("balance is not enough");
     return;
   }
+  upWallet.updateConfig({
+    appSettings: {
+      chain: "rangers",
+    },
+  });
+
   try {
     const tx = {
       from: myAddress.value,

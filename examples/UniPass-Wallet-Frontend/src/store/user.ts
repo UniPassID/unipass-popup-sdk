@@ -1,3 +1,4 @@
+import { AppSettings } from '@unipasswallet/popup-types'
 import { TokenInfo } from '@/service/chains-config'
 import db from '@/store/db'
 import UnipassWalletProvider from '@unipasswallet/provider'
@@ -58,8 +59,7 @@ export const useUserStore = defineStore({
       // https://test.wallet.unipass.id/api/v1/config
       mailServices: [] as string[],
       policyAddress: '',
-      // config
-      path: '',
+      // frontend
       coins: [
         {
           chain: 'polygon',
@@ -88,9 +88,31 @@ export const useUserStore = defineStore({
       ] as TokenInfo[],
       showSupportEmail: false,
       showHeaderMore: false,
+      // popup-sdk
+      path: '',
+      appSetting: {
+        chain: 'polygon',
+        theme: 'dark',
+        appName: '',
+        appIcon: '',
+      } as AppSettings,
     }
   },
   actions: {
+    async initAppSetting(appSetting?: AppSettings) {
+      const isDark = useDark()
+      if (appSetting) {
+        const { theme, chain, appName, appIcon } = appSetting
+        if (theme === 'dark') {
+          isDark.value = true
+        } else if (theme === 'light') {
+          isDark.value = false
+        }
+        if (chain) this.appSetting.chain = chain
+        if (appName) this.appSetting.appName = chain
+        if (appIcon) this.appSetting.appIcon = chain
+      }
+    },
     async update(user: User) {
       this.user = user
       await db.setUser(user)

@@ -21,7 +21,7 @@ function serviceEndPoint(type: UPMessageType) {
   } else if (type === 'UP_SIGN_MESSAGE') {
     return getConfig().upSignMessageUrl;
   } else if (type === 'UP_TRANSACTION') {
-    return getConfig().upSignMessageUrl;
+    return getConfig().upTransactionUrl;
   } else if (type === 'UP_READY') {
     return getConfig().upLoadingUrl;
   }
@@ -37,7 +37,7 @@ export function pop(message: UPMessage, opts?: MessageHandler) {
   const onReady = opts?.onReady || noop;
   const onResponse = opts?.onResponse || noop;
 
-  console.log('add event listener')
+  console.log('add event listener');
   window.addEventListener('message', internal);
   const { popup, unmount } = renderPop(serviceEndPoint(message.type));
   return { send, close };
@@ -71,7 +71,7 @@ export function pop(message: UPMessage, opts?: MessageHandler) {
 
   function send(msg: UPMessage) {
     try {
-      console.log('post popup msg', msg)
+      console.log('post popup msg', msg);
       popup?.postMessage(JSON.parse(JSON.stringify(msg || {})), '*');
     } catch (error) {
       console.error('Popup Send Error', msg, error);

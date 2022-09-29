@@ -1,8 +1,8 @@
 <template>
   <div class="up-app">
-    <div class="up-banner">
+    <!-- <div class="up-banner">
       {{ $t('UpBanner') }}
-    </div>
+    </div> -->
     <div v-if="gasType === 'unacceptable'" class="under-construction">
       <img src="/img/under-construction.png" alt="under construction" />
     </div>
@@ -17,7 +17,7 @@ import axios from 'axios'
 import router from '@/plugins/router'
 import api from '@/service/backend'
 import { useUserStore } from '@/store/user'
-import db from './store/db'
+import db from '@/store/db'
 
 const userStore = useUserStore()
 const gasType = ref('')

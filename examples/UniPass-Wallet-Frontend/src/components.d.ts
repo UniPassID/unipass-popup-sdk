@@ -5,6 +5,7 @@ import '@vue/runtime-core'
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    DialogHeaderMore: typeof import('./components/dialog-header-more.vue')['default']
     DialogSupportEmail: typeof import('./components/dialog-support-email.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
