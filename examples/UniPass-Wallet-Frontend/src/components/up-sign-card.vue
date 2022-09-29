@@ -110,6 +110,9 @@ const showError = computed(() => {
   if (props.type === 'send-token') {
     const coin = userStore.coins.find((e) => e.symbol === props.data.symbol)
     if (coin) {
+      if (coin.balance === '0') {
+        return false
+      }
       if (Number(props.data.amount) > Number(coin.balance)) {
         return true
       }

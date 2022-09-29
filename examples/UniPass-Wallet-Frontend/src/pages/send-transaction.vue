@@ -1,7 +1,7 @@
 <template>
   <div id="page-sign">
     <up-header-connect hide-chain />
-    <up-sign class="transaction" />
+    <up-sign class="transaction" @cancel="reject" />
   </div>
 </template>
 <script setup lang="ts">
@@ -34,8 +34,6 @@ onMounted(() => {
 onBeforeUnmount(() => {
   unregisterPopupHandler()
 })
-
-const approve = async () => {}
 
 const reject = () => {
   postMessage(

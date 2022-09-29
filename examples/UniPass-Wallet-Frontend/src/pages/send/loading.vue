@@ -3,12 +3,15 @@
     <up-header></up-header>
     <el-result v-if="icon" :icon="icon" :title="title">
       <template #extra>
-        <a class="explorer" :href="`${explorer}/tx/${$route.query.hash}`" target="_blank">
+        <a class="explorer" :href="`${explorer}/tx/${hash}`" target="_blank">
           {{ $t('ViewInExplorer') }}
         </a>
         <br />
         <br />
-        <router-link to="/">
+        <el-button type="primary" v-if="userStore.path" @click="approve">
+          {{ $t('ClosePage') }}
+        </el-button>
+        <router-link to="/" v-else>
           <el-button type="primary">{{ $t('BackToHome') }}</el-button>
         </router-link>
       </template>
@@ -22,8 +25,16 @@
 </template>
 <script setup lang="ts">
 import { useSendLoading } from '@/composable/useSend'
+import { useUserStore } from '@/store/user'
+import { UPMessage, UPResponse } from '@unipasswallet/popup-types'
+import { postMessage } from '@unipasswallet/popup-utils'
 
-const { icon, title, explorer } = useSendLoading()
+const userStore = useUserStore()
+const { icon, title, explorer, hash } = useSendLoading()
+
+const approve = async () => {
+  postMessage(new UPMessage('UP_RESPONSE', JSON.stringify(new UPResponse('APPROVE', hash))))
+}
 </script>
 <style lang="scss">
 #page-send-success {

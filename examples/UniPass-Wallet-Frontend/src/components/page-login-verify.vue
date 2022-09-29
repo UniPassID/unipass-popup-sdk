@@ -190,6 +190,10 @@ const {
       justify-content: center;
       align-items: center;
       flex-direction: column;
+
+      & + .one {
+        margin-left: 4px;
+      }
       .iconpark {
         opacity: 0.6;
         font-size: 40px;

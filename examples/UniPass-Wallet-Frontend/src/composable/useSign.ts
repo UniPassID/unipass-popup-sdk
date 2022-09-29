@@ -79,18 +79,15 @@ export const useSign = () => {
     }
     const unipassWallet = userStore.unipassWallet
     if (coin.contractAddress === '0x0000000000000000000000000000000000000000') {
-      const res = await unipassWallet.transaction({
-        tx: {
-          target: data.address,
-          value: etherToWei(data.amount),
-          revertOnError: true,
-        },
+      const transaction = {
+        tx: { target: data.address, value: etherToWei(data.amount), revertOnError: true },
         fee: {
           token: fee.contractAddress,
           value: etherToWei(fee.gasFee, fee.decimals),
         },
         chain: coin.chain,
-      })
+      }
+      const res = await unipassWallet.transaction(transaction)
       return res.transactionHash
     } else {
       const erc20Interface = new utils.Interface(['function transfer(address _to, uint256 _value)'])

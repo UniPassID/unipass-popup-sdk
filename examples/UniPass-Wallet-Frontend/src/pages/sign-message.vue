@@ -49,7 +49,7 @@ import {
 } from '@unipasswallet/popup-utils'
 import { arrayify, toUtf8String } from 'ethers/lib/utils'
 
-const { unipass, userStore, isDark } = useSign()
+const { unipass, userStore } = useSign()
 
 const auth = reactive({
   loading: false,

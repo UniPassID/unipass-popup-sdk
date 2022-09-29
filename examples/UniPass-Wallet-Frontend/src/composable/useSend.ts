@@ -9,6 +9,7 @@ import { decryptSessionKey } from '@/utils/session-key'
 import { signMsg } from '@/utils/cloud-key'
 import { SIG_PREFIX } from '@/utils/tss'
 import { ChainType } from '@unipasswallet/provider'
+
 type IconType = 'success' | 'warning' | 'info' | 'error' | ''
 
 export const useSend = () => {
@@ -174,5 +175,6 @@ export const useSendLoading = () => {
     icon,
     title,
     explorer,
+    hash,
   }
 }
