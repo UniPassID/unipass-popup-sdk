@@ -157,6 +157,7 @@ const chainName = computed(() => {
       font-weight: 400;
       color: #ffffff;
       line-height: 14px;
+
       &.Polygon {
         background: #8247e5;
       }

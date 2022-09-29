@@ -1,14 +1,29 @@
-import { Contract, utils, Wallet, constants, BigNumber } from 'ethers'
+import { Contract, utils, Wallet, constants, BigNumber, BytesLike } from 'ethers'
 import assets from '@/service/assets'
 import { TxExcutor } from '@unipasswallet/sdk'
 import { SessionKey } from '@unipasswallet/wallet'
 import { Transaction, CallType } from '@unipasswallet/transactions'
 import { CallTxBuilder } from '@unipasswallet/transaction-builders'
 import { generateSessionKey } from '@/utils/rbac'
-import { ExecuteCallBody, RelayerTransaction } from './relayer'
 import { SyncTx } from './backend'
 import MultiChainContranctData from './multichain.contract.data'
 import { getChain } from './chains-config'
+
+export interface ExecuteCallBody {
+  chainId: string
+  call: string
+  walletAddress: string
+  estimateGas: string
+  txHash: string
+}
+
+export interface RelayerTransaction {
+  callType: CallType
+  gasLimit: string
+  target: BytesLike
+  value: string
+  data: BytesLike
+}
 
 export interface SendTransferData {
   permit: string

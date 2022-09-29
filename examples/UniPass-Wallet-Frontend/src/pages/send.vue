@@ -1,7 +1,7 @@
 <template>
   <div id="page-send">
     <up-header :title="$t('Send')" :back="back" />
-    <up-sign v-if="form.showSign" @cancel="form.showSign = false" />
+    <up-sign v-if="form.showSign" @cancel="form.showSign = false" class="transaction" />
     <el-form v-else @submit.prevent ref="formElement" :model="form" class="send-form">
       <div class="label">{{ $t('Title') }}</div>
       <div class="token">

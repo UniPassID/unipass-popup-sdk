@@ -2763,45 +2763,45 @@
     "@typescript-eslint/types" "5.38.1"
     eslint-visitor-keys "^3.3.0"
 
-"@unipasswallet/abi@0.0.1-alpha.12", "@unipasswallet/abi@^0.0.1-alpha.12":
-  version "0.0.1-alpha.12"
-  resolved "https://registry.yarnpkg.com/@unipasswallet/abi/-/abi-0.0.1-alpha.12.tgz#0ee1f3c10570d39915323799822b08616bf85636"
-  integrity sha512-Mz0U7bsw7xMl0Xx/xU7w+HXVKkdcCGMAV8KVuYnr4yGEJfBxuBKU9dzJq5FT7NbRq6Nb8zQePRFDTq+XVU2/aw==
+"@unipasswallet/abi@^0.0.1-alpha.17":
+  version "0.0.1-alpha.17"
+  resolved "https://registry.yarnpkg.com/@unipasswallet/abi/-/abi-0.0.1-alpha.17.tgz#c615d41f606fc440c50dd0cafa1c4add01ec8051"
+  integrity sha512-4FWqXgJlBUJJDQDr9GyOAK0tg4Ar/HaGBYu/nuB06bBfkJa/sXd7Yd38oqz71UwrBvtrsRWBb0JGApcFWgORrQ==
 
-"@unipasswallet/dkim-base@^0.0.1-alpha.12":
-  version "0.0.1-alpha.12"
-  resolved "https://registry.yarnpkg.com/@unipasswallet/dkim-base/-/dkim-base-0.0.1-alpha.12.tgz#5708e03ace290c8a7b8777db78aa7b4d602931a7"
-  integrity sha512-/1wz6eBpiFz2ArszU1Hf9JTyaygHC++xCm26+0VZKcJFX9jclF00nuXIi/bpuOnvMsH3PBACXtIhNqihdo20BA==
+"@unipasswallet/dkim-base@^0.0.1-alpha.17":
+  version "0.0.1-alpha.17"
+  resolved "https://registry.yarnpkg.com/@unipasswallet/dkim-base/-/dkim-base-0.0.1-alpha.17.tgz#2f63f42849e2546408b448f2be135cfc07e713de"
+  integrity sha512-teK5sEOiPc6I4Sc8NORy/PgdVLT2QCKYy70Viidd7jMp32HHLhKN2+BZaLMGckHPPQP898jHcJ6GvoNYLTkeeg==
   dependencies:
     ethers "^5.7.1"
 
-"@unipasswallet/keys@0.0.1-alpha.12", "@unipasswallet/keys@^0.0.1-alpha.12":
-  version "0.0.1-alpha.12"
-  resolved "https://registry.yarnpkg.com/@unipasswallet/keys/-/keys-0.0.1-alpha.12.tgz#71c44ce3585d60d30092e46f076111d1a5a9a637"
-  integrity sha512-c2h8rh/KZgWVJ3kO1MiCJ3PIqBBX36aNVJ0lo41R+AItd6P7LDrp3FHv9VCGmWiHpmK612Shi9Z8EtV47BE9Vg==
+"@unipasswallet/keys@^0.0.1-alpha.17":
+  version "0.0.1-alpha.17"
+  resolved "https://registry.yarnpkg.com/@unipasswallet/keys/-/keys-0.0.1-alpha.17.tgz#50041d4b533757bcd74bcf3ec67ad4460c5edb93"
+  integrity sha512-bDbhk9kITdppAomOEmAutHF8UKHVlaKyvWv7pf3y4vhnazLcoOhxBdeV7liGPxuL8RUVIQbdnVGg8mxY1fyyJg==
   dependencies:
-    "@unipasswallet/dkim-base" "^0.0.1-alpha.12"
-    "@unipasswallet/utils" "^0.0.1-alpha.12"
+    "@unipasswallet/dkim-base" "^0.0.1-alpha.17"
+    "@unipasswallet/utils" "^0.0.1-alpha.17"
     ethers "^5.7.1"
 
-"@unipasswallet/network@0.0.1-alpha.12", "@unipasswallet/network@^0.0.1-alpha.12":
-  version "0.0.1-alpha.12"
-  resolved "https://registry.yarnpkg.com/@unipasswallet/network/-/network-0.0.1-alpha.12.tgz#45ce149c572c3534be0ad6967e40089180c55c2a"
-  integrity sha512-xLI++5de81upPt4w+NgDBR6ViPCmM4dnrgyBh3YChMA8Z7Idzjec800AMx8PQzhSRyR8CGoueXMyjrPyOl4lTA==
+"@unipasswallet/network@^0.0.1-alpha.17":
+  version "0.0.1-alpha.17"
+  resolved "https://registry.yarnpkg.com/@unipasswallet/network/-/network-0.0.1-alpha.17.tgz#0c4c4ac0c56b44105f1d0e8a682eefddc066432d"
+  integrity sha512-BuyoR2p7qC2xYqZ9xzH9L+S3SQYjO95kArdvOF0RF/+yeVULAYk8Yfof6LYw4ZwfowjQ0jrcdABASyMbXYbXeQ==
 
-"@unipasswallet/provider@^0.0.1-alpha.13":
-  version "0.0.1-alpha.13"
-  resolved "https://registry.yarnpkg.com/@unipasswallet/provider/-/provider-0.0.1-alpha.13.tgz#262f4ae59c49732ab148a3f76f9f5f6383ba9ae6"
-  integrity sha512-7FY6BPNvPX5qWkskkY4nCnmOOUFzJN2pualq0v5w3tL8426FVoD3eh3dRP6i0BkKd3RkSLexUdqsKmbCU17/LA==
+"@unipasswallet/provider@^0.0.1-alpha.17":
+  version "0.0.1-alpha.17"
+  resolved "https://registry.yarnpkg.com/@unipasswallet/provider/-/provider-0.0.1-alpha.17.tgz#d9dc02415dc3fe671ba2b0a7cabd69637e097f79"
+  integrity sha512-CyYrd3Vt39rV2ICKifCVgi7knKicLi1c5I/7wfpRGR9p2XzWCbYcX9QQL3BkPuhlkq4jbYr7bA4K4VQDlfn81g==
   dependencies:
-    "@unipasswallet/keys" "^0.0.1-alpha.12"
-    "@unipasswallet/network" "^0.0.1-alpha.12"
-    "@unipasswallet/relayer" "^0.0.1-alpha.8"
-    "@unipasswallet/sdk" "^0.0.1-alpha.13"
-    "@unipasswallet/transaction-builders" "^0.0.1-alpha.8"
-    "@unipasswallet/transactions" "^0.0.1-alpha.12"
-    "@unipasswallet/utils" "^0.0.1-alpha.12"
-    "@unipasswallet/wallet" "^0.0.1-alpha.13"
+    "@unipasswallet/keys" "^0.0.1-alpha.17"
+    "@unipasswallet/network" "^0.0.1-alpha.17"
+    "@unipasswallet/relayer" "^0.0.1-alpha.12"
+    "@unipasswallet/sdk" "^0.0.1-alpha.17"
+    "@unipasswallet/transaction-builders" "^0.0.1-alpha.12"
+    "@unipasswallet/transactions" "^0.0.1-alpha.16"
+    "@unipasswallet/utils" "^0.0.1-alpha.17"
+    "@unipasswallet/wallet" "^0.0.1-alpha.17"
     axios "^0.27.2"
     dayjs "^1.11.5"
     dexie "^3.2.2"
@@ -2809,79 +2809,79 @@
     lindell-ecdsa-wasm "^0.2.0"
     scrypt-js "3.0.1"
 
-"@unipasswallet/relayer@0.0.1-alpha.8", "@unipasswallet/relayer@^0.0.1-alpha.8":
-  version "0.0.1-alpha.8"
-  resolved "https://registry.yarnpkg.com/@unipasswallet/relayer/-/relayer-0.0.1-alpha.8.tgz#be9d1ee69654a18f046d16467e141cbfda4b8df3"
-  integrity sha512-Vc3gP4ZOYQFFPnppFGF2pOMNNdbd8b2XgYQ8oprdrB89i7nQmUnkQQb6uAbs+hZYu793uvAEAHjyHBJeAhflFQ==
+"@unipasswallet/relayer@0.0.1-alpha.12", "@unipasswallet/relayer@^0.0.1-alpha.12":
+  version "0.0.1-alpha.12"
+  resolved "https://registry.yarnpkg.com/@unipasswallet/relayer/-/relayer-0.0.1-alpha.12.tgz#392879cd192d09be9298dbfacc814dfb15be5f49"
+  integrity sha512-kyjWQkqWkvkXSbCDkgVYyDZLMRy8z/XlLbYjTtyTKcc8a447OnqToxUlV8HBQsWJvn3TOyZLLCQz6r/OIBEnrg==
   dependencies:
-    "@unipasswallet/abi" "^0.0.1-alpha.12"
-    "@unipasswallet/keys" "^0.0.1-alpha.12"
-    "@unipasswallet/network" "^0.0.1-alpha.12"
-    "@unipasswallet/transactions" "^0.0.1-alpha.12"
-    "@unipasswallet/utils" "^0.0.1-alpha.12"
+    "@unipasswallet/abi" "^0.0.1-alpha.17"
+    "@unipasswallet/keys" "^0.0.1-alpha.17"
+    "@unipasswallet/network" "^0.0.1-alpha.17"
+    "@unipasswallet/transactions" "^0.0.1-alpha.16"
+    "@unipasswallet/utils" "^0.0.1-alpha.17"
     ethers "^5.7.1"
     fetch-ponyfill "^7.1.0"
 
-"@unipasswallet/sdk@^0.0.1-alpha.13":
-  version "0.0.1-alpha.13"
-  resolved "https://registry.yarnpkg.com/@unipasswallet/sdk/-/sdk-0.0.1-alpha.13.tgz#2552dddd50e9f8650688a445141f69bfb54fb730"
-  integrity sha512-BFrfQ0qbKdxQWThiIqXFt/d6QdrKaQlEBuhKS9EBrjz+9OB8TRKwTjAHp8ztIC7O4BjIWZjuBL0ZKjxEFbDGhA==
+"@unipasswallet/sdk@^0.0.1-alpha.17":
+  version "0.0.1-alpha.17"
+  resolved "https://registry.yarnpkg.com/@unipasswallet/sdk/-/sdk-0.0.1-alpha.17.tgz#05d6a4a54a7adf1011ac07376ec3174a9ac061a2"
+  integrity sha512-d4YlUF5DRDS8nYVP8I5ES2fh8rkgSepiR2Vit0/SrRx4bFOjogT9+AUhlvum7p8LiPNxuQiFNodBOgtvg+PxYw==
   dependencies:
-    "@unipasswallet/abi" "^0.0.1-alpha.12"
-    "@unipasswallet/dkim-base" "^0.0.1-alpha.12"
-    "@unipasswallet/keys" "^0.0.1-alpha.12"
-    "@unipasswallet/network" "^0.0.1-alpha.12"
-    "@unipasswallet/relayer" "0.0.1-alpha.8"
-    "@unipasswallet/transaction-builders" "^0.0.1-alpha.8"
-    "@unipasswallet/transactions" "^0.0.1-alpha.12"
-    "@unipasswallet/utils" "^0.0.1-alpha.12"
-    "@unipasswallet/wallet" "^0.0.1-alpha.13"
+    "@unipasswallet/abi" "^0.0.1-alpha.17"
+    "@unipasswallet/dkim-base" "^0.0.1-alpha.17"
+    "@unipasswallet/keys" "^0.0.1-alpha.17"
+    "@unipasswallet/network" "^0.0.1-alpha.17"
+    "@unipasswallet/relayer" "0.0.1-alpha.12"
+    "@unipasswallet/transaction-builders" "^0.0.1-alpha.12"
+    "@unipasswallet/transactions" "^0.0.1-alpha.16"
+    "@unipasswallet/utils" "^0.0.1-alpha.17"
+    "@unipasswallet/wallet" "^0.0.1-alpha.17"
     ethers "^5.7.1"
 
-"@unipasswallet/transaction-builders@^0.0.1-alpha.8":
-  version "0.0.1-alpha.8"
-  resolved "https://registry.yarnpkg.com/@unipasswallet/transaction-builders/-/transaction-builders-0.0.1-alpha.8.tgz#9fb7cccb03c4130b8b56d4fb633bcc0178e2c27f"
-  integrity sha512-5bUu6xkhgSWruciX7+5nHEau6AMCifvrV+Klq9M7U9+p7ZoieF9ybsaeb7a3kSTqPC+iRrb+toW/2sy6R0gi9Q==
-  dependencies:
-    "@unipasswallet/abi" "^0.0.1-alpha.12"
-    "@unipasswallet/keys" "0.0.1-alpha.12"
-    "@unipasswallet/transactions" "0.0.1-alpha.12"
-    "@unipasswallet/utils" "0.0.1-alpha.12"
-    "@unipasswallet/wallet" "^0.0.1-alpha.13"
-    ethers "^5.7.1"
-
-"@unipasswallet/transactions@0.0.1-alpha.12", "@unipasswallet/transactions@^0.0.1-alpha.12":
+"@unipasswallet/transaction-builders@^0.0.1-alpha.12":
   version "0.0.1-alpha.12"
-  resolved "https://registry.yarnpkg.com/@unipasswallet/transactions/-/transactions-0.0.1-alpha.12.tgz#a545e301476b4968c234e2c5639c69cafbca6dc9"
-  integrity sha512-Pgc94WShOc0wHTnUSwLsajYNTIpT+1Y67eNOtolgNV4bJcxZMD6obD+a4hTtK5vy3WJEM13ilyDU0phzyIwT9g==
+  resolved "https://registry.yarnpkg.com/@unipasswallet/transaction-builders/-/transaction-builders-0.0.1-alpha.12.tgz#9af4e2b1bf4ce5e0a35c894235e427e5bb7be53f"
+  integrity sha512-Mj+uX5nPaYkCJiyeV7mp7YCaskQsB3tvpeO4MqCSOOsDjoM+bJwtEAnMfReAD81gf6ALpV00ArqxowFxx6Stfg==
   dependencies:
-    "@unipasswallet/abi" "0.0.1-alpha.12"
-    "@unipasswallet/utils" "0.0.1-alpha.12"
+    "@unipasswallet/abi" "^0.0.1-alpha.17"
+    "@unipasswallet/keys" "^0.0.1-alpha.17"
+    "@unipasswallet/transactions" "^0.0.1-alpha.16"
+    "@unipasswallet/utils" "^0.0.1-alpha.17"
+    "@unipasswallet/wallet" "^0.0.1-alpha.17"
     ethers "^5.7.1"
 
-"@unipasswallet/utils@0.0.1-alpha.12", "@unipasswallet/utils@^0.0.1-alpha.12":
-  version "0.0.1-alpha.12"
-  resolved "https://registry.yarnpkg.com/@unipasswallet/utils/-/utils-0.0.1-alpha.12.tgz#edc8c5943986fd9f89c3ec169c1ab8b3499d4ab8"
-  integrity sha512-yRv6aRfGYOYhggVNK96WFzr/oCeKvJ4Hpjg3ldsUjzACo6n0IXkZHWv2msXO6b2WF87PWHB9Vr6BJaIu24scyg==
+"@unipasswallet/transactions@^0.0.1-alpha.16":
+  version "0.0.1-alpha.16"
+  resolved "https://registry.yarnpkg.com/@unipasswallet/transactions/-/transactions-0.0.1-alpha.16.tgz#7339ed287479df84ab15d5eb5ae2cf5be5083866"
+  integrity sha512-AFmL7kDkhPX1BUUUq8MI4yD20wn739Zyz6RFf1P206/I+09gtSkww9KCd/BS7aTQKY7Lf9KVVUlLWBOGT+bx5g==
+  dependencies:
+    "@unipasswallet/abi" "^0.0.1-alpha.17"
+    "@unipasswallet/utils" "^0.0.1-alpha.17"
+    ethers "^5.7.1"
+
+"@unipasswallet/utils@^0.0.1-alpha.17":
+  version "0.0.1-alpha.17"
+  resolved "https://registry.yarnpkg.com/@unipasswallet/utils/-/utils-0.0.1-alpha.17.tgz#69e3ea70ac22b1685f297461cad507a59ebb713b"
+  integrity sha512-ogfuRCvNfnR6h4dKehMN0GMyOvG9zFPdRIPgguP9HA/zOsCt02BY/bBdUczHAqgCcsbajmN+oXLGpFZu5ibLoQ==
   dependencies:
     "@ethersproject/pbkdf2" "^5.7.0"
-    "@unipasswallet/abi" "^0.0.1-alpha.12"
+    "@unipasswallet/abi" "^0.0.1-alpha.17"
     aes-js "3.1.2"
     ethers "^5.7.1"
     scrypt-js "3.0.1"
 
-"@unipasswallet/wallet@^0.0.1-alpha.13":
-  version "0.0.1-alpha.13"
-  resolved "https://registry.yarnpkg.com/@unipasswallet/wallet/-/wallet-0.0.1-alpha.13.tgz#90aa88a6f0386569a2ecbeef02b7f656b592bec7"
-  integrity sha512-xEjBGRMKSTEhzs/mKo1Ci8ASYPCgbVT66iruqfreBeNl62bzhNjVnJOkgjG+qr2QRD1FKaCyqda+4e5ZRkafZg==
+"@unipasswallet/wallet@^0.0.1-alpha.17":
+  version "0.0.1-alpha.17"
+  resolved "https://registry.yarnpkg.com/@unipasswallet/wallet/-/wallet-0.0.1-alpha.17.tgz#00cbca7e786a203feb13adbb29cb98cdb8caa1b3"
+  integrity sha512-ZzDkrk8uk8RkS8ySumZ5vwKZ9WqCCyVbs8IWIB1drIth/lMgEk5pO0w2ZucMZBHPAyK7826dlTpkG5226KXosA==
   dependencies:
-    "@unipasswallet/abi" "^0.0.1-alpha.12"
-    "@unipasswallet/dkim-base" "^0.0.1-alpha.12"
-    "@unipasswallet/keys" "^0.0.1-alpha.12"
-    "@unipasswallet/network" "0.0.1-alpha.12"
-    "@unipasswallet/relayer" "^0.0.1-alpha.8"
-    "@unipasswallet/transactions" "0.0.1-alpha.12"
-    "@unipasswallet/utils" "^0.0.1-alpha.12"
+    "@unipasswallet/abi" "^0.0.1-alpha.17"
+    "@unipasswallet/dkim-base" "^0.0.1-alpha.17"
+    "@unipasswallet/keys" "^0.0.1-alpha.17"
+    "@unipasswallet/network" "^0.0.1-alpha.17"
+    "@unipasswallet/relayer" "^0.0.1-alpha.12"
+    "@unipasswallet/transactions" "^0.0.1-alpha.16"
+    "@unipasswallet/utils" "^0.0.1-alpha.17"
     ethers "^5.7.1"
 
 "@vitejs/plugin-vue@^3.0.3":
