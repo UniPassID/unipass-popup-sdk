@@ -11,7 +11,7 @@ import { CancelLockKeysetHashTxBuilder } from '@unipasswallet/transaction-builde
 import { User, useUserStore } from './user'
 
 export const useRecoveryStore = defineStore({
-  id: 'recovery',
+  id: 'recoveryStore',
   state: () => {
     return {
       email: '',

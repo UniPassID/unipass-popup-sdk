@@ -11,7 +11,7 @@ import { GuardiansInfo } from '@/composable/useGuardian'
 import { Wallet } from 'ethers'
 
 export const useRegisterStore = defineStore({
-  id: 'register',
+  id: 'registerStore',
   state: () => {
     return {
       email: '',

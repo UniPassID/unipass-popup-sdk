@@ -8,7 +8,7 @@ import Tss, { SIG_PREFIX } from '@/utils/tss'
 import { Keyset } from '@unipasswallet/keys'
 
 export const useLoginStore = defineStore({
-  id: 'login',
+  id: 'loginStore',
   state: () => {
     return {
       loading: false,

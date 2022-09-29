@@ -16,7 +16,8 @@ export const useSend = () => {
   const route = useRoute()
   const userStore = useUserStore()
   const signStore = useSignStore()
-  signStore.init(route.query.symbol as string, route.query.chain as string)
+  signStore.init(route.query.chain as string, route.query.symbol as string)
+
   const form = reactive({
     // mock
     toAddress: '0x61E428AaB6347765eFc549eae7bd740aA886A707',

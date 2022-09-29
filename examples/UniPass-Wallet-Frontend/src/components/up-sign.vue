@@ -3,7 +3,7 @@
     <slot name="main">
       <div class="t1">{{ $t('SignTransaction') }}</div>
       <div class="chain-box">
-        <div class="chain" :class="signStore.coin.chain">On {{ signStore.coin.chain }}</div>
+        <div class="chain" :class="chainName">On {{ chainName }}</div>
         <div class="dot"></div>
         <span>{{ $t('NoRisk') }}</span>
       </div>
@@ -63,6 +63,14 @@
 <script setup lang="ts">
 import { useSign } from '@/composable/useSign'
 const { userStore, isDark, signStore, sign } = useSign()
+const chainName = computed(() => {
+  const dict = {
+    bsc: 'BSC',
+    polygon: 'Polygon',
+    rangers: 'Rangers',
+  }
+  return dict[signStore.coin.chain] || ''
+})
 </script>
 
 <style lang="scss">
@@ -149,8 +157,14 @@ const { userStore, isDark, signStore, sign } = useSign()
       font-weight: 400;
       color: #ffffff;
       line-height: 14px;
+      &.Polygon {
+        background: #8247e5;
+      }
       &.BSC {
         background: #ecb42b;
+      }
+      &.Rangers {
+        background: #3498db;
       }
     }
     .dot {

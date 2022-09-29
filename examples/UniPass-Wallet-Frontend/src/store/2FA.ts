@@ -3,7 +3,7 @@ import api from '@/service/backend'
 import { useUserStore } from './user'
 
 export const use2FAStore = defineStore({
-  id: '2fa',
+  id: '2FAStore',
   state: () => {
     return {
       inited: false,

@@ -15,7 +15,7 @@ export const useSign = () => {
   const route = useRoute()
 
   const signStore = useSignStore()
-  signStore.init(route.query.symbol as string, route.query.chain as string)
+  signStore.init(route.query.chain as string, route.query.symbol as string)
 
   const sendToken = async (data: any, chain: ChainType) => {
     try {

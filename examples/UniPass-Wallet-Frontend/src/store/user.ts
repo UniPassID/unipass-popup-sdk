@@ -30,7 +30,7 @@ export interface User {
 }
 
 export const useUserStore = defineStore({
-  id: 'user',
+  id: 'userStore',
   state: () => {
     // env = dev | test | prod
     const env = process.env.VUE_APP_Net === 'testnet' ? 'test' : 'prod'

@@ -15,7 +15,7 @@ import {
 import { ElMessage } from 'element-plus'
 import { arrayify, toUtf8String } from 'ethers/lib/utils'
 
-const { unipass, userStore, isDark } = useSign()
+const { unipass, userStore, isDark, signStore } = useSign()
 
 const auth = reactive({
   loading: false,
@@ -33,6 +33,7 @@ onMounted(() => {
     try {
       const { payload, appSetting } = event.data as UPMessage
       userStore.initAppSetting(appSetting)
+      signStore.initAppSetting(appSetting)
       if (payload) {
         const { from, to, value, data } = JSON.parse(payload) as UPTransactionMessage
         auth.referrer = window.document.referrer
