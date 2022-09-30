@@ -160,10 +160,13 @@ const txHash = ref("");
 const form = reactive({});
 const upWallet = new UniPassPopupSDK({
   env: "dev",
-  chainType: "polygon",
-  nodeRPC: "https://node.wallet.unipass.id/polygon-mumbai",
+  chainType: "rangers",
+  nodeRPC: "https://node.wallet.unipass.id/rangers-robin",
+  // chainType: "polygon",
+  // nodeRPC: "https://node.wallet.unipass.id/polygon-mumbai",
   appSettings: {
-    chain: "polygon",
+    // chain: "polygon",
+    chain: "rangers",
     theme: toTheme.value as UniPassTheme,
     appName: "Rangers Demo",
     appIcon: "",
@@ -284,10 +287,10 @@ const sendRPG = async () => {
     ElMessage.error("balance is not enough");
     return;
   }
+
   upWallet.updateConfig({
     appSettings: {
-      // chain: "rangers",
-      chain: "polygon",
+      chain: "rangers",
     },
   });
 

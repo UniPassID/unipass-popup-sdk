@@ -10,7 +10,9 @@
     </div>
     <div class="overage" v-else-if="props.balance !== undefined">
       <div class="token-name">{{ props.name }}</div>
-      <div class="token-overage">{{ $t('Balance') }}：{{ props.balance }}</div>
+      <div class="token-overage">
+        {{ $t('Balance') }}：{{ Number(Number(props.balance).toFixed(6)) }}
+      </div>
     </div>
     <div class="name" v-else>{{ props.name }}</div>
   </div>

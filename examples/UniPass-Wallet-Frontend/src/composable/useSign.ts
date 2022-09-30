@@ -87,6 +87,9 @@ export const useSign = () => {
         },
         chain: coin.chain,
       }
+      console.log('data', data)
+      console.log('fee', fee)
+      console.log('transaction', transaction)
       const res = await unipassWallet.transaction(transaction)
       return res.transactionHash
     } else {

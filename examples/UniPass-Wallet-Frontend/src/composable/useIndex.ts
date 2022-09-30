@@ -6,6 +6,7 @@ import assets from '@/service/assets'
 import blockchain from '@/service/blockchain'
 import { useRecoveryStore } from '@/store/recovery'
 import { useUniPass } from '@/utils/useUniPass'
+import chainsConfig from '@/service/chains-config'
 
 export const useIndex = () => {
   const { t: $t } = useI18n()
@@ -105,10 +106,20 @@ export const useIndex = () => {
     })
   }
 
+  // const initAssets = (account: string) => {
+  //   userStore.coins = []
+  //   for (const chain of chainsConfig) {
+  //     assets.getAsset(account, chain).then((token) => {
+  //       userStore.coins.push(...token)
+  //     })
+  //   }
+  // }
+
   const init = async () => {
     const user = userStore.user
     initQRCode(user.account)
     initRecovering(user.account)
+    // initAssets(user.account)
     const coins = await assets.getAssets(user.account)
     userStore.coins = coins
   }
