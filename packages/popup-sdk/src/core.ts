@@ -10,14 +10,15 @@ import config, {
   UP_MAIN_CONFIG,
   UP_TEST_CONFIG,
 } from './config';
-import { BytesLike } from 'ethers';
+import { BytesLike, Contract } from 'ethers';
 import { connect, disconnect } from './connect';
 import { authorize } from './authorize';
-import { hexlify, toUtf8Bytes } from 'ethers/lib/utils';
+import { hexlify, toUtf8Bytes, keccak256 } from 'ethers/lib/utils';
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { sendTransaction } from './send-transaction';
 
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
+export const EIP1271_SELECTOR = '0x1626ba7e';
 export class UniPassPopupSDK {
   private _config: PopupSDKConfig | undefined;
   private _account: UPAccount | undefined;
@@ -54,6 +55,7 @@ export class UniPassPopupSDK {
 
     this._config.appSettings = options.appSettings || { appName: 'MyDemo' };
   }
+
   public updateConfig(options: PopupSDKOption) {
     if (!this._config) {
       return;
@@ -86,6 +88,7 @@ export class UniPassPopupSDK {
   }
 
   public getProvider(): JsonRpcProvider {
+    this.checkInitialized();
     return this._provider!;
   }
 
@@ -140,6 +143,39 @@ export class UniPassPopupSDK {
    */
   public async isValidSignature(_msg: string, _sig: string): Promise<boolean> {
     this.checkInitialized();
-    throw new Error('unimplemented');
+    const contract = new Contract(
+      this._account!.address,
+      [
+        {
+          inputs: [
+            {
+              internalType: 'bytes32',
+              name: '_hash',
+              type: 'bytes32',
+            },
+            {
+              internalType: 'bytes',
+              name: '_signature',
+              type: 'bytes',
+            },
+          ],
+          name: 'isValidSignature',
+          outputs: [
+            {
+              internalType: 'bytes4',
+              name: 'magicValue',
+              type: 'bytes4',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+      ],
+      this._provider
+    );
+    const hash = keccak256(toUtf8Bytes(_msg));
+    const code = await contract.isValidSignature(hash, _sig);
+
+    return code === EIP1271_SELECTOR;
   }
 }
