@@ -2,7 +2,7 @@ node_modules
 .vscode
 dist
 build
-# /examples/UniPass-Wallet-Frontend
+/examples/UniPass-Wallet-Frontend
 
 .DS_Store
 # local env files
