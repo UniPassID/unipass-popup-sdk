@@ -27,12 +27,7 @@
       type="border-card"
     >
       <el-tab-pane label="RPG Transaction" name="sign_transaction">
-        <el-form
-          ref="form"
-          class="body-input"
-          label-position="top"
-          :model="form"
-        >
+        <el-form class="body-input" label-position="top">
           <el-form-item label="Your Address:" prop="address">
             <template #label>
               <span>Your Address:</span>
@@ -136,7 +131,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, reactive, ref } from "vue";
+import { computed, ref } from "vue";
 import { UniPassTheme, UPEvent, UPEventType } from "@unipasswallet/popup-types";
 import { UniPassPopupSDK } from "@unipasswallet/popup-sdk";
 import { ERC20ABI } from "./assets/erc20.abi";
@@ -157,7 +152,6 @@ const myTokenBalance = ref("0.00");
 const toAddress = ref("0x61E428AaB6347765eFc549eae7bd740aA886A707");
 const toAmount = ref("0.01");
 const txHash = ref("");
-const form = reactive({});
 const upWallet = new UniPassPopupSDK({
   env: "dev",
   chainType: "rangers",
@@ -172,8 +166,8 @@ const upWallet = new UniPassPopupSDK({
     appIcon: "",
   },
   walletUrl: {
-    domain: "localhost:1900",
-    protocol: "http",
+    domain: "popup-wallet.unipass.vip",
+    protocol: "https",
   },
 });
 
