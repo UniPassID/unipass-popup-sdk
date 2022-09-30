@@ -6,7 +6,7 @@ import assets from '@/service/assets'
 import blockchain from '@/service/blockchain'
 import { useRecoveryStore } from '@/store/recovery'
 import { useUniPass } from '@/utils/useUniPass'
-import chainsConfig from '@/service/chains-config'
+// import chainsConfig from '@/service/chains-config'
 
 export const useIndex = () => {
   const { t: $t } = useI18n()

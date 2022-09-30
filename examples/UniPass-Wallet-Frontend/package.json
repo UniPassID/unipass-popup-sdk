@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "start": "sh bin/start.sh testnet 1900",
     "start:mainnet": "sh bin/start.sh mainnet 1902",
-    "start:testnet": "sh bin/start.sh testnet 1900",
-    "build:mainnet": "sh bin/build.sh mainnet",
+    "build": "sh bin/build.sh mainnet",
     "build:testnet": "sh bin/build.sh testnet",
     "preview": "cd dist && serve .",
     "lint": "vue-cli-service lint",
