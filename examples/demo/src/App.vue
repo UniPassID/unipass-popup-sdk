@@ -171,6 +171,8 @@ const upWallet = new UniPassPopupSDK({
   walletUrl: {
     domain: "testnet.wallet.unipass.id",
     protocol: "https",
+    // domain: "localhost:1900",
+    // protocol: "http",
   },
 });
 
