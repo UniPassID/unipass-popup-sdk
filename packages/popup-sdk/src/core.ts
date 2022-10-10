@@ -23,6 +23,7 @@ export class UniPassPopupSDK {
   private _config: PopupSDKConfig | undefined;
   private _account: UPAccount | undefined;
   private _provider: JsonRpcProvider | undefined;
+  private _auth_provider: JsonRpcProvider | undefined;
   private _initialized: boolean;
 
   constructor(options: PopupSDKOption) {
@@ -49,7 +50,9 @@ export class UniPassPopupSDK {
 
     this._config.chainType = options.chainType || 'polygon';
     const defaultConfig =
-      this._config.env === 'prod' ? UP_MAIN_CONFIG : UP_TEST_CONFIG;
+      options.env === 'prod' ? UP_MAIN_CONFIG : UP_TEST_CONFIG;
+
+    this._auth_provider = new JsonRpcProvider(defaultConfig.nodeRPC);
 
     this._config.nodeRPC = options.nodeRPC || defaultConfig.nodeRPC;
 
@@ -171,7 +174,7 @@ export class UniPassPopupSDK {
           type: 'function',
         },
       ],
-      this._provider
+      this._auth_provider
     );
     const hash = keccak256(toUtf8Bytes(_msg));
     const code = await contract.isValidSignature(hash, _sig);

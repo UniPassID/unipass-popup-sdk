@@ -56,7 +56,7 @@
           <el-form-item label="Token Type:" prop="address">
             <el-radio-group v-model="tokenType">
               <el-radio-button label="RPG"></el-radio-button>
-              <el-radio-button label="DAI(ERC20)"></el-radio-button>
+              <el-radio-button label="USDC(ERC20)"></el-radio-button>
             </el-radio-group>
           </el-form-item>
           <el-form-item label="Your Balance:" prop="address">
@@ -83,11 +83,6 @@
         </div>
         <div v-else>
           <el-button class="transfer" @click="sendToken"> sendToken </el-button>
-          <br />
-          <br />
-          <el-button type="primary" class="transfer" @click="executeCall">
-            executeCall
-          </el-button>
         </div>
         <div>{{ txHash }}</div>
       </el-tab-pane>
@@ -135,11 +130,19 @@ import { computed, ref } from "vue";
 import { UniPassTheme, UPEvent, UPEventType } from "@unipasswallet/popup-types";
 import { UniPassPopupSDK } from "@unipasswallet/popup-sdk";
 import { ERC20ABI } from "./assets/erc20.abi";
-import { isAddress, formatEther, parseEther } from "ethers/lib/utils";
+import {
+  isAddress,
+  formatEther,
+  parseEther,
+  formatUnits,
+  Interface,
+  parseUnits,
+} from "ethers/lib/utils";
 import { Contract } from "ethers";
 import { ElMessage } from "element-plus";
 
-const DAI_ADDRESS = "0x25c58Aa062Efb4f069bD013De3e3C5797fb40651";
+const USDC_ADDRESS = "0xd6Ed1C13914FF1b08737b29De4039F542162cAE1";
+const USDC_DECIMAL = 6;
 
 const myAddress = ref("");
 const toTheme = ref("dark");
@@ -166,7 +169,7 @@ const upWallet = new UniPassPopupSDK({
     appIcon: "",
   },
   walletUrl: {
-    domain: "popup-wallet.unipass.vip",
+    domain: "testnet.wallet.unipass.id",
     protocol: "https",
   },
 });
@@ -231,12 +234,13 @@ const refreshBalance = async () => {
   myRPGBalance.value = formatEther(balance);
 
   const tokenContract = new Contract(
-    DAI_ADDRESS,
+    USDC_ADDRESS,
     ERC20ABI,
     upWallet.getProvider()
   );
-  myTokenBalance.value = formatEther(
-    await tokenContract.balanceOf(myAddress.value)
+  myTokenBalance.value = formatUnits(
+    await tokenContract.balanceOf(myAddress.value),
+    USDC_DECIMAL
   );
 };
 
@@ -309,9 +313,45 @@ const sendRPG = async () => {
   }
 };
 
-const sendToken = async () => {};
+const sendToken = async () => {
+  if (Number(myTokenBalance.value) < Number(toAmount.value)) {
+    ElMessage.error("balance is not enough");
+    return;
+  }
 
-const executeCall = () => {};
+  upWallet.updateConfig({
+    appSettings: {
+      chain: "rangers",
+    },
+  });
+
+  try {
+    const erc20Interface = new Interface([
+      "function transfer(address _to, uint256 _value)",
+    ]);
+    const erc20TokenData = erc20Interface.encodeFunctionData("transfer", [
+      toAddress.value,
+      parseUnits(toAmount.value, USDC_DECIMAL),
+    ]);
+    const tx = {
+      from: myAddress.value,
+      to: USDC_ADDRESS,
+      value: "0x",
+      data: erc20TokenData,
+    };
+    txHash.value = await upWallet.sendTransaction(tx);
+    if (await checkTxStatus(txHash.value)) {
+      console.log("send USDC success", txHash);
+      ElMessage.success(`send USDC success, tx hash = ${txHash.value}`);
+    } else {
+      ElMessage.error(`send USDC failed, tx hash = ${txHash.value}`);
+    }
+    await refreshBalance();
+  } catch (err) {
+    ElMessage.error(err as string);
+    console.log("err", err);
+  }
+};
 </script>
 
 <style lang="scss">

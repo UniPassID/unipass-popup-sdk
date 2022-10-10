@@ -10,7 +10,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
-    "@unipasswallet/popup-sdk": "0.0.1",
+    "@unipasswallet/popup-sdk": "^0.0.2",
     "@unipasswallet/popup-types": "0.0.1",
     "element-plus": "^2.2.17",
     "ethers": "^5.7.1",
