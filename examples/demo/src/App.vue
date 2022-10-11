@@ -208,9 +208,9 @@ const connect = async () => {
     console.log("account", account);
     myAddress.value = account.address;
     await refreshBalance();
-  } catch (err) {
-    ElMessage.error(err as string);
-    console.log("connect err", err);
+  } catch (err: any) {
+    ElMessage.error("user reject connection");
+    console.log("connect error", err?.message);
   }
 };
 
@@ -262,9 +262,9 @@ const signMessage = async () => {
     const resp = await upWallet.signMessage(message.value);
     console.log("resp", resp);
     sig.value = resp;
-  } catch (err) {
-    ElMessage.error(err as string);
-    console.log("auth err", err);
+  } catch (err: any) {
+    ElMessage.error(err?.message || "signMessage error");
+    console.log("auth error", err?.message);
   }
 };
 
@@ -276,9 +276,9 @@ const verifySig = async () => {
     } else {
       ElMessage.error("verify signature failed");
     }
-  } catch (err) {
-    ElMessage.error(err as string);
-    console.log("auth err", err);
+  } catch (err: any) {
+    ElMessage.error(err?.message || "verifySig error");
+    console.log("auth error", err?.message);
   }
 };
 
@@ -309,9 +309,9 @@ const sendRPG = async () => {
       ElMessage.error(`send RPG failed, tx hash = ${txHash.value}`);
     }
     await refreshBalance();
-  } catch (err) {
-    ElMessage.error(err as string);
-    console.log("err", err);
+  } catch (err: any) {
+    ElMessage.error(err?.message || "sendRPG error");
+    console.log("sendRPG", err?.message);
   }
 };
 
@@ -349,9 +349,9 @@ const sendToken = async () => {
       ElMessage.error(`send USDC failed, tx hash = ${txHash.value}`);
     }
     await refreshBalance();
-  } catch (err) {
-    ElMessage.error(err as string);
-    console.log("err", err);
+  } catch (err: any) {
+    ElMessage.error(err?.message || "sendToken error");
+    console.log("sendToken", err?.message);
   }
 };
 </script>

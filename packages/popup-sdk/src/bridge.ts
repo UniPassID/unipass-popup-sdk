@@ -1,5 +1,10 @@
 import { Callbacks, pop } from './pop';
-import { UPEvent, UPEventListener, UPMessage, UPResponse } from '@unipasswallet/popup-types';
+import {
+  UPEvent,
+  UPEventListener,
+  UPMessage,
+  UPResponse,
+} from '@unipasswallet/popup-types';
 
 export const UPA_SESSION_KEY = 'UP-A';
 
@@ -18,11 +23,9 @@ export function execPop(message: UPMessage, listener?: UPEventListener) {
         const { close } = callbacks;
         try {
           if (typeof e.data !== 'object') return;
-
           console.log('[up-core] response', e.data);
           const up_message = e.data as UPMessage;
           const resp = JSON.parse(up_message.payload as string) as UPResponse;
-
           switch (resp.type) {
             case 'APPROVE':
               resolve(resp.data);
