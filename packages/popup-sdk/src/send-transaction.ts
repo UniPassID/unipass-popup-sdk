@@ -17,6 +17,10 @@ export const sendTransaction = async (
   }
   const msg = new UPMessage('UP_TRANSACTION', JSON.stringify(tx), appSettings);
 
-  const resp: string = (await execPop(msg)) as string;
-  return resp;
+  try {
+    const resp: string = (await execPop(msg)) as string;
+    return resp;
+  } catch (err) {
+    throw new Error(err as string);
+  }
 };

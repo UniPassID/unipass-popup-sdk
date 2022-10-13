@@ -21,6 +21,10 @@ export const authorize = async (
     appSettings
   );
 
-  const resp: string = (await execPop(msg)) as string;
-  return resp;
+  try{
+    const resp: string = (await execPop(msg)) as string;
+    return resp;
+  }catch(err){
+    throw new Error(err as string);
+  }
 };

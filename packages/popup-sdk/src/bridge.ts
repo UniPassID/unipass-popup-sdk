@@ -5,6 +5,7 @@ import {
   UPMessage,
   UPResponse,
 } from '@unipasswallet/popup-types';
+import { disconnect } from './connect';
 
 export const UPA_SESSION_KEY = 'UP-A';
 
@@ -32,6 +33,23 @@ export function execPop(message: UPMessage, listener?: UPEventListener) {
               close();
               break;
             case 'DECLINE':
+              if (resp.data === 'expired') {
+                if (message.type === 'UP_LOGIN') {
+                  return;
+                }
+
+                if (
+                  message.type === 'UP_TRANSACTION' ||
+                  message.type === 'UP_SIGN_MESSAGE'
+                ) {
+                  // clear session storage
+                  disconnect();
+                  reject(`can not authorize without login`);
+                  close();
+                  break;
+                }
+              }
+
               reject(`Declined: ${resp.data || 'No reason supplied'}`);
               close();
               break;
