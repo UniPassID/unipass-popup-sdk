@@ -155,7 +155,7 @@ export class UniPassPopupSDK {
       _account = this._account!.address;
     }
     const contract = new Contract(
-      this._account!.address,
+      _account,
       [
         {
           inputs: [
