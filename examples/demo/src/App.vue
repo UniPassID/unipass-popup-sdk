@@ -133,7 +133,12 @@
 
 <script setup lang="ts">
 import { computed, ref, watchEffect } from "vue";
-import { UniPassTheme, UPEvent, UPEventType } from "@unipasswallet/popup-types";
+import {
+  ChainType,
+  UniPassTheme,
+  UPEvent,
+  UPEventType,
+} from "@unipasswallet/popup-types";
 import { UniPassPopupSDK } from "@unipasswallet/popup-sdk";
 import { ERC20ABI } from "./assets/erc20.abi";
 import {
@@ -147,10 +152,8 @@ import {
 import { Contract } from "ethers";
 import { ElMessage } from "element-plus";
 
-const USDC_DECIMAL = 6;
-
 const toTheme = ref("dark");
-const chainType = ref("polygon");
+const chainType = ref<ChainType>("polygon");
 
 const myAddress = ref("");
 const activeTab = ref("sign_transaction");
@@ -162,13 +165,22 @@ const toAddress = ref("0x61E428AaB6347765eFc549eae7bd740aA886A707");
 const toAmount = ref("0.01");
 const txHash = ref("");
 
-const CHAIN_CONFIGS = {
+const CHAIN_CONFIGS: {
+  [key in ChainType]: {
+    rpc: string;
+    nativeToken: string;
+    usdc: {
+      contract: string;
+      decimals: number;
+    };
+  };
+} = {
   polygon: {
     rpc: "https://node.wallet.unipass.id/polygon-mumbai",
     nativeToken: "MATIC",
     usdc: {
       contract: "0x87F0E95E11a49f56b329A1c143Fb22430C07332a",
-      decimal: 6,
+      decimals: 6,
     },
   },
   bsc: {
@@ -176,7 +188,7 @@ const CHAIN_CONFIGS = {
     nativeToken: "BNB",
     usdc: {
       contract: "0x64544969ed7EBf5f083679233325356EbE738930",
-      decimal: 18,
+      decimals: 18,
     },
   },
   rangers: {
@@ -184,7 +196,7 @@ const CHAIN_CONFIGS = {
     nativeToken: "RPG",
     usdc: {
       contract: "0xd6Ed1C13914FF1b08737b29De4039F542162cAE1",
-      decimal: 6,
+      decimals: 6,
     },
   },
 };
@@ -227,10 +239,10 @@ const bindCopy = () => {
 const connect = async () => {
   upWallet = new UniPassPopupSDK({
     env: "dev",
-    chainType: chainType.value,
+    chainType: chainType.value as ChainType,
     nodeRPC: CHAIN_CONFIGS[chainType.value].rpc,
     appSettings: {
-      chain: chainType.value,
+      chain: chainType.value as ChainType,
       theme: toTheme.value as UniPassTheme,
       appName: "UniPass Popup Demo",
       appIcon: "",
@@ -290,7 +302,7 @@ const refreshBalance = async () => {
   );
   myTokenBalance.value = formatUnits(
     await tokenContract.balanceOf(myAddress.value),
-    USDC_DECIMAL
+    myChainConfig.value.usdc.decimals
   );
   console.log(
     `native balance = ${myRPGBalance.value} usdc balance = ${myTokenBalance.value}`
@@ -376,7 +388,7 @@ const sendToken = async () => {
     ]);
     const erc20TokenData = erc20Interface.encodeFunctionData("transfer", [
       toAddress.value,
-      parseUnits(toAmount.value, USDC_DECIMAL),
+      parseUnits(toAmount.value, myChainConfig.value.usdc.decimals),
     ]);
     const tx = {
       from: myAddress.value,
