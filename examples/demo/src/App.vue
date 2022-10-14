@@ -1,11 +1,11 @@
 <template>
   <div id="page-demo" class="unipass-page">
     <i class="background-logo iconfont icon-logo"></i>
-    <div class="head">UniPass Demo</div>
+    <div class="head">UniPass Demo({{ chainType.toUpperCase() }})</div>
     <div v-if="myAddress">
       <div>
         <br />
-        <h3>{{ myAddress }}</h3>
+        <h3></h3>
         <br />
       </div>
       <el-button class="transfer" type="primary" @click="logout">
@@ -14,8 +14,17 @@
     </div>
     <div v-else>
       <br />
-      <el-radio v-model="toTheme" label="dark">Dark</el-radio>
-      <el-radio v-model="toTheme" label="light">Light</el-radio>
+      <el-radio-group v-model="chainType">
+        <el-radio-button label="polygon">Polygon-Mumbai</el-radio-button>
+        <el-radio-button label="bsc">BSC-Testnet</el-radio-button>
+        <el-radio-button label="rangers">Rangers-Robin</el-radio-button>
+      </el-radio-group>
+      <br />
+      <br />
+      <el-radio-group v-model="toTheme">
+        <el-radio label="dark">Dark</el-radio>
+        <el-radio label="light">Light</el-radio>
+      </el-radio-group>
       <el-button type="primary" class="transfer login" @click="connect">
         login
       </el-button>
@@ -26,7 +35,7 @@
       class="body"
       type="border-card"
     >
-      <el-tab-pane label="RPG Transaction" name="sign_transaction">
+      <el-tab-pane label="Transaction" name="sign_transaction">
         <el-form class="body-input" label-position="top">
           <el-form-item label="Your Address:" prop="address">
             <template #label>
@@ -46,17 +55,20 @@
               :autosize="{ minRows: 1 }"
             />
           </el-form-item>
-          <span>
+          <!-- <span>
             <b style="color: black">
               <a href="https://robin-faucet.rangersprotocol.com">
                 Rangers Faucet:
               </a>
             </b>
-          </span>
+          </span> -->
           <el-form-item label="Token Type:" prop="address">
             <el-radio-group v-model="tokenType">
-              <el-radio-button label="RPG"></el-radio-button>
-              <el-radio-button label="USDC(ERC20)"></el-radio-button>
+              <el-radio-button
+                :label="item.value"
+                :key="item.value"
+                v-for="item in tokens"
+              ></el-radio-button>
             </el-radio-group>
           </el-form-item>
           <el-form-item label="Your Balance:" prop="address">
@@ -68,17 +80,11 @@
           <el-form-item label="Amount:" prop="address">
             <el-input v-model="toAmount" clearable />
           </el-form-item>
-          <!-- <el-form-item label="Fee(RPG):" prop="fee">
-            <el-input v-model="toFeeAmount" clearable />
-          </el-form-item>
-          <el-form-item label="Description:" prop="description">
-            <el-input v-model="toDescription" clearable />
-          </el-form-item> -->
         </el-form>
         <br />
-        <div v-if="tokenType === 'RPG'">
+        <div v-if="tokenType === myChainConfig.nativeToken">
           <el-button type="primary" class="transfer" @click="sendRPG">
-            sendRPG
+            send{{ myChainConfig.nativeToken }}
           </el-button>
         </div>
         <div v-else>
@@ -126,7 +132,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed, ref, watchEffect } from "vue";
 import { UniPassTheme, UPEvent, UPEventType } from "@unipasswallet/popup-types";
 import { UniPassPopupSDK } from "@unipasswallet/popup-sdk";
 import { ERC20ABI } from "./assets/erc20.abi";
@@ -141,44 +147,75 @@ import {
 import { Contract } from "ethers";
 import { ElMessage } from "element-plus";
 
-const USDC_ADDRESS = "0xd6Ed1C13914FF1b08737b29De4039F542162cAE1";
 const USDC_DECIMAL = 6;
 
-const myAddress = ref("");
 const toTheme = ref("dark");
+const chainType = ref("polygon");
+
+const myAddress = ref("");
 const activeTab = ref("sign_transaction");
 const message = ref("TO BE SIGNED MESSAGE abc");
 const sig = ref("");
-const tokenType = ref("RPG");
 const myRPGBalance = ref("0.00");
 const myTokenBalance = ref("0.00");
 const toAddress = ref("0x61E428AaB6347765eFc549eae7bd740aA886A707");
 const toAmount = ref("0.01");
 const txHash = ref("");
-const upWallet = new UniPassPopupSDK({
-  env: "dev",
-  chainType: "rangers",
-  nodeRPC: "https://node.wallet.unipass.id/rangers-robin",
-  // chainType: "polygon",
-  // nodeRPC: "https://node.wallet.unipass.id/polygon-mumbai",
-  appSettings: {
-    // chain: "polygon",
-    chain: "rangers",
-    theme: toTheme.value as UniPassTheme,
-    appName: "Rangers Demo",
-    appIcon: "",
+
+const CHAIN_CONFIGS = {
+  polygon: {
+    rpc: "https://node.wallet.unipass.id/polygon-mumbai",
+    nativeToken: "MATIC",
+    usdc: {
+      contract: "0x87F0E95E11a49f56b329A1c143Fb22430C07332a",
+      decimal: 6,
+    },
   },
-  walletUrl: {
-    domain: "testnet.wallet.unipass.id",
-    protocol: "https",
-    // domain: "localhost:1900",
-    // protocol: "http",
+  bsc: {
+    rpc: "https://node.wallet.unipass.id/bsc-testnet",
+    nativeToken: "BNB",
+    usdc: {
+      contract: "0x64544969ed7EBf5f083679233325356EbE738930",
+      decimal: 18,
+    },
   },
+  rangers: {
+    rpc: "https://node.wallet.unipass.id/rangers-robin",
+    nativeToken: "RPG",
+    usdc: {
+      contract: "0xd6Ed1C13914FF1b08737b29De4039F542162cAE1",
+      decimal: 6,
+    },
+  },
+};
+
+let upWallet: UniPassPopupSDK;
+
+const myChainConfig = computed(() => {
+  const config = CHAIN_CONFIGS[chainType.value];
+  return config;
 });
+
+const tokenType = ref("RPG");
+
+watchEffect(() => {
+  tokenType.value = myChainConfig.value.nativeToken;
+});
+
+const tokens = computed(() => [
+  {
+    label: myChainConfig.value.nativeToken,
+    value: myChainConfig.value.nativeToken,
+    selected: true,
+  },
+  { label: "USDC", value: "USDC", selected: false },
+]);
 
 const myBalanceFormat = computed(() => {
   const balance =
-    tokenType.value === "RPG" ? myRPGBalance.value : myTokenBalance.value;
+    tokenType.value === myChainConfig.value.nativeToken
+      ? myRPGBalance.value
+      : myTokenBalance.value;
   return `${balance} ${tokenType.value}`;
 });
 
@@ -188,11 +225,22 @@ const bindCopy = () => {
 };
 
 const connect = async () => {
-  upWallet.updateConfig({
+  upWallet = new UniPassPopupSDK({
+    env: "dev",
+    chainType: chainType.value,
+    nodeRPC: CHAIN_CONFIGS[chainType.value].rpc,
     appSettings: {
+      chain: chainType.value,
       theme: toTheme.value as UniPassTheme,
+      appName: "UniPass Popup Demo",
+      appIcon: "",
+    },
+    walletUrl: {
+      domain: "testnet.wallet.unipass.id",
+      protocol: "https",
     },
   });
+
   try {
     const account = await upWallet.login({
       email: true,
@@ -210,7 +258,7 @@ const connect = async () => {
     await refreshBalance();
   } catch (err: any) {
     ElMessage.error("user reject connection");
-    console.log("connect error", err?.message);
+    console.log("connect error", err);
   }
 };
 
@@ -236,13 +284,16 @@ const refreshBalance = async () => {
   myRPGBalance.value = formatEther(balance);
 
   const tokenContract = new Contract(
-    USDC_ADDRESS,
+    myChainConfig.value.usdc.contract,
     ERC20ABI,
     upWallet.getProvider()
   );
   myTokenBalance.value = formatUnits(
     await tokenContract.balanceOf(myAddress.value),
     USDC_DECIMAL
+  );
+  console.log(
+    `native balance = ${myRPGBalance.value} usdc balance = ${myTokenBalance.value}`
   );
 };
 
@@ -270,7 +321,11 @@ const signMessage = async () => {
 
 const verifySig = async () => {
   try {
-    const ret = await upWallet.isValidSignature(message.value, sig.value);
+    const ret = await upWallet.isValidSignature(
+      message.value,
+      sig.value,
+      myAddress.value
+    );
     if (ret === true) {
       ElMessage.success("verify signature success");
     } else {
@@ -287,12 +342,6 @@ const sendRPG = async () => {
     ElMessage.error("balance is not enough");
     return;
   }
-
-  upWallet.updateConfig({
-    appSettings: {
-      chain: "rangers",
-    },
-  });
 
   try {
     const tx = {
@@ -321,12 +370,6 @@ const sendToken = async () => {
     return;
   }
 
-  upWallet.updateConfig({
-    appSettings: {
-      chain: "rangers",
-    },
-  });
-
   try {
     const erc20Interface = new Interface([
       "function transfer(address _to, uint256 _value)",
@@ -337,7 +380,7 @@ const sendToken = async () => {
     ]);
     const tx = {
       from: myAddress.value,
-      to: USDC_ADDRESS,
+      to: myChainConfig.value.usdc.contract,
       value: "0x",
       data: erc20TokenData,
     };
