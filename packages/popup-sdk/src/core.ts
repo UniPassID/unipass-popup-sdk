@@ -141,11 +141,19 @@ export class UniPassPopupSDK {
    * verify UniPass user signed message and sig on Rangers contract
    *
    * @param msg the message to be signed
-   * @param authResp the signature response returned by UniPass
+   * @param sig the signature response returned by UniPass
+   * @param account the account who signed the message
    * @returns boolean true: pass verification, false: failed verification
    */
-  public async isValidSignature(_msg: string, _sig: string): Promise<boolean> {
-    this.checkInitialized();
+  public async isValidSignature(
+    _msg: string,
+    _sig: string,
+    _account?: string
+  ): Promise<boolean> {
+    if (!_account) {
+      this.checkInitialized();
+      _account = this._account!.address;
+    }
     const contract = new Contract(
       this._account!.address,
       [
