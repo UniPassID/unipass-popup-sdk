@@ -282,7 +282,7 @@ const connect = async (type?: "google" | "email" | "both") => {
     });
     console.log("account", account);
     myAddress.value = account.address;
-    // await refreshBalance();
+    await refreshBalance();
   } catch (err: any) {
     ElMessage.error("user reject connection");
     console.log("connect error", err);
