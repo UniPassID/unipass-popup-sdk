@@ -262,8 +262,8 @@ const connect = async (type?: "google" | "email" | "both") => {
       appIcon: "",
     },
     walletUrl: {
-      domain: "localhost:1901",
-      protocol: "http",
+      domain: "t.wallet.unipass.vip",
+      protocol: "https",
     },
   });
 
