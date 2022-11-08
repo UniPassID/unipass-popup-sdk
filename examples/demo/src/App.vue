@@ -25,6 +25,7 @@
         <el-radio label="dark">Dark</el-radio>
         <el-radio label="light">Light</el-radio>
       </el-radio-group>
+      <div><el-checkbox v-model="returnEmail" label="return Email" /></div>
       <el-button
         type="primary"
         class="transfer login"
@@ -167,6 +168,7 @@ import { Contract } from "ethers";
 import { ElMessage } from "element-plus";
 
 const toTheme = ref("dark");
+const returnEmail = ref(true);
 const chainType = ref<ChainType>("polygon");
 
 const myAddress = ref("");
@@ -269,7 +271,7 @@ const connect = async (type?: "google" | "email" | "both") => {
 
   try {
     const account = await upWallet.login({
-      email: true,
+      email: returnEmail.value,
       type,
       eventListener: (event: UPEvent) => {
         console.log("event", event);
