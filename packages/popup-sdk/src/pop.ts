@@ -1,6 +1,9 @@
 import { getConfig } from './config';
 import { renderPop } from './render-pop';
-import { UPMessage, UPMessageType } from '@unipasswallet/popup-types';
+import {
+  UPMessage,
+  UPMessageType,
+} from '@unipasswallet/popup-types';
 
 export interface Callbacks {
   send: (message: UPMessage) => void;
@@ -15,6 +18,19 @@ export interface MessageHandler {
 }
 
 const noop = () => {};
+
+// const GOOGLE_OAUTH_CONFIG = {
+//   clientID:
+//     '1076249686642-g0d42524fhdirjeho0t6n3cjd7pulmns.apps.googleusercontent.com',
+// };
+
+// const genGoogleOAuthUrl = () => {
+//   const redirectURI = encodeURIComponent(
+//     serviceEndPoint('UP_LOGIN') + '/loading'
+//   );
+//   return `https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?redirect_uri=${redirectURI}&prompt=consent&response_type=id_token%20token&client_id=${GOOGLE_OAUTH_CONFIG.clientID}&scope=openid%20email&state=af0ifjsldkj&nonce=n-0S6_WzA2Mj&flowName=GeneralOAuthFlow`;
+// };
+
 function serviceEndPoint(type: UPMessageType) {
   if (type === 'UP_LOGIN') {
     return getConfig().upConnectUrl;
@@ -29,7 +45,11 @@ function serviceEndPoint(type: UPMessageType) {
   throw new Error(`unsupport type ${type}`);
 }
 
-export function pop(message: UPMessage, opts?: MessageHandler) {
+export function pop(
+  message: UPMessage,
+  opts?: MessageHandler,
+  // type?: ConnectType
+) {
   if (message == null) return { send: noop, close: noop };
 
   const onClose = opts?.onClose || noop;

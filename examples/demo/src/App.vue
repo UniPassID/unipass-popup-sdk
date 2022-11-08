@@ -25,8 +25,22 @@
         <el-radio label="dark">Dark</el-radio>
         <el-radio label="light">Light</el-radio>
       </el-radio-group>
-      <el-button type="primary" class="transfer login" @click="connect">
-        login
+      <el-button
+        type="primary"
+        class="transfer login"
+        @click="connect('google')"
+      >
+        login with google
+      </el-button>
+      <el-button
+        type="primary"
+        class="transfer login"
+        @click="connect('email')"
+      >
+        login with email
+      </el-button>
+      <el-button type="primary" class="transfer login" @click="connect()">
+        login with unipass
       </el-button>
     </div>
     <el-tabs
@@ -236,7 +250,7 @@ const bindCopy = () => {
   ElMessage.success("copy succeeded");
 };
 
-const connect = async () => {
+const connect = async (type?: "google" | "email" | "both") => {
   upWallet = new UniPassPopupSDK({
     env: "dev",
     chainType: chainType.value as ChainType,
@@ -248,14 +262,15 @@ const connect = async () => {
       appIcon: "",
     },
     walletUrl: {
-      domain: "testnet.wallet.unipass.id",
-      protocol: "https",
+      domain: "localhost:1901",
+      protocol: "http",
     },
   });
 
   try {
     const account = await upWallet.login({
       email: true,
+      type,
       eventListener: (event: UPEvent) => {
         console.log("event", event);
         const { type, body } = event;
@@ -267,7 +282,7 @@ const connect = async () => {
     });
     console.log("account", account);
     myAddress.value = account.address;
-    await refreshBalance();
+    // await refreshBalance();
   } catch (err: any) {
     ElMessage.error("user reject connection");
     console.log("connect error", err);
@@ -450,6 +465,7 @@ const sendToken = async () => {
 
   .login {
     margin-top: 50px;
+    margin-left: 0 !important;
     font-size: 20px;
   }
 

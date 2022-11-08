@@ -75,7 +75,10 @@ export enum UniPassTheme {
   DARK = 'dark',
 }
 
+export type ConnectType = 'google' | 'email' | 'both';
+
 export type UPConnectOptions = {
   email?: boolean;
+  type?: ConnectType;
   eventListener?: UPEventListener;
 };
