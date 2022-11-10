@@ -1,5 +1,6 @@
 import { Callbacks, pop } from './pop';
 import {
+  ConnectType,
   UPEvent,
   UPEventListener,
   UPMessage,
@@ -11,12 +12,13 @@ export const UPA_SESSION_KEY = 'UP-A';
 
 export function execPop(
   message: UPMessage,
-  listener?: UPEventListener,
-  // type?: ConnectType
+  connectType?: ConnectType,
+  listener?: UPEventListener
 ) {
   return new Promise((resolve, reject) => {
     pop(
       message,
+      connectType,
       {
         async onReady(_, callbacks: Callbacks) {
           const { send } = callbacks;
@@ -86,7 +88,7 @@ export function execPop(
         async onClose() {
           reject(`Declined: Externally Halted`);
         },
-      },
+      }
       // type
     );
   });

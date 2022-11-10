@@ -79,6 +79,6 @@ export type ConnectType = 'google' | 'email' | 'both';
 
 export type UPConnectOptions = {
   email?: boolean;
-  type?: ConnectType;
+  connectType?: ConnectType;
   eventListener?: UPEventListener;
 };

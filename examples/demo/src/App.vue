@@ -25,7 +25,11 @@
         <el-radio label="dark">Dark</el-radio>
         <el-radio label="light">Light</el-radio>
       </el-radio-group>
-      <div><el-checkbox v-model="returnEmail" label="return Email" /></div>
+      <div>
+        <el-checkbox v-model="returnEmail" label="return Email" />
+      </div>
+
+      <h4>- Onboarding users through Google and Email -</h4>
       <el-button
         type="primary"
         class="transfer login"
@@ -40,6 +44,8 @@
       >
         login with email
       </el-button>
+      <div class="divider"></div>
+      <h4>- Connect UniPass through one button -</h4>
       <el-button type="primary" class="transfer login" @click="connect()">
         login with unipass
       </el-button>
@@ -147,10 +153,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watchEffect } from "vue";
+import { computed, onBeforeMount, ref, watch, watchEffect } from "vue";
 import {
   ChainType,
+  ConnectType,
   UniPassTheme,
+  UPAccount,
   UPEvent,
   UPEventType,
 } from "@unipasswallet/popup-types";
@@ -219,6 +227,47 @@ const CHAIN_CONFIGS: {
 
 let upWallet: UniPassPopupSDK;
 
+onBeforeMount(() => {
+  upWallet = new UniPassPopupSDK({
+    env: "dev",
+    chainType: chainType.value as ChainType,
+    nodeRPC: CHAIN_CONFIGS[chainType.value].rpc,
+    appSettings: {
+      chain: chainType.value as ChainType,
+      theme: toTheme.value as UniPassTheme,
+      appName: "UniPass Popup Demo123",
+      appIcon: "",
+    },
+    walletUrl: {
+      domain: "t.wallet.unipass.vip",
+      protocol: "https",
+    },
+  });
+
+  const accountStr = localStorage.getItem("__account") || "";
+  if (!accountStr) return;
+  const account = JSON.parse(accountStr) as UPAccount;
+  myAddress.value = account.address;
+});
+
+watch(toTheme, () => {
+  upWallet = new UniPassPopupSDK({
+    env: "dev",
+    chainType: chainType.value as ChainType,
+    nodeRPC: CHAIN_CONFIGS[chainType.value].rpc,
+    appSettings: {
+      chain: chainType.value as ChainType,
+      theme: toTheme.value as UniPassTheme,
+      appName: "UniPass Popup Demo123",
+      appIcon: "",
+    },
+    walletUrl: {
+      domain: "t.wallet.unipass.vip",
+      protocol: "https",
+    },
+  });
+});
+
 const myChainConfig = computed(() => {
   const config = CHAIN_CONFIGS[chainType.value];
   return config;
@@ -252,27 +301,10 @@ const bindCopy = () => {
   ElMessage.success("copy succeeded");
 };
 
-const connect = async (type?: "google" | "email" | "both") => {
-  upWallet = new UniPassPopupSDK({
-    env: "dev",
-    chainType: chainType.value as ChainType,
-    nodeRPC: CHAIN_CONFIGS[chainType.value].rpc,
-    appSettings: {
-      chain: chainType.value as ChainType,
-      theme: toTheme.value as UniPassTheme,
-      appName: "UniPass Popup Demo",
-      appIcon: "",
-    },
-    walletUrl: {
-      domain: "t.wallet.unipass.vip",
-      protocol: "https",
-    },
-  });
-
+const connect = async (connectType?: ConnectType) => {
   try {
     const account = await upWallet.login({
       email: returnEmail.value,
-      type,
       eventListener: (event: UPEvent) => {
         console.log("event", event);
         const { type, body } = event;
@@ -281,8 +313,10 @@ const connect = async (type?: "google" | "email" | "both") => {
           ElMessage.success("a user register");
         }
       },
+      connectType,
     });
     console.log("account", account);
+    localStorage.setItem("__account", JSON.stringify(account));
     myAddress.value = account.address;
     await refreshBalance();
   } catch (err: any) {
@@ -330,6 +364,7 @@ const logout = () => {
   console.log("connect clicked");
   upWallet.logout();
   myAddress.value = "";
+  localStorage.removeItem("__account");
 };
 
 const signMessage = async () => {
@@ -460,13 +495,17 @@ const sendToken = async () => {
     color: black;
   }
 
+  .divider {
+    margin-top: 50px;
+  }
+
   .transfer {
     width: 100%;
     font-size: 20px;
   }
 
   .login {
-    margin-top: 50px;
+    margin-top: 10px;
     margin-left: 0 !important;
     font-size: 20px;
   }
@@ -502,6 +541,11 @@ const sendToken = async () => {
       width: 48%;
       font-size: 20px;
     }
+  }
+
+  h4 {
+    color: black;
+    margin-top: 50px;
   }
 }
 

@@ -31,14 +31,13 @@ const getAccount = async (
   appSettings?: AppSettings
 ): Promise<UPAccount> => {
   try {
-    const type = options?.type || 'both';
-    const payload = options ? JSON.stringify({ ...options, type }) : '';
+    const payload = options ? JSON.stringify(options) : '';
     const message = new UPMessage('UP_LOGIN', payload, appSettings);
 
     const account: UPAccount = (await execPop(
       message,
+      options?.connectType,
       options?.eventListener
-      // type,
     )) as UPAccount;
     console.log('connect resp', account);
     if (account && account.address) {
