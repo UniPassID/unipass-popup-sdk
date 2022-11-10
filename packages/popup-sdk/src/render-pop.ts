@@ -1,3 +1,6 @@
+import { UPMessage, UPResponse } from '@unipasswallet/popup-types';
+import { Callbacks } from './pop';
+
 const POP = 'UP_WALLET_POP';
 
 var popup: Window | null = null;
@@ -12,7 +15,12 @@ function popupWindow(url: string, windowName: string, win: Window) {
   return win.open(url, windowName, config);
 }
 
-export function renderPop(src: string) {
+const noop = () => {};
+
+export function renderPop(
+  src: string,
+  onResponse: ((e: MessageEvent, callbacks: Callbacks) => {}) | typeof noop
+) {
   if (popup == null || popup?.closed) {
     popup = popupWindow(src, POP, window);
   } else if (previousUrl !== src) {
@@ -24,8 +32,24 @@ export function renderPop(src: string) {
 
   previousUrl = src;
 
-  var timer = setInterval(function() {
+  var timer = setInterval(function () {
     if (popup && popup.closed) {
+      const event = {
+        data: {
+          payload: JSON.stringify(
+            new UPMessage(
+              'UP_RESPONSE',
+              JSON.stringify(
+                new UPResponse('DECLINE', 'user reject connection')
+              )
+            )
+          ),
+        },
+      } as MessageEvent;
+      onResponse(event, {
+        close: () => {},
+        send: () => {},
+      });
       clearInterval(timer);
       popup = null;
     }

@@ -67,7 +67,8 @@ export function pop(
   console.log('add event listener');
   window.addEventListener('message', internal);
   const { popup, unmount } = renderPop(
-    serviceEndPoint(message.type, connectType)
+    serviceEndPoint(message.type, connectType),
+    onResponse
   );
   return { send, close };
 
