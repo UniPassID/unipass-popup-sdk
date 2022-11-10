@@ -239,8 +239,8 @@ onBeforeMount(() => {
       appIcon: "",
     },
     walletUrl: {
-      domain: "localhost:1901",
-      protocol: "http",
+      domain: "t.wallet.unipass.vip",
+      protocol: "https",
     },
   });
 
@@ -262,8 +262,8 @@ watch(toTheme, () => {
       appIcon: "",
     },
     walletUrl: {
-      domain: "localhost:1901",
-      protocol: "http",
+      domain: "t.wallet.unipass.vip",
+      protocol: "https",
     },
   });
 });
