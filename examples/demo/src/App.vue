@@ -35,19 +35,19 @@
         class="transfer login"
         @click="connect('google')"
       >
-        login with google
+        Continue with Google
       </el-button>
       <el-button
         type="primary"
         class="transfer login"
         @click="connect('email')"
       >
-        login with email
+        Continue with Email
       </el-button>
       <div class="divider"></div>
       <h4>- Connect UniPass through one button -</h4>
       <el-button type="primary" class="transfer login" @click="connect()">
-        login with unipass
+        Connect UniPass
       </el-button>
     </div>
     <el-tabs
