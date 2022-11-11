@@ -244,10 +244,13 @@ onBeforeMount(() => {
     },
   });
 
-  if (sessionStorage.getItem("__toTheme"))
-    toTheme.value = sessionStorage.getItem("__toTheme");
-  if (sessionStorage.getItem("__chainType"))
-    chainType.value = sessionStorage.getItem("__chainType") as ChainType;
+  if (sessionStorage.getItem("__toTheme")) {
+    toTheme.value = sessionStorage.getItem("__toTheme") || "dark";
+  }
+  if (sessionStorage.getItem("__chainType")) {
+    chainType.value = (sessionStorage.getItem("__chainType") ||
+      "polygon") as ChainType;
+  }
   console.log("__toTheme", toTheme.value);
   console.log("__chainType", chainType.value);
 
