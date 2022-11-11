@@ -174,6 +174,7 @@ import {
 } from "ethers/lib/utils";
 import { Contract } from "ethers";
 import { ElMessage } from "element-plus";
+import { onMounted } from "@vue/runtime-core";
 
 const toTheme = ref("dark");
 const returnEmail = ref(true);
@@ -253,11 +254,12 @@ onBeforeMount(() => {
   }
   console.log("__toTheme", toTheme.value);
   console.log("__chainType", chainType.value);
+});
 
+onMounted(() => {
   const account = upWallet.getAccount();
   if (!account) return;
   myAddress.value = account.address;
-
   refreshBalance();
 });
 
@@ -271,6 +273,11 @@ watch(chainType, () => {
 });
 
 const updateUpWalletConfig = () => {
+  console.log(
+    "config updated",
+    chainType.value,
+    CHAIN_CONFIGS[chainType.value].rpc
+  );
   upWallet.updateConfig({
     chainType: chainType.value as ChainType,
     nodeRPC: CHAIN_CONFIGS[chainType.value].rpc,
@@ -357,6 +364,7 @@ const onAddressChanged = () => {
 
 const refreshBalance = async () => {
   const provider = upWallet.getProvider();
+  console.log("provider", provider);
   const balance = await provider.getBalance(myAddress.value);
   myNativeTokenBalance.value = formatEther(balance);
 
