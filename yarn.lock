@@ -2212,6 +2212,11 @@
     "@typescript-eslint/types" "5.38.1"
     eslint-visitor-keys "^3.3.0"
 
+"@unipasswallet/popup-types@0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@unipasswallet/popup-types/-/popup-types-0.0.1.tgz#715b9f81abccd290f01e02786f5bafdf629e342d"
+  integrity sha512-iP04josCGak0R5eJl5uYsBtI6j3Q3T3SFGT/LcuSb/JkbVE7JpE9Vs3wTIhSK/SLtp1VNZ5wt5QP3QhFlP2xYw==
+
 "@vitejs/plugin-vue@^3.0.3":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@vitejs/plugin-vue/-/plugin-vue-3.1.0.tgz#3a423ea6943a450e806da412a911150e928598ed"
