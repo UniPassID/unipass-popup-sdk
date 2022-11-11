@@ -11,7 +11,7 @@ import config, {
   UP_TEST_CONFIG,
 } from './config';
 import { BytesLike, Contract } from 'ethers';
-import { connect, disconnect } from './connect';
+import { connect, disconnect, getLocalAccount } from './connect';
 import { authorize } from './authorize';
 import { hexlify, toUtf8Bytes, keccak256 } from 'ethers/lib/utils';
 import { JsonRpcProvider } from '@ethersproject/providers';
@@ -27,14 +27,13 @@ export class UniPassPopupSDK {
   private _initialized: boolean;
 
   constructor(options: PopupSDKOption) {
+    this._initialized = false;
     this.initConfig(options);
 
     // if no upCoreConfig, up-core sdk will not initialized
     if (options.walletUrl) {
       config(options.walletUrl);
     }
-
-    this._initialized = false;
   }
 
   /**
@@ -57,6 +56,10 @@ export class UniPassPopupSDK {
     this._config.nodeRPC = options.nodeRPC || defaultConfig.nodeRPC;
 
     this._config.appSettings = options.appSettings || { appName: 'MyDemo' };
+
+    this._provider = new JsonRpcProvider(this._config.nodeRPC);
+
+    this._initialized = true;
   }
 
   public updateConfig(options: PopupSDKOption) {
@@ -68,6 +71,7 @@ export class UniPassPopupSDK {
     }
     if (options.nodeRPC) {
       this._config.nodeRPC = options.nodeRPC;
+      this._provider = new JsonRpcProvider(this._config.nodeRPC);
     }
     if (options.appSettings) {
       this._config.appSettings = options.appSettings;
@@ -79,9 +83,13 @@ export class UniPassPopupSDK {
    */
   public async login(options?: UPConnectOptions): Promise<UPAccount> {
     this._account = await connect(options, this._config?.appSettings);
+    return this._account;
+  }
 
-    this._provider = new JsonRpcProvider(this._config?.nodeRPC);
-    this._initialized = true;
+  public getAccount(): UPAccount | undefined {
+    if (!this._account) {
+      this._account = getLocalAccount();
+    }
 
     return this._account;
   }
@@ -97,7 +105,7 @@ export class UniPassPopupSDK {
 
   private checkInitialized() {
     if (!this._initialized) {
-      throw new Error(`UPRangers is not initialized`);
+      throw new Error(`UniPassPopupSDK is not initialized`);
     }
   }
 

@@ -22,6 +22,16 @@ export const connect = async (
   return account;
 };
 
+export const getLocalAccount = (): UPAccount | undefined => {
+  const sessionAccount = sessionStorage.getItem(UPA_SESSION_KEY);
+
+  if (sessionAccount) {
+    return JSON.parse(sessionAccount) as UPAccount;
+  } else {
+    return undefined;
+  }
+};
+
 export const disconnect = () => {
   sessionStorage.removeItem(UPA_SESSION_KEY);
 };

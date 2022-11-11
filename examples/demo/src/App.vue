@@ -104,7 +104,7 @@
         </el-form>
         <br />
         <div v-if="tokenType === myChainConfig.nativeToken">
-          <el-button type="primary" class="transfer" @click="sendRPG">
+          <el-button type="primary" class="transfer" @click="sendNativeToken">
             send{{ myChainConfig.nativeToken }}
           </el-button>
         </div>
@@ -183,7 +183,7 @@ const myAddress = ref("");
 const activeTab = ref("sign_transaction");
 const message = ref("TO BE SIGNED MESSAGE abc");
 const sig = ref("");
-const myRPGBalance = ref("0.00");
+const myNativeTokenBalance = ref("0.00");
 const myTokenBalance = ref("0.00");
 const toAddress = ref("0x61E428AaB6347765eFc549eae7bd740aA886A707");
 const toAmount = ref("0.01");
@@ -244,15 +244,31 @@ onBeforeMount(() => {
     },
   });
 
-  const accountStr = localStorage.getItem("__account") || "";
-  if (!accountStr) return;
-  const account = JSON.parse(accountStr) as UPAccount;
+  if (sessionStorage.getItem("__toTheme"))
+    toTheme.value = sessionStorage.getItem("__toTheme");
+  if (sessionStorage.getItem("__chainType"))
+    chainType.value = sessionStorage.getItem("__chainType") as ChainType;
+  console.log("__toTheme", toTheme.value);
+  console.log("__chainType", chainType.value);
+
+  const account = upWallet.getAccount();
+  if (!account) return;
   myAddress.value = account.address;
+
+  refreshBalance();
 });
 
 watch(toTheme, () => {
-  upWallet = new UniPassPopupSDK({
-    env: "dev",
+  updateUpWalletConfig();
+  sessionStorage.setItem("__toTheme", toTheme.value);
+});
+watch(chainType, () => {
+  updateUpWalletConfig();
+  sessionStorage.setItem("__chainType", chainType.value);
+});
+
+const updateUpWalletConfig = () => {
+  upWallet.updateConfig({
     chainType: chainType.value as ChainType,
     nodeRPC: CHAIN_CONFIGS[chainType.value].rpc,
     appSettings: {
@@ -261,12 +277,8 @@ watch(toTheme, () => {
       appName: "UniPass Popup Demo123",
       appIcon: "",
     },
-    walletUrl: {
-      domain: "t.wallet.unipass.vip",
-      protocol: "https",
-    },
   });
-});
+};
 
 const myChainConfig = computed(() => {
   const config = CHAIN_CONFIGS[chainType.value];
@@ -291,7 +303,7 @@ const tokens = computed(() => [
 const myBalanceFormat = computed(() => {
   const balance =
     tokenType.value === myChainConfig.value.nativeToken
-      ? myRPGBalance.value
+      ? myNativeTokenBalance.value
       : myTokenBalance.value;
   return `${balance} ${tokenType.value}`;
 });
@@ -316,7 +328,6 @@ const connect = async (connectType?: ConnectType) => {
       connectType,
     });
     console.log("account", account);
-    localStorage.setItem("__account", JSON.stringify(account));
     myAddress.value = account.address;
     await refreshBalance();
   } catch (err: any) {
@@ -344,7 +355,7 @@ const onAddressChanged = () => {
 const refreshBalance = async () => {
   const provider = upWallet.getProvider();
   const balance = await provider.getBalance(myAddress.value);
-  myRPGBalance.value = formatEther(balance);
+  myNativeTokenBalance.value = formatEther(balance);
 
   const tokenContract = new Contract(
     myChainConfig.value.usdc.contract,
@@ -356,7 +367,7 @@ const refreshBalance = async () => {
     myChainConfig.value.usdc.decimals
   );
   console.log(
-    `native balance = ${myRPGBalance.value} usdc balance = ${myTokenBalance.value}`
+    `native balance = ${myNativeTokenBalance.value} usdc balance = ${myTokenBalance.value}`
   );
 };
 
@@ -364,7 +375,6 @@ const logout = () => {
   console.log("connect clicked");
   upWallet.logout();
   myAddress.value = "";
-  localStorage.removeItem("__account");
 };
 
 const signMessage = async () => {
@@ -401,8 +411,8 @@ const verifySig = async () => {
   }
 };
 
-const sendRPG = async () => {
-  if (Number(myRPGBalance.value) < Number(toAmount.value)) {
+const sendNativeToken = async () => {
+  if (Number(myNativeTokenBalance.value) < Number(toAmount.value)) {
     ElMessage.error("balance is not enough");
     return;
   }
@@ -416,15 +426,15 @@ const sendRPG = async () => {
     };
     txHash.value = await upWallet.sendTransaction(tx);
     if (await checkTxStatus(txHash.value)) {
-      console.log("send RPG success", txHash);
-      ElMessage.success(`send RPG success, tx hash = ${txHash.value}`);
+      console.log("send NativeToken success", txHash);
+      ElMessage.success(`send NativeToken success, tx hash = ${txHash.value}`);
     } else {
-      ElMessage.error(`send RPG failed, tx hash = ${txHash.value}`);
+      ElMessage.error(`send NativeToken failed, tx hash = ${txHash.value}`);
     }
     await refreshBalance();
   } catch (err: any) {
-    ElMessage.error(err?.message || "sendRPG error");
-    console.log("sendRPG", err?.message);
+    ElMessage.error(err?.message || "send NativeToken error");
+    console.log("send NativeToken", err?.message);
   }
 };
 
