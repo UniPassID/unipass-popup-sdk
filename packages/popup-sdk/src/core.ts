@@ -13,12 +13,34 @@ import config, {
 import { BytesLike, Contract } from 'ethers';
 import { connect, disconnect, getLocalAccount } from './connect';
 import { authorize } from './authorize';
-import { hexlify, toUtf8Bytes, keccak256 } from 'ethers/lib/utils';
+import {
+  hexlify,
+  toUtf8Bytes,
+  keccak256,
+  Bytes,
+  concat,
+} from 'ethers/lib/utils';
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { sendTransaction } from './send-transaction';
 
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 export const EIP1271_SELECTOR = '0x1626ba7e';
+
+export const unipassMessagePrefix = '\x18UniPass Signed Message:\n';
+
+export function unipassHashMessage(message: Bytes | string): string {
+  if (typeof message === 'string') {
+    message = toUtf8Bytes(message);
+  }
+  return keccak256(
+    concat([
+      toUtf8Bytes(unipassMessagePrefix),
+      toUtf8Bytes(String(message.length)),
+      message,
+    ])
+  );
+}
+
 export class UniPassPopupSDK {
   private _config: PopupSDKConfig | undefined;
   private _account: UPAccount | undefined;
@@ -192,8 +214,12 @@ export class UniPassPopupSDK {
       ],
       this._auth_provider
     );
-    const hash = keccak256(toUtf8Bytes(_msg));
-    const code = await contract.isValidSignature(hash, _sig);
+    const code = await contract.isValidSignature(
+      unipassHashMessage(_msg),
+      _sig
+    );
+
+    console.log(code);
 
     return code === EIP1271_SELECTOR;
   }
