@@ -240,7 +240,7 @@ onBeforeMount(() => {
       appIcon: "",
     },
     walletUrl: {
-      domain: "t.wallet.unipass.vip",
+      domain: "testnet.wallet.unipass.id",
       protocol: "https",
     },
   });
