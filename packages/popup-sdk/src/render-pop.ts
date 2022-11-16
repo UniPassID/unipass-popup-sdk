@@ -30,36 +30,29 @@ export function renderPop(
     popup.focus();
   }
 
-  previousUrl = src;
+  // previousUrl = src;
 
   var timer = setInterval(function () {
     if (popup && popup.closed) {
       const event = {
-        data: {
-          payload: JSON.stringify(
-            new UPMessage(
-              'UP_RESPONSE',
-              JSON.stringify(
-                new UPResponse('DECLINE', 'user reject connection')
-              )
-            )
-          ),
-        },
+        data: new UPMessage(
+          'UP_RESPONSE',
+          JSON.stringify(new UPResponse('DECLINE', 'user reject connection'))
+        ),
       } as MessageEvent;
       onResponse(event, {
         close: () => {},
         send: () => {},
       });
       clearInterval(timer);
-      popup = null;
     }
   }, 1000);
 
   const unmount = () => {
     if (popup && !popup.closed) {
       popup.close();
-      popup = null;
     }
+    popup = null;
   };
 
   return { popup, unmount };

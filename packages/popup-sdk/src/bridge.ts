@@ -35,6 +35,8 @@ export function execPop(
             console.log('[up-core] response', e.data);
             const up_message = e.data as UPMessage;
             const resp = JSON.parse(up_message.payload as string) as UPResponse;
+            console.log(resp);
+
             switch (resp.type) {
               case 'APPROVE':
                 resolve(resp.data);
