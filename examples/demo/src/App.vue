@@ -1,66 +1,13 @@
 <template>
-  <div id="page-demo" class="unipass-page">
+  <div id="page">
     <i class="background-logo iconfont icon-logo"></i>
-    <div class="head">UniPass Demo({{ chainType.toUpperCase() }})</div>
-    <div v-if="myAddress">
-      <div>
-        <br />
-        <h3></h3>
-        <br />
-      </div>
-      <el-button class="transfer" type="primary" @click="logout">
-        logout
-      </el-button>
-    </div>
-    <div v-else>
-      <br />
-      <el-radio-group v-model="chainType">
-        <el-radio-button label="polygon">Polygon-Mumbai</el-radio-button>
-        <el-radio-button label="bsc">BSC-Testnet</el-radio-button>
-        <el-radio-button label="rangers">Rangers-Robin</el-radio-button>
-      </el-radio-group>
-      <br />
-      <br />
-      <el-radio-group v-model="toTheme">
-        <el-radio label="dark">Dark</el-radio>
-        <el-radio label="light">Light</el-radio>
-      </el-radio-group>
-      <div>
-        <el-checkbox v-model="returnEmail" label="return Email" />
-      </div>
-
-      <h4>- Onboarding users through Google and Email -</h4>
-      <el-button
-        type="primary"
-        class="transfer login"
-        @click="connect('google')"
-      >
-        Continue with Google
-      </el-button>
-      <el-button
-        type="primary"
-        class="transfer login"
-        @click="connect('email')"
-      >
-        Continue with Email
-      </el-button>
-      <div class="divider"></div>
-      <h4>- Connect UniPass through one button -</h4>
-      <el-button type="primary" class="transfer login" @click="connect()">
-        Connect UniPass
-      </el-button>
-    </div>
-    <el-tabs
-      v-show="myAddress"
-      v-model="activeTab"
-      class="body"
-      type="border-card"
-    >
-      <el-tab-pane label="Transaction" name="sign_transaction">
+    <div class="head">UniPass Demo</div>
+    <div class="page-demo">
+      <div v-if="myAddress">
         <el-form class="body-input" label-position="top">
-          <el-form-item label="Your Address:" prop="address">
+          <el-form-item label="Your Address" prop="address">
             <template #label>
-              <span>Your Address:</span>
+              <span>Your Address</span>
               <i
                 v-show="myAddress"
                 class="iconfont icon-copy sea-background"
@@ -76,79 +23,277 @@
               :autosize="{ minRows: 1 }"
             />
           </el-form-item>
-          <!-- <span>
-            <b style="color: black">
-              <a href="https://robin-faucet.rangersprotocol.com">
-                Rangers Faucet:
-              </a>
-            </b>
-          </span> -->
-          <el-form-item label="Token Type:" prop="address">
-            <el-radio-group v-model="tokenType">
-              <el-radio-button
-                :label="item.value"
-                :key="item.value"
-                v-for="item in tokens"
-              ></el-radio-button>
-            </el-radio-group>
+
+          <el-form-item label="Your email" prop="address">
+            <template #label>
+              <span>Your email</span>
+              <i
+                v-show="myAddress"
+                class="iconfont icon-copy sea-background"
+                @click="bindCopy"
+              ></i>
+            </template>
+            <el-input
+              v-model="myAddress"
+              disabled
+              readonly
+              type="textarea"
+              resize="none"
+              :autosize="{ minRows: 1 }"
+            />
           </el-form-item>
-          <el-form-item label="Your Balance:" prop="address">
-            <el-input v-model="myBalanceFormat" disabled readonly />
-          </el-form-item>
-          <el-form-item label="Transfer To:" prop="address">
-            <el-input v-model="toAddress" clearable @blur="onAddressChanged" />
-          </el-form-item>
-          <el-form-item label="Amount:" prop="address">
-            <el-input v-model="toAmount" clearable />
+
+          <el-form-item label="New born" prop="address">
+            <template #label>
+              <span>New born</span>
+              <i
+                v-show="myAddress"
+                class="iconfont icon-copy sea-background"
+                @click="bindCopy"
+              ></i>
+            </template>
+            <el-input
+              v-model="myAddress"
+              disabled
+              readonly
+              type="textarea"
+              resize="none"
+              :autosize="{ minRows: 1 }"
+            />
           </el-form-item>
         </el-form>
+        <!-- <div>
+          <br />
+          <h3></h3>
+          <br />
+        </div>
+        <el-button class="transfer" type="primary" @click="logout">
+          logout
+        </el-button>
+        <el-tabs
+          v-show="myAddress"
+          v-model="activeTab"
+          class="body"
+          type="border-card"
+        >
+          <el-tab-pane label="Transaction" name="sign_transaction">
+            <el-form class="body-input" label-position="top">
+              <el-form-item label="Your Address:" prop="address">
+                <template #label>
+                  <span>Your Address:</span>
+                  <i
+                    v-show="myAddress"
+                    class="iconfont icon-copy sea-background"
+                    @click="bindCopy"
+                  ></i>
+                </template>
+                <el-input
+                  v-model="myAddress"
+                  disabled
+                  readonly
+                  type="textarea"
+                  resize="none"
+                  :autosize="{ minRows: 1 }"
+                />
+              </el-form-item>
+
+              <el-form-item label="Token Type:" prop="address">
+                <el-radio-group v-model="tokenType">
+                  <el-radio-button
+                    :label="item.value"
+                    :key="item.value"
+                    v-for="item in tokens"
+                  ></el-radio-button>
+                </el-radio-group>
+              </el-form-item>
+              <el-form-item label="Your Balance:" prop="address">
+                <el-input v-model="myBalanceFormat" disabled readonly />
+              </el-form-item>
+              <el-form-item label="Transfer To:" prop="address">
+                <el-input
+                  v-model="toAddress"
+                  clearable
+                  @blur="onAddressChanged"
+                />
+              </el-form-item>
+              <el-form-item label="Amount:" prop="address">
+                <el-input v-model="toAmount" clearable />
+              </el-form-item>
+            </el-form>
+            <br />
+            <div v-if="tokenType === myChainConfig.nativeToken">
+              <el-button
+                type="primary"
+                class="transfer"
+                @click="sendNativeToken"
+              >
+                send{{ myChainConfig.nativeToken }}
+              </el-button>
+            </div>
+            <div v-else>
+              <el-button class="transfer" @click="sendToken">
+                sendToken
+              </el-button>
+            </div>
+            <div>{{ txHash }}</div>
+          </el-tab-pane>
+          <el-tab-pane label="Sign Message" name="sign_message">
+            <div>
+              <br />
+              <h3 class="input">Message:</h3>
+              <el-input
+                v-model="message"
+                type="textarea"
+                :autosize="{ minRows: 8, maxRows: 10 }"
+                resize="none"
+              >
+              </el-input>
+              <br />
+              <div class="message">
+                <el-button
+                  type="primary"
+                  class="message-button"
+                  @click="signMessage"
+                >
+                  signMessage
+                </el-button>
+                <el-button
+                  type="primary"
+                  class="message-button"
+                  @click="verifySig"
+                >
+                  verify
+                </el-button>
+              </div>
+              <br />
+              <div v-if="sig">
+                <h3 class="input">Signature:</h3>
+                <el-input
+                  v-model="sig"
+                  type="textarea"
+                  :autosize="{ minRows: 8, maxRows: 10 }"
+                  resize="none"
+                ></el-input>
+              </div>
+            </div>
+          </el-tab-pane>
+        </el-tabs> -->
+      </div>
+      <div v-else>
+        <el-radio-group v-model="toTheme">
+          <el-radio label="dark">Dark mode</el-radio>
+          <el-radio label="light">Light mode</el-radio>
+        </el-radio-group>
         <br />
-        <div v-if="tokenType === myChainConfig.nativeToken">
-          <el-button type="primary" class="transfer" @click="sendNativeToken">
-            send{{ myChainConfig.nativeToken }}
-          </el-button>
-        </div>
-        <div v-else>
-          <el-button class="transfer" @click="sendToken"> sendToken </el-button>
-        </div>
-        <div>{{ txHash }}</div>
-      </el-tab-pane>
-      <el-tab-pane label="Sign Message" name="sign_message">
-        <div>
-          <br />
-          <h3 class="input">Message:</h3>
-          <el-input
-            v-model="message"
-            type="textarea"
-            :autosize="{ minRows: 8, maxRows: 10 }"
-            resize="none"
-          ></el-input>
-          <br />
-          <div class="message">
-            <el-button
-              type="primary"
-              class="message-button"
-              @click="signMessage"
-            >
-              signMessage
-            </el-button>
-            <el-button type="primary" class="message-button" @click="verifySig">
-              verify
-            </el-button>
+        <el-radio-group v-model="chainType">
+          <el-radio-button label="polygon">Polygon-Mumbai</el-radio-button>
+          <el-radio-button label="bsc">BSC-Testnet</el-radio-button>
+          <el-radio-button label="rangers">Rangers-Robin</el-radio-button>
+        </el-radio-group>
+        <br />
+        <br />
+        <el-select
+          v-model="list"
+          class="m-2"
+          placeholder="Mumbai (ChainID 80001)"
+        >
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+            size="16px"
+          />
+        </el-select>
+        <div class="return">
+          <div class="return_box">
+            <div class="return_s">Return address</div>
+            <el-switch
+              v-model="returnAddress"
+              disabled
+              class="ml-2"
+              style="--el-switch-on-color: #13ce66"
+            />
           </div>
-          <br />
-          <div v-if="sig">
-            <h3 class="input">Signature:</h3>
-            <el-input
-              v-model="sig"
-              type="textarea"
-              :autosize="{ minRows: 8, maxRows: 10 }"
-              resize="none"
-            ></el-input>
+          <div class="return_box">
+            <div class="return_s">Return email</div>
+            <el-switch
+              v-model="returnEmail"
+              class="ml-2"
+              style="--el-switch-on-color: #13ce66"
+            />
           </div>
         </div>
-      </el-tab-pane>
-    </el-tabs>
+      </div>
+    </div>
+    <div class="page-demo">
+      <div class="st_box">
+        <div class="st"></div>
+        <div class="users">Onboarding users through Google and Email</div>
+        <div class="st"></div>
+      </div>
+      <el-button
+        type="primary"
+        class="transfer login"
+        @click="connect('google')"
+      >
+        <img class="google_icon" src="@/assets/google.svg" /> Continue with
+        Google
+      </el-button>
+      <el-button
+        type="primary"
+        class="transfer login"
+        @click="connect('email')"
+      >
+        <img class="google_icon" src="@/assets/email.svg" />Continue with Email
+      </el-button>
+      <div class="divider"></div>
+      <div class="st_box">
+        <div class="st"></div>
+        <div class="users">Connect UniPass through one button</div>
+        <div class="st"></div>
+      </div>
+      <el-button type="primary" class="transfer login" @click="connect()">
+        <img class="google_icon" src="@/assets/unipass.svg" />Connect UniPass
+      </el-button>
+    </div>
+    <div class="page-demo">
+      <div class="link_head">UniPass Document</div>
+      <div class="box">
+        <div class="link_box">
+          <a class="link" href="https://unipass.id/" target="_blank">
+            <div class="link_"></div>
+            UniPass Website
+          </a>
+          <a
+            class="link"
+            href="https://docs.wallet.unipass.id/docs/develop/popup-sdk/quick-start"
+            target="_blank"
+          >
+            <div class="link_"></div>
+            Popup SDK
+          </a>
+        </div>
+        <div class="link_box">
+          <a
+            class="link"
+            href="https://docs.wallet.unipass.id/docs/develop/flutter-sdk/quick-start"
+            target="_blank"
+          >
+            <div class="link_"></div>
+            Flutter SDK
+          </a>
+          <a
+            class="link"
+            href="https://docs.wallet.unipass.id/docs/develop/unity-sdk/quick-start"
+            target="_blank"
+          >
+            <div class="link_"></div>
+            Unity SDK
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -175,8 +320,27 @@ import {
 import { Contract } from "ethers";
 import { ElMessage } from "element-plus";
 import { onMounted } from "@vue/runtime-core";
-
 const toTheme = ref("dark");
+const list = ref("");
+const options = [
+  {
+    value: "Option1",
+    label: "Mumbai (ChainID 80001)",
+  },
+  {
+    value: "Option2",
+    label: "BSCtestnet (ChainID 97)",
+  },
+  {
+    value: "Option3",
+    label: "Ranger robin (ChainID 9527)",
+  },
+  {
+    value: "Option4",
+    label: "Goerli (ChainID 5)",
+  },
+];
+const returnAddress = ref(true);
 const returnEmail = ref(true);
 const chainType = ref<ChainType>("polygon");
 
@@ -485,17 +649,96 @@ const sendToken = async () => {
 </script>
 
 <style lang="scss">
-#page-demo {
-  max-width: 480px;
-  margin: 0 auto;
-  overflow: hidden;
-  position: relative;
-  background: #f5f5ff;
+#page {
+  background-color: #f5f5f5;
+  min-height: 100vh;
 
-  > * {
-    z-index: 1;
+  .head {
+    width: 100%;
+    padding-top: 120px;
+    padding-bottom: 40px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 40px;
+    color: #1f202a;
+  }
+}
+
+.page-demo {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 40px;
+  background: #ffffff;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+
+  & + .page-demo {
+    margin-top: 40px;
+  }
+  .link_head {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #1f202a;
+  }
+  .el-form-item__content {
+    height: 56px;
+    background: #f5f5f5;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+  }
+  .box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .link_box {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
   }
 
+  .link_ {
+    width: 1px;
+    height: 1px;
+    border: 1px solid #5575ff;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  .link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #5575ff;
+  }
+  .st_box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 8px;
+
+    .users {
+      margin: 0 10px;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 20px;
+      color: #1f202a;
+    }
+
+    .st {
+      width: 50px;
+      height: 1px;
+      border: 1px solid #e5e5e5;
+    }
+  }
+  .google_icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+  }
   > .background-logo {
     font-size: 237px;
     position: absolute;
@@ -506,29 +749,61 @@ const sendToken = async () => {
     z-index: 0;
   }
 
-  .head {
-    text-align: left;
-    font-family: Helvetica;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 20px;
-    line-height: 20px;
-    color: black;
-  }
-
   .divider {
     margin-top: 50px;
   }
 
+  .el-select .el-input {
+    width: 100%;
+    height: 56px;
+    background: #fcfcfc;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+  }
+  .el-select {
+    width: 100%;
+  }
+  .el-select .el-input__inner {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #1f202a;
+  }
+
+  .return {
+    margin-top: 40px;
+
+    .return_box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      & + .return_box {
+        margin-top: 28px;
+      }
+
+      .return_s {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+      }
+    }
+  }
+
   .transfer {
     width: 100%;
-    font-size: 20px;
+    font-size: 16px;
+    height: 56px;
+    background: #f7f7f7;
+    border-radius: 6px;
+    color: #1f202a;
+    font-weight: 600;
+    line-height: 24px;
   }
 
   .login {
-    margin-top: 10px;
+    margin-top: 20px;
     margin-left: 0 !important;
-    font-size: 20px;
   }
 
   .body {
@@ -571,12 +846,5 @@ const sendToken = async () => {
 }
 
 .unipass-page {
-  padding: 24px;
-  padding-top: 29px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  text-align: center;
 }
 </style>

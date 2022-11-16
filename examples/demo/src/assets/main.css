@@ -3,7 +3,7 @@
 #app {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  /* padding: 2rem; */
 
   font-weight: normal;
 }
@@ -19,6 +19,14 @@ a,
   a:hover {
     background-color: hsla(160, 100%, 37%, 0.2);
   }
+}
+
+html .el-textarea__inner {
+  background-color: transparent !important;
+  box-shadow: none;
+}
+html .el-textarea__inner:hover {
+  box-shadow: none;
 }
 
 /* @media (min-width: 1024px) {
