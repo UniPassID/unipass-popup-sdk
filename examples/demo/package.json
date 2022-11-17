@@ -7,13 +7,15 @@
     "preview": "vite preview --port 4173",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "vercel": "cd dist&&vercel --prod"
   },
   "dependencies": {
     "@unipasswallet/popup-sdk": "^0.0.8",
     "@unipasswallet/popup-types": "^0.0.2",
     "element-plus": "^2.2.17",
     "ethers": "^5.7.1",
+    "pinia": "^2.0.24",
     "sass": "^1.55.0",
     "vue": "^3.2.38"
   },
