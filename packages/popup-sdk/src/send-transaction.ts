@@ -12,7 +12,12 @@ export const sendTransaction = async (
 ): Promise<string> => {
   const sessionAccount = sessionStorage.getItem(UPA_SESSION_KEY);
   const account = sessionAccount && (JSON.parse(sessionAccount) as UPAccount);
-  if (!account || !tx.from || account.address !== tx.from) {
+
+  if (
+    !account ||
+    !tx.from ||
+    account.address.toLowerCase() !== tx.from.toLowerCase()
+  ) {
     throw new Error('can not authorize without login');
   }
   const msg = new UPMessage('UP_TRANSACTION', JSON.stringify(tx), appSettings);

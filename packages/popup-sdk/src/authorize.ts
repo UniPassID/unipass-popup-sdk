@@ -12,7 +12,11 @@ export const authorize = async (
 ): Promise<string> => {
   const sessionAccount = sessionStorage.getItem(UPA_SESSION_KEY);
   const account = sessionAccount && (JSON.parse(sessionAccount) as UPAccount);
-  if (!account || !message.from || account.address !== message.from) {
+  if (
+    !account ||
+    !message.from ||
+    account.address.toLowerCase() !== message.from.toLowerCase()
+  ) {
     throw new Error('can not authorize without login');
   }
   const msg = new UPMessage(
@@ -21,10 +25,10 @@ export const authorize = async (
     appSettings
   );
 
-  try{
+  try {
     const resp: string = (await execPop(msg)) as string;
     return resp;
-  }catch(err){
+  } catch (err) {
     throw new Error(err as string);
   }
 };
