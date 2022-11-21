@@ -220,7 +220,7 @@
       <el-form class="body-input" label-position="top">
         <el-form-item label="Your Balance" prop="address">
           <template #label>
-            <span class="label_s">Your Balance</span>
+            <span class="label_s">Your balance</span>
           </template>
           <el-input
             :value="myTokenBalance + ' USDC'"
@@ -379,7 +379,6 @@ const explorer = computed(() => {
   }
 
   .el-form-item__content {
-    padding: 0 16px;
   }
 
   .send_s {
@@ -420,14 +419,20 @@ const explorer = computed(() => {
 
   .el-form-item__content {
     .el-textarea__inner {
+      overflow: hidden;
       height: 56px !important;
       background: #f5f5f5;
+      border: 1px solid #e5e5e5;
       border-radius: 6px;
       padding: 16px !important;
     }
     .el-textarea {
+      border-radius: 6px;
+
       background: #fcfcfc;
       &.is-disabled {
+        border-radius: 6px;
+
         background: #f5f5f5;
       }
     }
@@ -589,11 +594,13 @@ const explorer = computed(() => {
   }
 
   .hash_th {
+    width: 480px;
     font-weight: 400;
     margin-top: 10px;
     font-size: 14px;
     line-height: 20px;
     text-align: left;
+    word-wrap: break-word;
     text-decoration-line: underline;
     color: #4aac4c;
   }
