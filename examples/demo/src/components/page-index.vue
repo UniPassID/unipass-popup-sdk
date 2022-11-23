@@ -1,6 +1,8 @@
 <template>
   <div id="page">
-    <div class="demo_head">UniPass Demo ({{ userStore.chainType }})</div>
+    <div class="demo_head">
+      UniPass Demo ({{ userStore.chainName[userStore.chainType] }})
+    </div>
     <div class="page-demo">
       <el-form class="body-input" label-position="top">
         <el-form-item label="Your address" prop="address">
@@ -53,120 +55,20 @@
         </el-form-item>
       </el-form>
       <button class="polygon_bt" @click="logout">Disconnect</button>
-      <!-- <el-tabs
-        v-show="userStore.address"
-        v-model="activeTab"
-        class="body"
-        type="border-card"
-      >
-        <el-tab-pane label="Transaction" name="sign_transaction">
-          <el-form class="body-input" label-position="top">
-            <el-form-item label="Your Address:" prop="address">
-              <template #label>
-                <span>Your Address:</span>
-                <i
-                  v-show="userStore.address"
-                  class="iconfont icon-copy sea-background"
-                  @click="bindCopy"
-                ></i>
-              </template>
-              <el-input
-                v-model="userStore.address"
-                disabled
-                readonly
-                type="textarea"
-                resize="none"
-                :autosize="{ minRows: 1 }"
-              />
-            </el-form-item>
-
-            <el-form-item label="Token Type:" prop="address">
-              <el-radio-group v-model="tokenType">
-                <el-radio-button
-                  :label="item.value"
-                  :key="item.value"
-                  v-for="item in tokens"
-                ></el-radio-button>
-              </el-radio-group>
-            </el-form-item>
-            <el-form-item label="Your Balance:" prop="address">
-              <el-input v-model="myBalanceFormat" disabled readonly />
-            </el-form-item>
-            <el-form-item label="Transfer To:" prop="address">
-              <el-input
-                v-model="toAddress"
-                clearable
-                @blur="onAddressChanged"
-              />
-            </el-form-item>
-            <el-form-item label="Amount:" prop="address">
-              <el-input v-model="toAmount" clearable />
-            </el-form-item>
-          </el-form>
-          <br />
-          <div v-if="tokenType === myChainConfig.nativeToken">
-            <el-button type="primary" class="transfer" @click="sendNativeToken">
-              send{{ myChainConfig.nativeToken }}
-            </el-button>
-          </div>
-          <div v-else>
-            <el-button class="transfer" @click="sendToken">
-              sendToken
-            </el-button>
-          </div>
-          <div>{{ txHash }}</div>
-        </el-tab-pane>
-        <el-tab-pane label="Sign Message" name="sign_message">
-          <div>
-            <br />
-            <h3 class="input">Message:</h3>
-            <el-input
-              v-model="message"
-              type="textarea"
-              :autosize="{ minRows: 8, maxRows: 10 }"
-              resize="none"
-            >
-            </el-input>
-            <br />
-            <div class="message">
-              <el-button
-                type="primary"
-                class="message-button"
-                @click="signMessage"
-              >
-                signMessage
-              </el-button>
-              <el-button
-                type="primary"
-                class="message-button"
-                @click="verifySig"
-              >
-                verify
-              </el-button>
-            </div>
-            <br />
-            <div v-if="sig">
-              <h3 class="input">Signature:</h3>
-              <el-input
-                v-model="sig"
-                type="textarea"
-                :autosize="{ minRows: 8, maxRows: 10 }"
-                resize="none"
-              ></el-input>
-            </div>
-          </div>
-        </el-tab-pane>
-      </el-tabs> -->
     </div>
     <div class="page-demo">
-      <div class="send_s">Send RPG</div>
+      <div class="send_s">Send ETH</div>
       <el-form class="body-input" label-position="top">
         <el-form-item label="Your balance" prop="address">
           <template #label>
             <span class="label_s">Your balance</span>
           </template>
           <el-input
-            :value="myNativeTokenBalance + ' RPG'"
+            :value="
+              myNativeTokenBalance +
+              ' ' +
+              userStore.chainCoin[userStore.chainType]
+            "
             disabled
             readonly
             type="textarea"
@@ -216,7 +118,7 @@
     </div>
 
     <div class="page-demo">
-      <div class="send_s">Send USDC</div>
+      <div class="send_s">Send ERC20</div>
       <el-form class="body-input" label-position="top">
         <el-form-item label="Your Balance" prop="address">
           <template #label>
@@ -333,7 +235,6 @@ const explorerDict = {
 };
 
 const explorer = computed(() => {
-  console.log("🌊", explorer);
   return explorerDict[userStore.chainType] + "/tx/" + txHash.value;
 });
 </script>
