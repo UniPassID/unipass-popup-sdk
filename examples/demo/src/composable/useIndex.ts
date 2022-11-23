@@ -37,7 +37,7 @@ export const useIndex = () => {
     },
     {
       value: "rangers",
-      label: "Ranger robin (ChainID 9527)",
+      label: "Rangers robin (ChainID 9527)",
     },
     {
       value: "eth",
@@ -49,7 +49,7 @@ export const useIndex = () => {
   const chainType = ref<ChainType>("polygon");
 
   const activeTab = ref("sign_transaction");
-  const message = ref("TO BE SIGNED MESSAGE abc");
+  const message = ref("Welcome to UniPass!");
   const sig = ref("");
   const myNativeTokenBalance = ref("0.00");
   const myTokenBalance = ref("0.00");

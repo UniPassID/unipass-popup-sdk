@@ -95,7 +95,7 @@
     </div>
   </div>
   <div class="page-demo">
-    <div class="link_head">UniPass Document</div>
+    <div class="link_head">UniPass Documents</div>
     <div class="box">
       <div class="link_box">
         <a class="linkA" href="https://unipass.id/" target="_blank">
