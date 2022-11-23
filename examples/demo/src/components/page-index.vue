@@ -107,11 +107,11 @@
         </el-form-item>
       </el-form>
       <button class="polygon_bt" @click="sendNativeToken">Send</button>
-      <div class="hash_box" v-show="txHash">
+      <div class="hash_box" v-show="txHashNative">
         <div class="label_hash">Transaction hash</div>
-        <a :href="explorer" target="_blank">
+        <a :href="explorerNative" target="_blank">
           <div class="hash_th">
-            {{ txHash }}
+            {{ txHashNative }}
           </div>
         </a>
       </div>
@@ -164,11 +164,11 @@
         </el-form-item>
       </el-form>
       <button class="polygon_bt" @click="sendToken">Send</button>
-      <div class="hash_box" v-show="txHash">
+      <div class="hash_box" v-show="txHashERC20">
         <div class="label_hash">Transaction hash</div>
-        <a :href="explorer" target="_blank">
+        <a :href="explorerERC20" target="_blank">
           <div class="hash_th">
-            {{ txHash }}
+            {{ txHashERC20 }}
           </div>
         </a>
       </div>
@@ -214,7 +214,8 @@ const {
   sig,
   toAddress,
   toAmount,
-  txHash,
+  txHashNative,
+  txHashERC20,
   bindCopy,
   onAddressChanged,
   logout,
@@ -235,8 +236,11 @@ const explorerDict = {
   polygon: "https://mumbai.polygonscan.com",
 };
 
-const explorer = computed(() => {
-  return explorerDict[userStore.chainType] + "/tx/" + txHash.value;
+const explorerNative = computed(() => {
+  return explorerDict[userStore.chainType] + "/tx/" + txHashNative.value;
+});
+const explorerERC20 = computed(() => {
+  return explorerDict[userStore.chainType] + "/tx/" + txHashERC20.value;
 });
 </script>
 

@@ -55,7 +55,8 @@ export const useIndex = () => {
   const myTokenBalance = ref("0.00");
   const toAddress = ref("0x61E428AaB6347765eFc549eae7bd740aA886A707");
   const toAmount = ref("0.01");
-  const txHash = ref("");
+  const txHashNative = ref("");
+  const txHashERC20 = ref("");
 
   const CHAIN_CONFIGS: {
     [key in ChainType]: {
@@ -322,14 +323,16 @@ export const useIndex = () => {
         value: parseEther(toAmount.value).toHexString(),
         data: "0x",
       };
-      txHash.value = await upWallet.sendTransaction(tx);
-      if (await checkTxStatus(txHash.value)) {
-        console.log("send NativeToken success", txHash);
+      txHashNative.value = await upWallet.sendTransaction(tx);
+      if (await checkTxStatus(txHashNative.value)) {
+        console.log("send NativeToken success", txHashNative);
         ElMessage.success(
-          `send NativeToken success, tx hash = ${txHash.value}`
+          `send NativeToken success, tx hash = ${txHashNative.value}`
         );
       } else {
-        ElMessage.error(`send NativeToken failed, tx hash = ${txHash.value}`);
+        ElMessage.error(
+          `send NativeToken failed, tx hash = ${txHashNative.value}`
+        );
       }
       await refreshBalance();
     } catch (err: any) {
@@ -358,12 +361,12 @@ export const useIndex = () => {
         value: "0x",
         data: erc20TokenData,
       };
-      txHash.value = await upWallet.sendTransaction(tx);
-      if (await checkTxStatus(txHash.value)) {
-        console.log("send USDC success", txHash);
-        ElMessage.success(`send USDC success, tx hash = ${txHash.value}`);
+      txHashERC20.value = await upWallet.sendTransaction(tx);
+      if (await checkTxStatus(txHashERC20.value)) {
+        console.log("send USDC success", txHashERC20);
+        ElMessage.success(`send USDC success, tx hash = ${txHashERC20.value}`);
       } else {
-        ElMessage.error(`send USDC failed, tx hash = ${txHash.value}`);
+        ElMessage.error(`send USDC failed, tx hash = ${txHashERC20.value}`);
       }
       await refreshBalance();
     } catch (err: any) {
@@ -383,8 +386,8 @@ export const useIndex = () => {
     sig,
     toAddress,
     toAmount,
-    txHash,
-
+    txHashNative,
+    txHashERC20,
     updateUpWalletConfig,
     myChainConfig,
     tokenType,
