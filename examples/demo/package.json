@@ -8,7 +8,7 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "vercel": "cd dist&&vercel --prod"
+    "vercel": "yarn run build&&cd dist&&vercel --prod"
   },
   "dependencies": {
     "@unipasswallet/popup-sdk": "^0.0.8",

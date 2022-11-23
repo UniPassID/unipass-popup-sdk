@@ -10,16 +10,6 @@ export const useUserStore = defineStore({
       newborn: false,
       //
       chainType: "polygon" as ChainType,
-      chainCoin: {
-        polygon: "Matic",
-        bsc: "BNB",
-        rangers: "RPG",
-      },
-      chainName: {
-        polygon: "Polygon-mumbai",
-        bsc: "BSC-testnet",
-        rangers: "Rangers-robin",
-      },
     };
   },
   actions: {},

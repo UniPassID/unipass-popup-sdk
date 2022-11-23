@@ -1,7 +1,7 @@
 <template>
   <div id="page">
     <div class="demo_head">
-      UniPass Demo ({{ userStore.chainName[userStore.chainType] }})
+      UniPass Demo ({{ CHAIN_CONFIGS[userStore.chainType].name }})
     </div>
     <div class="page-demo">
       <el-form class="body-input" label-position="top">
@@ -67,7 +67,7 @@
             :value="
               myNativeTokenBalance +
               ' ' +
-              userStore.chainCoin[userStore.chainType]
+              CHAIN_CONFIGS[userStore.chainType].nativeToken
             "
             disabled
             readonly
@@ -225,6 +225,7 @@ const {
   userStore,
   myNativeTokenBalance,
   myTokenBalance,
+  CHAIN_CONFIGS,
 } = useIndex();
 
 const explorerDict = {

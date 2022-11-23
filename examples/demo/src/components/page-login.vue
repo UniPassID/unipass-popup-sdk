@@ -1,7 +1,9 @@
 <template>
   <div id="page">
     <i class="background-logo iconfont icon-logo"></i>
-    <div class="head">UniPass Demo ({{ userStore.chainType }})</div>
+    <div class="head">
+      UniPass Demo ({{ CHAIN_CONFIGS[userStore.chainType].name }})
+    </div>
     <div class="page-demo">
       <el-radio-group v-model="toTheme">
         <el-radio label="dark">
@@ -143,6 +145,8 @@ const {
   userStore,
   connect,
   chainChange,
+
+  CHAIN_CONFIGS,
 } = useIndex();
 </script>
 

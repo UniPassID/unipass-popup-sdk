@@ -39,10 +39,10 @@ export const useIndex = () => {
       value: "rangers",
       label: "Ranger robin (ChainID 9527)",
     },
-    // {
-    //   value: "eth",
-    //   label: "Goerli (ChainID 5)",
-    // },
+    {
+      value: "eth",
+      label: "Goerli (ChainID 5)",
+    },
   ];
   const returnAddress = ref(true);
   const returnEmail = ref(true);
@@ -59,6 +59,7 @@ export const useIndex = () => {
 
   const CHAIN_CONFIGS: {
     [key in ChainType]: {
+      name: string;
       rpc: string;
       nativeToken: string;
       usdc: {
@@ -68,6 +69,7 @@ export const useIndex = () => {
     };
   } = {
     polygon: {
+      name: "Polygon-mumbai",
       rpc: "https://node.wallet.unipass.id/polygon-mumbai",
       nativeToken: "MATIC",
       usdc: {
@@ -76,6 +78,7 @@ export const useIndex = () => {
       },
     },
     bsc: {
+      name: "BSC-testnet",
       rpc: "https://node.wallet.unipass.id/bsc-testnet",
       nativeToken: "BNB",
       usdc: {
@@ -84,10 +87,20 @@ export const useIndex = () => {
       },
     },
     rangers: {
+      name: "Rangers-robin",
       rpc: "https://node.wallet.unipass.id/rangers-robin",
       nativeToken: "RPG",
       usdc: {
         contract: "0xd6Ed1C13914FF1b08737b29De4039F542162cAE1",
+        decimals: 6,
+      },
+    },
+    eth: {
+      name: "ETH-goerli",
+      rpc: "https://node.wallet.unipass.id/eth-goerli",
+      nativeToken: "ETH",
+      usdc: {
+        contract: "0x365E05Fd986245d14c740c139DF8712AD8807874",
         decimals: 6,
       },
     },
@@ -391,5 +404,7 @@ export const useIndex = () => {
     myTokenBalance,
 
     chainChange,
+
+    CHAIN_CONFIGS,
   };
 };
