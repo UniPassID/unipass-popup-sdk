@@ -86,7 +86,9 @@ export class UniPassPopupSDK {
     this._initialized = true;
   }
 
-  public updateConfig(options: PopupSDKOption) {
+  public updateConfig(
+    options: Pick<PopupSDKOption, 'chainType' | 'nodeRPC' | 'appSettings'>
+  ) {
     if (!this._config) {
       return;
     }
@@ -220,8 +222,6 @@ export class UniPassPopupSDK {
       unipassHashMessage(_msg),
       _sig
     );
-
-    console.log(code);
 
     return code === EIP1271_SELECTOR;
   }

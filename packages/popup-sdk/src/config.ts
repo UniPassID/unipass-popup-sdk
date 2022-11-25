@@ -98,7 +98,8 @@ export const getAppSettings = (
 ): AppSettings => {
   const chain = settings?.chain || chainType;
   const appName = settings?.appName || 'MyDemo';
-  return { ...settings, chain, appName };
+  const _settings = settings || {};
+  return { ..._settings, chain, appName };
 };
 
 export const getAuthProviderUrl = (env: Environment): string => {
