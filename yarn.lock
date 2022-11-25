@@ -2212,13 +2212,6 @@
     "@typescript-eslint/types" "5.38.1"
     eslint-visitor-keys "^3.3.0"
 
-"@unipasswallet/popup-sdk@^0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@unipasswallet/popup-sdk/-/popup-sdk-0.0.8.tgz#27f4928eae0bed31144d279c8eb4e26f36791c0b"
-  integrity sha512-97Q85QnB+mypLHRWSKOLqNYTTfwPFthHg2DtEQ2747PfDTkdQT8zTp+8XS5eefYwaZ4gQWb7ICkd3C3rnmDJ4g==
-  dependencies:
-    ethers "^5.7.1"
-
 "@unipasswallet/popup-types@0.0.1":
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/@unipasswallet/popup-types/-/popup-types-0.0.1.tgz#715b9f81abccd290f01e02786f5bafdf629e342d"

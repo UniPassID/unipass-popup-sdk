@@ -11,7 +11,7 @@
     "vercel": "yarn run build&&cd dist&&vercel --prod"
   },
   "dependencies": {
-    "@unipasswallet/popup-sdk": "^0.0.8",
+    "@unipasswallet/popup-sdk": "^0.0.9",
     "@unipasswallet/popup-types": "^0.0.3",
     "element-plus": "^2.2.17",
     "ethers": "^5.7.1",
