@@ -4,6 +4,8 @@
       UniPass Demo ({{ CHAIN_CONFIGS[userStore.chainType].name }})
     </div>
     <div class="page-demo">
+      <button class="polygon_bt" @click="openWallet">Open Wallet</button>
+      <br />
       <el-form class="body-input" label-position="top">
         <el-form-item label="Your address" prop="address">
           <template #label>
@@ -210,6 +212,8 @@ import { computed } from "vue";
 import { useIndex } from "../composable/useIndex";
 
 const {
+  domain,
+  protocol,
   message,
   sig,
   toAddress,
@@ -242,6 +246,9 @@ const explorerNative = computed(() => {
 const explorerERC20 = computed(() => {
   return explorerDict[userStore.chainType] + "/tx/" + txHashERC20.value;
 });
+const openWallet = () => {
+  window.open(`${protocol}://${domain}`, "_blank");
+};
 </script>
 
 <style lang="scss">
