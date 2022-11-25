@@ -53,18 +53,58 @@ export interface PopupSDKConfig {
   appSettings?: AppSettings;
 }
 
-// default testnet config
-export const UP_TEST_CONFIG: PopupSDKConfig = {
-  nodeRPC: 'https://node.wallet.unipass.id/polygon-mumbai',
-  chainType: 'polygon',
-  env: 'test',
+const TEST_WALLET_URL: WalletURL = {
+  protocol: 'https',
+  domain: 'testnet.wallet.unipass.id',
+};
+const MAIN_WALLET_URL: WalletURL = {
+  protocol: 'https',
+  domain: 'wallet.unipass.id',
 };
 
-// default mainnet config
-export const UP_MAIN_CONFIG: PopupSDKConfig = {
-  nodeRPC: 'https://node.wallet.unipass.id/polygon-mainnet',
-  chainType: 'polygon',
-  env: 'prod',
+const NODE_RPC_LIST = {
+  mainnet: {
+    eth: 'https://node.wallet.unipass.id/eth-mainnet',
+    polygon: 'https://node.wallet.unipass.id/polygon-mainnet',
+    bsc: 'https://node.wallet.unipass.id/bsc-mainnet',
+    rangers: 'https://node.wallet.unipass.id/rangers-mainnet',
+  },
+  testnet: {
+    eth: 'https://node.wallet.unipass.id/eth-goerli',
+    polygon: 'https://node.wallet.unipass.id/polygon-mumbai',
+    bsc: 'https://node.wallet.unipass.id/bsc-testnet',
+    rangers: 'https://node.wallet.unipass.id/rangers-robin',
+  },
+};
+
+export const getDefaultConfigOption = (
+  env: Environment,
+  chainType: ChainType
+): PopupSDKOption => {
+  return {
+    env,
+    nodeRPC:
+      env === 'prod'
+        ? NODE_RPC_LIST.mainnet[chainType]
+        : NODE_RPC_LIST.testnet[chainType],
+    chainType,
+    walletUrl: env === 'prod' ? MAIN_WALLET_URL : TEST_WALLET_URL,
+  };
+};
+
+export const getAppSettings = (
+  chainType: ChainType,
+  settings?: AppSettings
+): AppSettings => {
+  const chain = settings?.chain || chainType;
+  const appName = settings?.appName || 'MyDemo';
+  return { ...settings, chain, appName };
+};
+
+export const getAuthProviderUrl = (env: Environment): string => {
+  return env === 'prod'
+    ? NODE_RPC_LIST.mainnet.polygon
+    : NODE_RPC_LIST.testnet.polygon;
 };
 
 // config options

@@ -113,18 +113,12 @@ export const useIndex = () => {
 
   onBeforeMount(() => {
     upWallet = new UniPassPopupSDK({
-      env: "dev",
+      env: "test",
       chainType: userStore.chainType as ChainType,
-      nodeRPC: CHAIN_CONFIGS[userStore.chainType].rpc,
       appSettings: {
-        chain: userStore.chainType as ChainType,
         theme: toTheme.value as UniPassTheme,
         appName: "UniPass Popup Demo123",
         appIcon: "",
-      },
-      walletUrl: {
-        domain,
-        protocol,
       },
     });
 

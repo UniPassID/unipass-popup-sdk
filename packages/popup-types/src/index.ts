@@ -1,4 +1,4 @@
-export type Environment = 'dev' | 'test' | 'prod';
+export type Environment = 'test' | 'prod';
 export type ChainType = 'polygon' | 'bsc' | 'rangers' | 'eth';
 
 export type UPMessageType =

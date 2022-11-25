@@ -4,12 +4,7 @@ import {
   UPConnectOptions,
   UPTransactionMessage,
 } from '@unipasswallet/popup-types';
-import config, {
-  PopupSDKConfig,
-  PopupSDKOption,
-  UP_MAIN_CONFIG,
-  UP_TEST_CONFIG,
-} from './config';
+import config, { PopupSDKConfig, PopupSDKOption } from './config';
 import { BytesLike, Contract } from 'ethers';
 import { connect, disconnect, getLocalAccount } from './connect';
 import { authorize } from './authorize';
@@ -22,6 +17,7 @@ import {
 } from 'ethers/lib/utils';
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { sendTransaction } from './send-transaction';
+import { getAppSettings, getAuthProviderUrl, getDefaultConfigOption } from '.';
 
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 export const EIP1271_SELECTOR = '0x1626ba7e';
@@ -51,11 +47,6 @@ export class UniPassPopupSDK {
   constructor(options: PopupSDKOption) {
     this._initialized = false;
     this.initConfig(options);
-
-    // if no upCoreConfig, up-core sdk will not initialized
-    if (options.walletUrl) {
-      config(options.walletUrl);
-    }
   }
 
   /**
@@ -65,21 +56,32 @@ export class UniPassPopupSDK {
   private initConfig(options: PopupSDKOption) {
     this._config = {
       env: 'prod',
-      nodeRPC: 'https://node.wallet.unipass.id/polygon-mainnet',
+      nodeRPC: '',
       chainType: 'polygon',
     };
 
+    this._config.env = options.env || 'prod';
     this._config.chainType = options.chainType || 'polygon';
-    const defaultConfig =
-      options.env === 'prod' ? UP_MAIN_CONFIG : UP_TEST_CONFIG;
+    const defaultConfig = getDefaultConfigOption(
+      this._config.env,
+      this._config.chainType
+    );
 
-    this._auth_provider = new JsonRpcProvider(defaultConfig.nodeRPC);
-
-    this._config.nodeRPC = options.nodeRPC || defaultConfig.nodeRPC;
-
-    this._config.appSettings = options.appSettings || { appName: 'MyDemo' };
+    this._config.nodeRPC = options.nodeRPC || defaultConfig.nodeRPC!;
+    this._config.appSettings = getAppSettings(
+      this._config.chainType,
+      options.appSettings
+    );
 
     this._provider = new JsonRpcProvider(this._config.nodeRPC);
+    this._auth_provider = new JsonRpcProvider(
+      getAuthProviderUrl(this._config.env)
+    );
+
+    const walletUrl = options.walletUrl || defaultConfig.walletUrl;
+    if (walletUrl) {
+      config(walletUrl);
+    }
 
     this._initialized = true;
   }
