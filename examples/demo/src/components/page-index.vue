@@ -59,7 +59,7 @@
       <button class="polygon_bt" @click="logout">Disconnect</button>
     </div>
     <div class="page-demo">
-      <div class="send_s">Send ETH</div>
+      <div class="send_s">Send Mainnet Token</div>
       <el-form class="body-input" label-position="top">
         <el-form-item label="Your balance" prop="address">
           <template #label>

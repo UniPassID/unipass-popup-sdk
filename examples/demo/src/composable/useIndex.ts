@@ -29,19 +29,19 @@ export const useIndex = () => {
   const options = [
     {
       value: "polygon",
-      label: "Mumbai (ChainID 80001)",
+      label: "Polygon Mainnet",
     },
     {
       value: "bsc",
-      label: "BSCtestnet (ChainID 97)",
+      label: "Bsc Mainnet",
     },
     {
       value: "rangers",
-      label: "Rangers robin (ChainID 9527)",
+      label: "Rangers Mainnet robin",
     },
     {
       value: "eth",
-      label: "Goerli (ChainID 5)",
+      label: "Eth Mainnet",
     },
   ];
   const returnAddress = ref(true);
@@ -70,45 +70,46 @@ export const useIndex = () => {
     };
   } = {
     polygon: {
-      name: "Polygon-mumbai",
-      rpc: "https://node.wallet.unipass.id/polygon-mumbai",
+      name: "Polygon-mainnet",
+      rpc: "https://node.wallet.unipass.id/polygon-mainnet",
       nativeToken: "MATIC",
       usdc: {
-        contract: "0x87F0E95E11a49f56b329A1c143Fb22430C07332a",
+        contract: "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
         decimals: 6,
       },
     },
     bsc: {
-      name: "BSC-testnet",
-      rpc: "https://node.wallet.unipass.id/bsc-testnet",
+      name: "BSC-mainnet",
+      rpc: "https://node.wallet.unipass.id/bsc-mainnet",
       nativeToken: "BNB",
       usdc: {
-        contract: "0x64544969ed7EBf5f083679233325356EbE738930",
+        contract: "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d",
         decimals: 18,
       },
     },
     rangers: {
-      name: "Rangers-robin",
-      rpc: "https://node.wallet.unipass.id/rangers-robin",
+      name: "Rangers-mainnet",
+      rpc: "https://node.wallet.unipass.id/rangers-mainnet",
       nativeToken: "RPG",
+      // this is rangers's usdt contract
       usdc: {
-        contract: "0xd6Ed1C13914FF1b08737b29De4039F542162cAE1",
-        decimals: 6,
+        contract: "0x8e8816a1747fddc5f8b45d2e140a425d3788f659",
+        decimals: 18,
       },
     },
     eth: {
-      name: "ETH-goerli",
-      rpc: "https://node.wallet.unipass.id/eth-goerli",
+      name: "ETH-mainnet",
+      rpc: "https://node.wallet.unipass.id/eth-mainnet",
       nativeToken: "ETH",
       usdc: {
-        contract: "0x365E05Fd986245d14c740c139DF8712AD8807874",
+        contract: "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
         decimals: 6,
       },
     },
   };
 
   let upWallet: UniPassPopupSDK;
-  const domain = "testnet.wallet.unipass.id";
+  const domain = "m.wallet.unipass.vip";
   const protocol = "https";
 
   onBeforeMount(() => {
