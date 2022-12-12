@@ -204,6 +204,28 @@
         <button class="polygon_bt" @click="verifySig">Verify</button>
       </template>
     </div>
+
+    <div class="page-demo">
+      <div class="send_s">Sign Typed Data V4</div>
+      <div class="typed_data">
+        <json-viewer :value="eip712DemoData" :expand-depth="5"></json-viewer>
+      </div>
+      <button class="polygon_bt" @click="signTypedData">Sign Typed Data</button>
+      <template v-if="eip712Sig">
+        <div class="label_s signature_s">Signature</div>
+        <div class="message_pt_s">
+          <el-input
+            class="message_pt"
+            v-model="eip712Sig"
+            type="textarea"
+            resize="none"
+            disabled
+            :autosize="{ minRows: 1 }"
+          />
+        </div>
+        <!-- <button class="polygon_bt" @click="verifySig">Verify</button> -->
+      </template>
+    </div>
   </div>
 </template>
 
@@ -216,6 +238,7 @@ const {
   protocol,
   message,
   sig,
+  eip712Sig,
   toAddress,
   toAmount,
   txHashNative,
@@ -224,6 +247,8 @@ const {
   onAddressChanged,
   logout,
   signMessage,
+  signTypedData,
+  eip712DemoData,
   verifySig,
   sendNativeToken,
   sendToken,
@@ -300,6 +325,10 @@ const openWallet = () => {
     font-size: 24px;
     line-height: 36px;
     color: #1f202a;
+  }
+
+  .typed_data {
+    text-align: left;
   }
 
   .signature_s {

@@ -5,6 +5,8 @@ import {
   UniPassTheme,
   UPEvent,
   UPEventType,
+  MessageTypes,
+  TypedMessage,
 } from "@unipasswallet/popup-types";
 import { UniPassPopupSDK } from "@unipasswallet/popup-sdk";
 import { ERC20ABI } from "../assets/erc20.abi";
@@ -51,12 +53,77 @@ export const useIndex = () => {
   const activeTab = ref("sign_transaction");
   const message = ref("Welcome to UniPass!");
   const sig = ref("");
+  const eip712Sig = ref("");
   const myNativeTokenBalance = ref("0.00");
   const myTokenBalance = ref("0.00");
   const toAddress = ref("0x61E428AaB6347765eFc549eae7bd740aA886A707");
   const toAmount = ref("0.01");
   const txHashNative = ref("");
   const txHashERC20 = ref("");
+  const eip712DemoData: TypedMessage<MessageTypes> = {
+    types: {
+      EIP712Domain: [
+        {
+          name: "name",
+          type: "string",
+        },
+        {
+          name: "version",
+          type: "string",
+        },
+        {
+          name: "chainId",
+          type: "uint256",
+        },
+        {
+          name: "verifyingContract",
+          type: "address",
+        },
+      ],
+      Person: [
+        {
+          name: "name",
+          type: "string",
+        },
+        {
+          name: "wallet",
+          type: "address",
+        },
+      ],
+      Mail: [
+        {
+          name: "from",
+          type: "Person",
+        },
+        {
+          name: "to",
+          type: "Person",
+        },
+        {
+          name: "contents",
+          type: "string",
+        },
+      ],
+    },
+    primaryType: "Mail",
+    domain: {
+      name: "Ether Mail",
+      version: "1",
+      chainId: 1,
+      verifyingContract: "0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC",
+    },
+    message: {
+      from: {
+        name: "Cow",
+        wallet: "0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826",
+      },
+      to: {
+        name: "Bob",
+        wallet: "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
+      },
+      contents: "Hello, Bob!",
+    },
+  };
 
   const CHAIN_CONFIGS: {
     [key in ChainType]: {
@@ -108,8 +175,8 @@ export const useIndex = () => {
   };
 
   let upWallet: UniPassPopupSDK;
-  const domain = "testnet.wallet.unipass.id";
-  const protocol = "https";
+  const domain = "localhost:1901";
+  const protocol = "http";
 
   onBeforeMount(() => {
     upWallet = new UniPassPopupSDK({
@@ -119,6 +186,10 @@ export const useIndex = () => {
         theme: toTheme.value as UniPassTheme,
         appName: "UniPass Popup Demo123",
         appIcon: "",
+      },
+      walletUrl: {
+        domain,
+        protocol,
       },
     });
 
@@ -306,6 +377,18 @@ export const useIndex = () => {
     }
   };
 
+  const signTypedData = async () => {
+    console.log("signTypedData");
+    try {
+      const resp = await upWallet.signTypedData_v4(eip712DemoData);
+      console.log("resp", resp);
+      eip712Sig.value = resp;
+    } catch (err: any) {
+      ElMessage.error(err?.message || "signTypedData error");
+      console.log("auth error", err?.message);
+    }
+  };
+
   const sendNativeToken = async () => {
     if (Number(myNativeTokenBalance.value) < Number(toAmount.value)) {
       ElMessage.error("balance is not enough");
@@ -382,6 +465,7 @@ export const useIndex = () => {
     activeTab,
     message,
     sig,
+    eip712Sig,
     toAddress,
     toAmount,
     txHashNative,
@@ -396,6 +480,8 @@ export const useIndex = () => {
     onAddressChanged,
     logout,
     signMessage,
+    signTypedData,
+    eip712DemoData,
     verifySig,
     sendNativeToken,
     sendToken,

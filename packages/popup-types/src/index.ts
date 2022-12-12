@@ -34,7 +34,11 @@ export class UPEvent {
 export type UPEventListener = (event: UPEvent) => void;
 
 export class UPAuthMessage {
-  constructor(public readonly from: string, public readonly msg: string) {}
+  constructor(
+    public readonly from: string,
+    public readonly msg: string,
+    public readonly type?: 'V1' | 'V4'
+  ) {}
 }
 
 export class UPTransactionMessage {
@@ -82,3 +86,26 @@ export type UPConnectOptions = {
   connectType?: ConnectType;
   eventListener?: UPEventListener;
 };
+
+export interface MessageTypeProperty {
+  name: string;
+  type: string;
+}
+
+export interface MessageTypes {
+  EIP712Domain: MessageTypeProperty[];
+  [additionalProperties: string]: MessageTypeProperty[];
+}
+
+export interface TypedMessage<T extends MessageTypes> {
+  types: T;
+  primaryType: keyof T;
+  domain: {
+    name?: string;
+    version?: string;
+    chainId?: number;
+    verifyingContract?: string;
+    salt?: ArrayBuffer;
+  };
+  message: Record<string, unknown>;
+}

@@ -3,7 +3,10 @@ import {
   UPAccount,
   UPConnectOptions,
   UPTransactionMessage,
+  MessageTypes,
+  TypedMessage,
 } from '@unipasswallet/popup-types';
+import { recoverTypedSignatureMessageHash } from '@unipasswallet/popup-utils';
 import config, { PopupSDKConfig, PopupSDKOption } from './config';
 import { BytesLike, Contract } from 'ethers';
 import { connect, disconnect, getLocalAccount } from './connect';
@@ -113,6 +116,9 @@ export class UniPassPopupSDK {
   }
 
   public getAccount(): UPAccount | undefined {
+    if (!this._initialized) {
+      throw new Error(`UniPassPopupSDK is not initialized`);
+    }
     if (!this._account) {
       this._account = getLocalAccount();
     }
@@ -122,6 +128,8 @@ export class UniPassPopupSDK {
 
   public async logout() {
     disconnect();
+    this._initialized = false;
+    this._account = undefined;
   }
 
   public getProvider(): JsonRpcProvider {
@@ -189,7 +197,7 @@ export class UniPassPopupSDK {
       _account = this._account!.address;
     }
     const contract = new Contract(
-      _account,
+      _account!,
       [
         {
           inputs: [
@@ -224,5 +232,39 @@ export class UniPassPopupSDK {
     );
 
     return code === EIP1271_SELECTOR;
+  }
+
+  public async signTypedData_v4<T extends MessageTypes>(data: TypedMessage<T>) {
+    this.checkInitialized();
+    if (data == null) {
+      throw new Error('Missing data parameter');
+    }
+
+    return await authorize(
+      new UPAuthMessage(this._account!.address, JSON.stringify(data), 'V4'),
+      this._config?.appSettings
+    );
+  }
+
+  public async isValidTypedSignature_v4<T extends MessageTypes>({
+    data,
+    signature,
+    from,
+  }: {
+    from: string;
+    signature: string;
+    data: TypedMessage<T>;
+  }) {
+    console.log(from);
+    console.log(data);
+    console.log(signature);
+    if (data == null) {
+      throw new Error('Missing data parameter');
+    }
+
+    const messageHash = recoverTypedSignatureMessageHash({ data, signature });
+    return messageHash;
+    // const sig = ecsign(messageHash, privateKey);
+    // return concatSig(toBuffer(sig.v), sig.r, sig.s);
   }
 }

@@ -17,6 +17,7 @@
     "ethers": "^5.7.1",
     "pinia": "^2.0.24",
     "sass": "^1.55.0",
+    "vue-json-viewer": "3.0.4",
     "vue": "^3.2.38"
   },
   "devDependencies": {
