@@ -1,5 +1,5 @@
 {
-  "version": "0.0.1",
+  "version": "0.0.10",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -55,7 +55,7 @@
     "typescript": "^4.8.3"
   },
   "dependencies": {
-    "@unipasswallet/popup-types": "0.0.3",
+    "@unipasswallet/popup-types": "0.0.10",
     "bn.js": "^4.11.8",
     "@ethereumjs/util": "^8.0.0",
     "concurrently": "^7.4.0",
