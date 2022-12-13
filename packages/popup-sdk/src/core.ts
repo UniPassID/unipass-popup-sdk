@@ -180,7 +180,6 @@ export class UniPassPopupSDK {
   }
 
   /**
-   *
    * @param msg the message to be signed
    * @param sig the signature response returned by UniPass
    * @param account the account who signed the message
@@ -225,8 +224,6 @@ export class UniPassPopupSDK {
       ],
       this._auth_provider
     );
-    console.log('unipassHashMessage(_msg)');
-    console.log(unipassHashMessage(_msg));
 
     const code = await contract.isValidSignature(
       unipassHashMessage(_msg),
@@ -236,7 +233,15 @@ export class UniPassPopupSDK {
     return code === EIP1271_SELECTOR;
   }
 
-  public async signTypedData_v4<T extends MessageTypes>(data: TypedMessage<T>) {
+  /**
+   *
+   * * V4 is based on [EIP-712](https://eips.ethereum.org/EIPS/eip-712), and includes full support of
+   * arrays and recursive data structures.
+   *
+   * @param data - The typed data to sign.
+   * @returns The '0x'-prefixed hex encoded signature.
+   */
+  public async signTypedData<T extends MessageTypes>(data: TypedMessage<T>) {
     this.checkInitialized();
     if (data == null) {
       throw new Error('Missing data parameter');
@@ -248,7 +253,17 @@ export class UniPassPopupSDK {
     );
   }
 
-  public async isValidTypedSignature_v4<T extends MessageTypes>(
+  /**
+   * Valid the address of the account that created the given EIP-712
+   * signature. The version provided must match the version used to
+   * create the signature.
+   *
+   * @param options._data - The typed data that was signed.
+   * @param options._sig - The '0x-prefixed hex encoded message signature.
+   * @param options._account - The address of user.
+   * @returns boolean true: pass verification, false: failed verification.
+   */
+  public async isValidTypedSignature<T extends MessageTypes>(
     _data: TypedMessage<T>,
     _account: string,
     _sig: string
@@ -291,12 +306,7 @@ export class UniPassPopupSDK {
       this._auth_provider
     );
     const messageHash = signTypedDataMessageHash(_data);
-    console.log('messageHash:');
-    console.log(messageHash);
-    console.log(hexlify(messageHash));
-
     const code = await contract.isValidSignature(messageHash, _sig);
-    console.log(code);
 
     return code === EIP1271_SELECTOR;
   }

@@ -380,7 +380,7 @@ export const useIndex = () => {
   const signTypedData = async () => {
     console.log("signTypedData");
     try {
-      const resp = await upWallet.signTypedData_v4(eip712DemoData);
+      const resp = await upWallet.signTypedData(eip712DemoData);
       console.log("resp", resp);
       eip712Sig.value = resp;
     } catch (err: any) {
@@ -391,7 +391,7 @@ export const useIndex = () => {
 
   const verifyTypedSig = async () => {
     try {
-      const ret = await upWallet.isValidTypedSignature_v4(
+      const ret = await upWallet.isValidTypedSignature(
         eip712DemoData,
         userStore.address,
         eip712Sig.value
