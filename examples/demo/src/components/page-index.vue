@@ -223,7 +223,9 @@
             :autosize="{ minRows: 1 }"
           />
         </div>
-        <!-- <button class="polygon_bt" @click="verifySig">Verify</button> -->
+        <button class="polygon_bt" @click="verifyTypedSig">
+          Verify Typed Data
+        </button>
       </template>
     </div>
   </div>
@@ -250,6 +252,7 @@ const {
   signTypedData,
   eip712DemoData,
   verifySig,
+  verifyTypedSig,
   sendNativeToken,
   sendToken,
   userStore,

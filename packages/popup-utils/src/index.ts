@@ -1,5 +1,6 @@
 import { UPMessage } from '@unipasswallet/popup-types';
-export * from './eip712Hash';
+
+export { signTypedDataMessageHash } from './eip712_utils';
 
 export type MessageHandler = (event: MessageEvent) => void;
 

@@ -389,6 +389,24 @@ export const useIndex = () => {
     }
   };
 
+  const verifyTypedSig = async () => {
+    try {
+      const ret = await upWallet.isValidTypedSignature_v4(
+        eip712DemoData,
+        userStore.address,
+        eip712Sig.value
+      );
+      if (ret === true) {
+        ElMessage.success("verify eip712 signature success");
+      } else {
+        ElMessage.error("verify eip712 signature failed");
+      }
+    } catch (err: any) {
+      ElMessage.error(err?.message || "verifySig error");
+      console.log("auth error", err?.message);
+    }
+  };
+
   const sendNativeToken = async () => {
     if (Number(myNativeTokenBalance.value) < Number(toAmount.value)) {
       ElMessage.error("balance is not enough");
@@ -483,6 +501,7 @@ export const useIndex = () => {
     signTypedData,
     eip712DemoData,
     verifySig,
+    verifyTypedSig,
     sendNativeToken,
     sendToken,
     userStore,

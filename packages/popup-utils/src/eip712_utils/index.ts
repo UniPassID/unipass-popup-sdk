@@ -1,22 +1,14 @@
 // @ts-nocheck
 
+import { Buffer } from 'buffer';
 import { isHexString } from 'ethjs-util';
-import {
-  arrToBufArr,
-  bufferToHex,
-  ecsign,
-  publicToAddress,
-  toBuffer,
-} from '@ethereumjs/util';
+import { arrToBufArr, bufferToHex } from '@ethereumjs/util';
 import { keccak256 } from 'ethereum-cryptography/keccak';
 import { rawEncode, solidityPack } from './ethereumjs-abi-utils';
-import {
-  concatSig,
-  isNullish,
-  legacyToBuffer,
-  recoverPublicKey,
-  numberToBuffer,
-} from './typed-utils';
+import { isNullish, legacyToBuffer, numberToBuffer } from './typed-utils';
+
+// @ts-ignore
+window.Buffer = Buffer;
 
 /**
  * This is the message format used for `V1` of `signTypedData`.
@@ -155,7 +147,7 @@ function encodeField(
   type: string,
   value: any,
   version: SignTypedDataVersion.V3 | SignTypedDataVersion.V4
-): [type: string, value: any] {
+): any {
   validateVersion(version, [SignTypedDataVersion.V3, SignTypedDataVersion.V4]);
 
   if (types[type] !== undefined) {
@@ -490,93 +482,16 @@ function _typedSignatureHash(typedData: TypedDataV1): Buffer {
   );
 }
 
-/**
- * Sign typed data according to EIP-712. The signing differs based upon the `version`.
- *
- * V1 is based upon [an early version of EIP-712](https://github.com/ethereum/EIPs/pull/712/commits/21abe254fe0452d8583d5b132b1d7be87c0439ca)
- * that lacked some later security improvements, and should generally be neglected in favor of
- * later versions.
- *
- * V3 is based on [EIP-712](https://eips.ethereum.org/EIPS/eip-712), except that arrays and
- * recursive data structures are not supported.
- *
- * V4 is based on [EIP-712](https://eips.ethereum.org/EIPS/eip-712), and includes full support of
- * arrays and recursive data structures.
- *
- * @param options - The signing options.
- * @param options.privateKey - The private key to sign with.
- * @param options.data - The typed data to sign.
- * @param options.version - The signing version to use.
- * @returns The '0x'-prefixed hex encoded signature.
- */
-export function signTypedData<
-  V extends SignTypedDataVersion,
-  T extends MessageTypes
->({
-  privateKey,
-  data,
-  version,
-}: {
-  privateKey: Buffer;
-  data: V extends 'V1' ? TypedDataV1 : TypedMessage<T>;
-  version: V;
-}): string {
-  validateVersion(version);
+export function signTypedDataMessageHash<T extends MessageTypes>(
+  data: TypedMessage<T>
+): Uint8Array {
   if (isNullish(data)) {
     throw new Error('Missing data parameter');
-  } else if (isNullish(privateKey)) {
-    throw new Error('Missing private key parameter');
   }
 
-  const messageHash =
-    version === SignTypedDataVersion.V1
-      ? _typedSignatureHash(data as TypedDataV1)
-      : TypedDataUtils.eip712Hash(
-          data as TypedMessage<T>,
-          version as SignTypedDataVersion.V3 | SignTypedDataVersion.V4
-        );
-  const sig = ecsign(messageHash, privateKey);
-  return concatSig(toBuffer(sig.v), sig.r, sig.s);
-}
-
-/**
- * Recover the address of the account that created the given EIP-712
- * signature. The version provided must match the version used to
- * create the signature.
- *
- * @param options - The signature recovery options.
- * @param options.data - The typed data that was signed.
- * @param options.signature - The '0x-prefixed hex encoded message signature.
- * @param options.version - The signing version to use.
- * @returns The '0x'-prefixed hex address of the signer.
- */
-export function recoverTypedSignature<
-  V extends SignTypedDataVersion,
-  T extends MessageTypes
->({
-  data,
-  signature,
-  version,
-}: {
-  data: V extends 'V1' ? TypedDataV1 : TypedMessage<T>;
-  signature: string;
-  version: V;
-}): string {
-  validateVersion(version);
-  if (isNullish(data)) {
-    throw new Error('Missing data parameter');
-  } else if (isNullish(signature)) {
-    throw new Error('Missing signature parameter');
-  }
-
-  const messageHash =
-    version === SignTypedDataVersion.V1
-      ? _typedSignatureHash(data as TypedDataV1)
-      : TypedDataUtils.eip712Hash(
-          data as TypedMessage<T>,
-          version as SignTypedDataVersion.V3 | SignTypedDataVersion.V4
-        );
-  const publicKey = recoverPublicKey(messageHash, signature);
-  const sender = publicToAddress(publicKey);
-  return bufferToHex(sender);
+  const messageHash = TypedDataUtils.eip712Hash(
+    data as TypedMessage<T>,
+    SignTypedDataVersion.V4
+  );
+  return messageHash;
 }

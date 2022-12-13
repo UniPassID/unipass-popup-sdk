@@ -1,5 +1,6 @@
 // @ts-nocheck
 
+import { Buffer } from 'buffer';
 import {
   toBuffer,
   setLengthRight,

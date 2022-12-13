@@ -60,7 +60,6 @@
     "@ethereumjs/util": "^8.0.0",
     "concurrently": "^7.4.0",
     "ethereum-cryptography": "^1.1.2",
-    "buffer": "^6.0.3",
     "ethjs-util": "^0.1.6"
   }
 }

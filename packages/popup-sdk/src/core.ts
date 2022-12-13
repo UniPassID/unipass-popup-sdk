@@ -6,7 +6,7 @@ import {
   MessageTypes,
   TypedMessage,
 } from '@unipasswallet/popup-types';
-import { recoverTypedSignatureMessageHash } from '@unipasswallet/popup-utils';
+import { signTypedDataMessageHash } from '@unipasswallet/popup-utils';
 import config, { PopupSDKConfig, PopupSDKOption } from './config';
 import { BytesLike, Contract } from 'ethers';
 import { connect, disconnect, getLocalAccount } from './connect';
@@ -180,7 +180,6 @@ export class UniPassPopupSDK {
   }
 
   /**
-   * verify UniPass user signed message and sig on Rangers contract
    *
    * @param msg the message to be signed
    * @param sig the signature response returned by UniPass
@@ -226,6 +225,9 @@ export class UniPassPopupSDK {
       ],
       this._auth_provider
     );
+    console.log('unipassHashMessage(_msg)');
+    console.log(unipassHashMessage(_msg));
+
     const code = await contract.isValidSignature(
       unipassHashMessage(_msg),
       _sig
@@ -246,25 +248,56 @@ export class UniPassPopupSDK {
     );
   }
 
-  public async isValidTypedSignature_v4<T extends MessageTypes>({
-    data,
-    signature,
-    from,
-  }: {
-    from: string;
-    signature: string;
-    data: TypedMessage<T>;
-  }) {
-    console.log(from);
-    console.log(data);
-    console.log(signature);
-    if (data == null) {
+  public async isValidTypedSignature_v4<T extends MessageTypes>(
+    _data: TypedMessage<T>,
+    _account: string,
+    _sig: string
+  ) {
+    if (_data == null) {
       throw new Error('Missing data parameter');
     }
+    if (!_account) {
+      this.checkInitialized();
+      _account = this._account!.address;
+    }
+    const contract = new Contract(
+      _account!,
+      [
+        {
+          inputs: [
+            {
+              internalType: 'bytes32',
+              name: '_hash',
+              type: 'bytes32',
+            },
+            {
+              internalType: 'bytes',
+              name: '_signature',
+              type: 'bytes',
+            },
+          ],
+          name: 'isValidSignature',
+          outputs: [
+            {
+              internalType: 'bytes4',
+              name: 'magicValue',
+              type: 'bytes4',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+      ],
+      this._auth_provider
+    );
+    const messageHash = signTypedDataMessageHash(_data);
+    console.log('messageHash:');
+    console.log(messageHash);
+    console.log(hexlify(messageHash));
 
-    const messageHash = recoverTypedSignatureMessageHash({ data, signature });
-    return messageHash;
-    // const sig = ecsign(messageHash, privateKey);
-    // return concatSig(toBuffer(sig.v), sig.r, sig.s);
+    const code = await contract.isValidSignature(messageHash, _sig);
+    console.log(code);
+
+    return code === EIP1271_SELECTOR;
   }
 }
