@@ -187,6 +187,7 @@ export const useIndex = () => {
         appName: "UniPass Popup Demo123",
         appIcon: "",
       },
+      storageType: "localStorage",
       walletUrl: {
         domain,
         protocol,

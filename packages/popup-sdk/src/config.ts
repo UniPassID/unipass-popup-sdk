@@ -45,11 +45,13 @@ export default (option: WalletURL) => {
 
 export const getConfig = () => config;
 
+export type StorageType = 'sessionStorage' | 'localStorage';
+
 export interface PopupSDKConfig {
   env: Environment;
   chainType: ChainType;
   nodeRPC: string;
-
+  storageType: StorageType;
   appSettings?: AppSettings;
 }
 
@@ -113,6 +115,8 @@ export type PopupSDKOption = {
   readonly nodeRPC?: string; // Rangers Node RPC list
   readonly chainType?: ChainType; // Chain ID
   readonly env?: Environment;
+
+  readonly storageType?: StorageType;
 
   readonly walletUrl?: WalletURL; // UniPass up-core sdk configuration options
 
