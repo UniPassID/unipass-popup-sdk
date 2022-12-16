@@ -61,6 +61,7 @@ export class UniPassPopupSDK {
       env: 'prod',
       nodeRPC: '',
       chainType: 'polygon',
+      storageType: 'sessionStorage',
     };
 
     this._config.env = options.env || 'prod';
@@ -85,6 +86,8 @@ export class UniPassPopupSDK {
     if (walletUrl) {
       config(walletUrl);
     }
+
+    this._config.storageType = options.storageType || 'sessionStorage';
 
     this._initialized = true;
   }
@@ -111,7 +114,7 @@ export class UniPassPopupSDK {
    * initialize Rangers with user's username and email
    */
   public async login(options?: UPConnectOptions): Promise<UPAccount> {
-    this._account = await connect(options, this._config?.appSettings);
+    this._account = await connect(this._config!, options);
     return this._account;
   }
 
@@ -120,7 +123,7 @@ export class UniPassPopupSDK {
       throw new Error(`UniPassPopupSDK is not initialized`);
     }
     if (!this._account) {
-      this._account = getLocalAccount();
+      this._account = getLocalAccount(this._config!.storageType);
     }
 
     return this._account;
@@ -164,7 +167,7 @@ export class UniPassPopupSDK {
     _transaction: UPTransactionMessage
   ): Promise<string> {
     this.checkInitialized();
-    return await sendTransaction(_transaction, this._config?.appSettings);
+    return await sendTransaction(_transaction, this._config!);
   }
 
   public async signMessage(message: BytesLike): Promise<string> {
@@ -175,7 +178,7 @@ export class UniPassPopupSDK {
 
     return await authorize(
       new UPAuthMessage(this._account!.address, hexlify(message)),
-      this._config?.appSettings
+      this._config!
     );
   }
 
@@ -249,7 +252,7 @@ export class UniPassPopupSDK {
 
     return await authorize(
       new UPAuthMessage(this._account!.address, JSON.stringify(data), 'V4'),
-      this._config?.appSettings
+      this._config!
     );
   }
 

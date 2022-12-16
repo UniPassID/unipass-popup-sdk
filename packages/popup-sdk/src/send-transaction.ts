@@ -1,16 +1,17 @@
+import { useStorage } from './storage';
+import { PopupSDKConfig } from './config';
 import { execPop, UPA_SESSION_KEY } from './bridge';
 import {
   UPAccount,
   UPTransactionMessage,
   UPMessage,
-  AppSettings,
 } from '@unipasswallet/popup-types';
 
 export const sendTransaction = async (
   tx: UPTransactionMessage,
-  appSettings?: AppSettings
+  config: PopupSDKConfig
 ): Promise<string> => {
-  const sessionAccount = sessionStorage.getItem(UPA_SESSION_KEY);
+  const sessionAccount = useStorage(config.storageType).get(UPA_SESSION_KEY);
   const account = sessionAccount && (JSON.parse(sessionAccount) as UPAccount);
 
   if (
@@ -20,7 +21,11 @@ export const sendTransaction = async (
   ) {
     throw new Error('can not authorize without login');
   }
-  const msg = new UPMessage('UP_TRANSACTION', JSON.stringify(tx), appSettings);
+  const msg = new UPMessage(
+    'UP_TRANSACTION',
+    JSON.stringify(tx),
+    config.appSettings
+  );
 
   try {
     const resp: string = (await execPop(msg)) as string;

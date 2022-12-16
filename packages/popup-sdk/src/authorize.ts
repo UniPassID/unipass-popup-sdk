@@ -1,16 +1,17 @@
+import { useStorage } from './storage';
 import { execPop, UPA_SESSION_KEY } from './bridge';
 import {
   UPAccount,
   UPAuthMessage,
   UPMessage,
-  AppSettings,
 } from '@unipasswallet/popup-types';
+import { PopupSDKConfig } from './config';
 
 export const authorize = async (
   message: UPAuthMessage,
-  appSettings?: AppSettings
+  config: PopupSDKConfig
 ): Promise<string> => {
-  const sessionAccount = sessionStorage.getItem(UPA_SESSION_KEY);
+  const sessionAccount = useStorage(config.storageType).get(UPA_SESSION_KEY);
   const account = sessionAccount && (JSON.parse(sessionAccount) as UPAccount);
   if (
     !account ||
@@ -22,7 +23,7 @@ export const authorize = async (
   const msg = new UPMessage(
     'UP_SIGN_MESSAGE',
     JSON.stringify(message),
-    appSettings
+    config?.appSettings
   );
 
   try {

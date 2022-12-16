@@ -1,29 +1,28 @@
-/**
- * Invoke UniPass to obtain user account info
- * @param options
- */
+import { useStorage } from './storage';
+import { PopupSDKConfig, StorageType } from './config';
 import { execPop, UPA_SESSION_KEY } from './bridge';
 import {
   UPAccount,
   UPConnectOptions,
   UPMessage,
-  AppSettings,
 } from '@unipasswallet/popup-types';
 
 export const connect = async (
-  options?: UPConnectOptions,
-  appSettings?: AppSettings
+  config: PopupSDKConfig,
+  options?: UPConnectOptions
 ): Promise<UPAccount> => {
-  const sessionAccount = sessionStorage.getItem(UPA_SESSION_KEY);
+  const sessionAccount = useStorage(config.storageType).get(UPA_SESSION_KEY);
   const account: UPAccount =
     (sessionAccount && (JSON.parse(sessionAccount) as UPAccount)) ||
-    (await getAccount(options, appSettings));
+    (await getAccount(config, options));
 
   return account;
 };
 
-export const getLocalAccount = (): UPAccount | undefined => {
-  const sessionAccount = sessionStorage.getItem(UPA_SESSION_KEY);
+export const getLocalAccount = (
+  storageType: StorageType
+): UPAccount | undefined => {
+  const sessionAccount = useStorage(storageType).get(UPA_SESSION_KEY);
 
   if (sessionAccount) {
     return JSON.parse(sessionAccount) as UPAccount;
@@ -33,16 +32,17 @@ export const getLocalAccount = (): UPAccount | undefined => {
 };
 
 export const disconnect = () => {
-  sessionStorage.removeItem(UPA_SESSION_KEY);
+  useStorage('localStorage').remove(UPA_SESSION_KEY);
+  useStorage('sessionStorage').remove(UPA_SESSION_KEY);
 };
 
 const getAccount = async (
-  options?: UPConnectOptions,
-  appSettings?: AppSettings
+  config: PopupSDKConfig,
+  options?: UPConnectOptions
 ): Promise<UPAccount> => {
   try {
     const payload = options ? JSON.stringify(options) : '';
-    const message = new UPMessage('UP_LOGIN', payload, appSettings);
+    const message = new UPMessage('UP_LOGIN', payload, config.appSettings);
 
     const account: UPAccount = (await execPop(
       message,
@@ -51,7 +51,10 @@ const getAccount = async (
     )) as UPAccount;
     console.log('connect resp', account);
     if (account && account.address) {
-      sessionStorage.setItem(UPA_SESSION_KEY, JSON.stringify(account));
+      useStorage(config.storageType).set(
+        UPA_SESSION_KEY,
+        JSON.stringify(account)
+      );
     }
 
     return account;
