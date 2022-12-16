@@ -13,7 +13,8 @@
     "start": "concurrently  --raw --kill-others \"yarn start:demo\" \"yarn start:wallet\"",
     "start:demo": "yarn workspace demo dev",
     "start:wallet": "yarn workspace unipass-wallet start:testnet",
-    "build": "yarn workspace @unipasswallet/popup-types build && yarn workspace @unipasswallet/popup-utils build && yarn workspace @unipasswallet/popup-sdk build"
+    "build": "yarn workspace @unipasswallet/popup-types build && yarn workspace @unipasswallet/popup-utils build && yarn workspace @unipasswallet/popup-sdk build",
+    "publish": "yarn workspace @unipasswallet/popup-types publish && yarn workspace @unipasswallet/popup-utils publish && yarn workspace @unipasswallet/popup-sdk publish"
   },
   "dependencies": {
     "concurrently": "^7.4.0"
