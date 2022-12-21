@@ -1,8 +1,9 @@
 <template>
-  <div id="page">
-    <div class="demo_head">
+  <div id="page-index">
+    <div class="demo-head">
       UniPass Demo ({{ CHAIN_CONFIGS[userStore.chainType].name }})
     </div>
+
     <div class="page-demo">
       <a class="polygon_bt" :href="`${protocol}://${domain}`"> Open Wallet </a>
       <br />
@@ -58,6 +59,7 @@
       </el-form>
       <button class="polygon_bt" @click="logout">Disconnect</button>
     </div>
+
     <div class="page-demo">
       <div class="send_s">Send ETH</div>
       <el-form class="body-input" label-position="top">
@@ -279,13 +281,10 @@ const openWallet = () => {
 };
 </script>
 
-<style lang="scss">
-#page {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+<style lang="scss" scoped>
+#page-index {
   background-color: #f5f5f5;
+  padding: 0 24px;
 
   .head {
     width: 100%;
@@ -296,308 +295,310 @@ const openWallet = () => {
     line-height: 40px;
     color: #1f202a;
   }
-}
 
-.demo_head {
-  margin-top: 120px;
-  font-weight: 700;
-  font-size: 28px;
-  line-height: 40px;
-  color: #1f202a;
-}
 
-.page-demo {
-  width: 480px;
-  margin-top: 40px;
-  padding: 40px;
-  background: #ffffff;
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-
-  & + .page-demo {
-  }
-
-  .el-form-item__content {
-  }
-
-  .send_s {
-    margin-bottom: 40px;
+  .demo-head {
+    text-align: center;
+    margin-top: 120px;
     font-weight: 700;
-    font-size: 24px;
-    line-height: 36px;
+    font-size: 28px;
+    line-height: 40px;
     color: #1f202a;
   }
 
-  .typed_data {
-    text-align: left;
-  }
-
-  .signature_s {
+  .page-demo {
+    max-width: 560px;
+    margin: 0 auto;
     margin-top: 40px;
-  }
-
-  .polygon_bt {
-    height: 56px;
-    margin-top: 20px;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 24px;
-    color: #ffffff;
-    background: #8864ff;
-    border: 0;
-    border-radius: 6px;
-    cursor: pointer;
-
-    &:hover {
-      background: #6440da;
-    }
-  }
-
-  .link_head {
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 24px;
-    color: #1f202a;
-  }
-
-  .el-form-item__content {
-    .el-textarea__inner {
-      overflow: hidden;
-      height: 56px !important;
-      background: #f5f5f5;
-      border: 1px solid #e5e5e5;
-      border-radius: 6px;
-      padding: 16px !important;
-    }
-    .el-textarea {
-      border-radius: 6px;
-
-      background: #fcfcfc;
-      &.is-disabled {
-        border-radius: 6px;
-
-        background: #f5f5f5;
-      }
-    }
-  }
-
-  .el-form-item {
-    margin-bottom: 20px;
-  }
-
-  .box {
+    padding: 40px;
+    background: #ffffff;
+    border-radius: 20px;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    text-align: center;
 
-    .link_box {
-      display: flex;
-      flex-direction: column;
-      text-align: left;
+    & + .page-demo {
     }
-  }
 
-  .link_ {
-    width: 1px;
-    height: 1px;
-    border: 1px solid #5575ff;
-    border-radius: 50%;
-    margin-right: 10px;
-  }
+    .el-form-item__content {
+    }
 
-  .link {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #5575ff;
-  }
-
-  .st_box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 8px;
-
-    .users {
-      margin: 0 10px;
-      font-weight: 400;
-      font-size: 12px;
-      line-height: 20px;
+    .send_s {
+      margin-bottom: 40px;
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 36px;
       color: #1f202a;
     }
 
-    .st {
-      width: 50px;
-      height: 1px;
-      border: 1px solid #e5e5e5;
-    }
-  }
-
-  .google_icon {
-    width: 24px;
-    height: 24px;
-    margin-right: 10px;
-  }
-
-  > .background-logo {
-    font-size: 237px;
-    position: absolute;
-    top: 16px;
-    right: -40px;
-    color: #5575ff;
-    opacity: 0.14;
-    z-index: 0;
-  }
-
-  .divider {
-    margin-top: 40px;
-  }
-
-  .return {
-    margin-top: 40px;
-
-    .return_box {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      & + .return_box {
-        margin-top: 28px;
-      }
-
-      .return_s {
-        font-weight: 600;
-        font-size: 16px;
-        line-height: 24px;
-      }
-    }
-  }
-
-  .transfer {
-    width: 100%;
-    font-size: 16px;
-    height: 56px;
-    background: #f7f7f7;
-    border-radius: 6px;
-    color: #1f202a;
-    font-weight: 600;
-    line-height: 24px;
-  }
-
-  .login {
-    margin-top: 20px;
-    margin-left: 0 !important;
-  }
-
-  .label_s {
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 20px;
-    text-align: left;
-    color: #1f202a;
-  }
-
-  .message_pt_s {
-    min-height: 200px;
-    margin-top: 8px;
-    background: #fcfcfc;
-    border: 1px solid #e5e5e5;
-    border-radius: 6px;
-    padding: 16px;
-    margin-bottom: 20px;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-    color: #1f202a;
-  }
-
-  .message_pt {
-    width: 100%;
-  }
-
-  .el-textarea__inner {
-    padding: 0;
-    min-height: 24px;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-    color: #1f202a;
-  }
-
-  .label_hash {
-    font-weight: 600;
-    font-size: 16px;
-    text-align: left;
-    line-height: 24px;
-    color: #1f202a;
-  }
-
-  .hash_box {
-    margin-top: 40px !important;
-  }
-
-  .hash_th {
-    width: 480px;
-    font-weight: 400;
-    margin-top: 10px;
-    font-size: 14px;
-    line-height: 20px;
-    text-align: left;
-    word-wrap: break-word;
-    text-decoration-line: underline;
-    color: #4aac4c;
-  }
-
-  .body-input {
-    .el-form-item__content {
-      position: relative;
-
-      .copy {
-        position: absolute;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        padding: 17px;
-      }
-    }
-  }
-
-  .body {
-    border-radius: 24px;
-    margin: 30px auto 0px;
-    width: 100%;
-    background: #ffffff;
-    padding: 0px 0 21px;
-    overflow: hidden;
-
-    .input {
+    .typed_data {
       text-align: left;
+    }
+
+    .signature_s {
+      margin-top: 40px;
+    }
+
+    .polygon_bt {
+      height: 56px;
+      margin-top: 20px;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      color: #ffffff;
+      background: #8864ff;
+      border: 0;
+      border-radius: 6px;
+      cursor: pointer;
+
+      &:hover {
+        background: #6440da;
+      }
+    }
+
+    .link_head {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      color: #1f202a;
+    }
+
+    .el-form-item__content {
+      .el-textarea__inner {
+        overflow: hidden;
+        height: 56px !important;
+        background: #f5f5f5;
+        border: 1px solid #e5e5e5;
+        border-radius: 6px;
+        padding: 16px !important;
+      }
+      .el-textarea {
+        border-radius: 6px;
+
+        background: #fcfcfc;
+        &.is-disabled {
+          border-radius: 6px;
+
+          background: #f5f5f5;
+        }
+      }
+    }
+
+    .el-form-item {
       margin-bottom: 20px;
     }
-  }
 
-  .message {
-    display: flex;
-    justify-content: space-between;
+    .box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
-    .message-button {
-      margin-top: 30px;
-      width: 48%;
-      font-size: 20px;
+      .link_box {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+      }
+    }
+
+    .link_ {
+      width: 1px;
+      height: 1px;
+      border: 1px solid #5575ff;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .link {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #5575ff;
+    }
+
+    .st_box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 8px;
+
+      .users {
+        margin: 0 10px;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 20px;
+        color: #1f202a;
+      }
+
+      .st {
+        width: 50px;
+        height: 1px;
+        border: 1px solid #e5e5e5;
+      }
+    }
+
+    .google_icon {
+      width: 24px;
+      height: 24px;
+      margin-right: 10px;
+    }
+
+    > .background-logo {
+      font-size: 237px;
+      position: absolute;
+      top: 16px;
+      right: -40px;
+      color: #5575ff;
+      opacity: 0.14;
+      z-index: 0;
+    }
+
+    .divider {
+      margin-top: 40px;
+    }
+
+    .return {
+      margin-top: 40px;
+
+      .return_box {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        & + .return_box {
+          margin-top: 28px;
+        }
+
+        .return_s {
+          font-weight: 600;
+          font-size: 16px;
+          line-height: 24px;
+        }
+      }
+    }
+
+    .transfer {
+      width: 100%;
+      font-size: 16px;
+      height: 56px;
+      background: #f7f7f7;
+      border-radius: 6px;
+      color: #1f202a;
+      font-weight: 600;
+      line-height: 24px;
+    }
+
+    .login {
+      margin-top: 20px;
+      margin-left: 0 !important;
+    }
+
+    .label_s {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+      text-align: left;
+      color: #1f202a;
+    }
+
+    .message_pt_s {
+      min-height: 200px;
+      margin-top: 8px;
+      background: #fcfcfc;
+      border: 1px solid #e5e5e5;
+      border-radius: 6px;
+      padding: 16px;
+      margin-bottom: 20px;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      color: #1f202a;
+    }
+
+    .message_pt {
+      width: 100%;
+    }
+
+    .el-textarea__inner {
+      padding: 0;
+      min-height: 24px;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      color: #1f202a;
+    }
+
+    .label_hash {
+      font-weight: 600;
+      font-size: 16px;
+      text-align: left;
+      line-height: 24px;
+      color: #1f202a;
+    }
+
+    .hash_box {
+      margin-top: 40px !important;
+    }
+
+    .hash_th {
+      width: 480px;
+      font-weight: 400;
+      margin-top: 10px;
+      font-size: 14px;
+      line-height: 20px;
+      text-align: left;
+      word-wrap: break-word;
+      text-decoration-line: underline;
+      color: #4aac4c;
+    }
+
+    .body-input {
+      .el-form-item__content {
+        position: relative;
+
+        .copy {
+          position: absolute;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          padding: 17px;
+        }
+      }
+    }
+
+    .body {
+      border-radius: 24px;
+      margin: 30px auto 0px;
+      width: 100%;
+      background: #ffffff;
+      padding: 0px 0 21px;
+      overflow: hidden;
+
+      .input {
+        text-align: left;
+        margin-bottom: 20px;
+      }
+    }
+
+    .message {
+      display: flex;
+      justify-content: space-between;
+
+      .message-button {
+        margin-top: 30px;
+        width: 48%;
+        font-size: 20px;
+      }
+    }
+
+    h4 {
+      color: black;
+      margin-top: 50px;
     }
   }
-
-  h4 {
-    color: black;
-    margin-top: 50px;
-  }
 }
 
-.unipass-page {
-}
+
 </style>
