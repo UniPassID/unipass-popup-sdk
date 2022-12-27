@@ -220,28 +220,27 @@ const {
       width: 100%;
       margin-top: 20px;
       font-size: 16px;
-      height: 56px;
       background: #f7f7f7;
-      border-radius: 6px;
       color: #1f202a;
       font-weight: 600;
       line-height: 24px;
+      border-radius: 12px;
+      height: 60px;
+      transition: all 0.15s;
+      box-shadow: inset 1px 1px 3px var(--up-line);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       .one {
-        cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 60px;
-        background-color: var(--up-bg-checked);
-        border-radius: 12px;
-        transition: all 0.15s;
-        box-shadow: inset 1px 1px 3px var(--up-line);
       }
-    }
-
-    .oauth-box .one:hover {
-      background-color: #eee;
+      &:hover {
+        background: #eee;
+      }
     }
 
     .link_head {
