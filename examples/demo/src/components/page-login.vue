@@ -170,7 +170,7 @@ const {
     max-width: 560px;
     margin: 0 auto;
     margin-top: 40px;
-    padding: 40px;
+    padding: 40px 24px;
     background: #ffffff;
     border-radius: 20px;
     display: flex;
