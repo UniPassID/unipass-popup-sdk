@@ -224,7 +224,7 @@ const {
       color: #1f202a;
       font-weight: 600;
       line-height: 24px;
-      border-radius: 12px;
+      border-radius: 8px;
       height: 60px;
       transition: all 0.15s;
       box-shadow: inset 1px 1px 3px var(--up-line);
@@ -254,7 +254,7 @@ const {
       .el-textarea__inner {
         height: 56px !important;
         background: #f5f5f5;
-        border-radius: 6px;
+        border-radius: 8px;
         padding: 16px !important;
       }
       .el-textarea {
@@ -371,7 +371,7 @@ const {
       font-size: 16px;
       height: 56px;
       background: #f7f7f7;
-      border-radius: 6px;
+      border-radius: 8px;
       color: #1f202a;
       font-weight: 600;
       line-height: 24px;

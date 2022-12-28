@@ -281,7 +281,7 @@ const openWallet = () => {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 #page-index {
   background-color: #f5f5f5;
   padding: 0 24px;
@@ -347,7 +347,7 @@ const openWallet = () => {
       color: #ffffff;
       background: #8864ff;
       border: 0;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
 
       &:hover {
@@ -368,15 +368,15 @@ const openWallet = () => {
         height: 56px !important;
         background: #f5f5f5;
         border: 1px solid #e5e5e5;
-        border-radius: 6px;
+        border-radius: 8px;
         padding: 16px !important;
       }
       .el-textarea {
-        border-radius: 6px;
+        border-radius: 8px;
 
         background: #fcfcfc;
         &.is-disabled {
-          border-radius: 6px;
+          border-radius: 8px;
 
           background: #f5f5f5;
         }
@@ -480,7 +480,7 @@ const openWallet = () => {
       font-size: 16px;
       height: 56px;
       background: #f7f7f7;
-      border-radius: 6px;
+      border-radius: 8px;
       color: #1f202a;
       font-weight: 600;
       line-height: 24px;
@@ -504,7 +504,7 @@ const openWallet = () => {
       margin-top: 8px;
       background: #fcfcfc;
       border: 1px solid #e5e5e5;
-      border-radius: 6px;
+      border-radius: 8px;
       padding: 16px;
       margin-bottom: 20px;
       font-weight: 400;
