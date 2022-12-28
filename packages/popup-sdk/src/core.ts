@@ -6,7 +6,7 @@ import {
   MessageTypes,
   TypedMessage,
 } from '@unipasswallet/popup-types';
-import { signTypedDataMessageHash } from '@unipasswallet/popup-utils';
+import { encodeTypedDataDigest, TypedData } from '@unipasswallet/popup-utils';
 import config, { PopupSDKConfig, PopupSDKOption } from './config';
 import { BytesLike, Contract } from 'ethers';
 import { connect, disconnect, getLocalAccount } from './connect';
@@ -308,7 +308,7 @@ export class UniPassPopupSDK {
       ],
       this._auth_provider
     );
-    const messageHash = signTypedDataMessageHash(_data);
+    const messageHash = encodeTypedDataDigest(_data as TypedData);
     const code = await contract.isValidSignature(messageHash, _sig);
 
     return code === EIP1271_SELECTOR;

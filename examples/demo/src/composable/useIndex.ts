@@ -175,7 +175,7 @@ export const useIndex = () => {
   };
 
   let upWallet: UniPassPopupSDK;
-  const domain = "testnet.wallet.unipass.id";
+  const domain = "t.wallet.unipass.vip";
   const protocol = "https";
 
   onBeforeMount(() => {
@@ -185,7 +185,7 @@ export const useIndex = () => {
       appSettings: {
         theme: toTheme.value as UniPassTheme,
         appName: "UniPass Popup Demo123",
-        appIcon: "",
+        appIcon: "https://cdn.sea.team/avatar/2-avatar?t=1661419894383",
       },
       storageType: "localStorage",
       walletUrl: {

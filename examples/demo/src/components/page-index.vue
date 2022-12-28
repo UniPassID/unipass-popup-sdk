@@ -4,7 +4,7 @@
       UniPass Demo ({{ CHAIN_CONFIGS[userStore.chainType].name }})
     </div>
     <div class="page-demo">
-      <button class="polygon_bt" @click="openWallet">Open Wallet</button>
+      <a class="polygon_bt" :href="`${protocol}://${domain}`"> Open Wallet </a>
       <br />
       <el-form class="body-input" label-position="top">
         <el-form-item label="Your address" prop="address">
