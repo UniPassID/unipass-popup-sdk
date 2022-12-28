@@ -175,7 +175,7 @@ export const useIndex = () => {
   };
 
   let upWallet: UniPassPopupSDK;
-  const domain = "t.wallet.unipass.vip";
+  const domain = "testnet.wallet.unipass.id";
   const protocol = "https";
 
   onBeforeMount(() => {
