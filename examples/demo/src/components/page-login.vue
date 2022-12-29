@@ -20,6 +20,13 @@
           <div class="radio_box2"></div>
           Light mode
         </el-radio>
+        <el-radio label="cassava">
+          <div class="radio_box">
+            <div class="radio_0"></div>
+          </div>
+          <div class="radio_box2"></div>
+          Cassava mode
+        </el-radio>
       </el-radio-group>
 
       <div class="chain-label">Chain</div>

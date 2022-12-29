@@ -177,6 +177,8 @@ export const useIndex = () => {
   let upWallet: UniPassPopupSDK;
   const domain = "t.wallet.unipass.vip";
   const protocol = "https";
+  // const domain = "localhost:1901";
+  // const protocol = "http";
 
   onBeforeMount(() => {
     upWallet = new UniPassPopupSDK({
@@ -184,8 +186,8 @@ export const useIndex = () => {
       chainType: userStore.chainType as ChainType,
       appSettings: {
         theme: toTheme.value as UniPassTheme,
-        appName: "UniPass Popup Demo123",
-        appIcon: "https://cdn.sea.team/avatar/2-avatar?t=1661419894383",
+        appName: "UniPass Popup Demo",
+        appIcon: "",
       },
       storageType: "localStorage",
       walletUrl: {
@@ -235,8 +237,8 @@ export const useIndex = () => {
       appSettings: {
         chain: userStore.chainType as ChainType,
         theme: toTheme.value as UniPassTheme,
-        appName: "UniPass Popup Demo123",
-        appIcon: "https://cdn.sea.team/avatar/2-avatar?t=1661419894383",
+        appName: "UniPass Popup Demo",
+        appIcon: "",
       },
     });
   };

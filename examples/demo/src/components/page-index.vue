@@ -5,7 +5,9 @@
     </div>
 
     <div class="page-demo">
-      <a class="polygon_bt" :href="`${protocol}://${domain}`"> Open Wallet </a>
+      <a class="polygon_bt" target="_blank" :href="`${protocol}://${domain}`">
+        Open Wallet
+      </a>
       <br />
       <el-form class="body-input" label-position="top">
         <el-form-item label="Your address" prop="address">
@@ -349,6 +351,10 @@ const openWallet = () => {
       border: 0;
       border-radius: 8px;
       cursor: pointer;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
       &:hover {
         background: #6440da;
