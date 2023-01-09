@@ -1,5 +1,5 @@
 export type Environment = 'test' | 'prod';
-export type ChainType = 'polygon' | 'bsc' | 'rangers' | 'eth';
+export type ChainType = 'polygon' | 'bsc' | 'rangers' | 'eth' | 'scroll' | 'arbitrum';
 
 export type UPMessageType =
   | 'UP_READY'

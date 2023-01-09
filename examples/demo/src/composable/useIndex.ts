@@ -125,6 +125,7 @@ export const useIndex = () => {
     },
   };
 
+  // @ts-ignore
   const CHAIN_CONFIGS: {
     [key in ChainType]: {
       name: string;
@@ -170,6 +171,24 @@ export const useIndex = () => {
       usdc: {
         contract: "0x365E05Fd986245d14c740c139DF8712AD8807874",
         decimals: 6,
+      },
+    },
+    scroll: {
+      name: "",
+      rpc: "",
+      nativeToken: "",
+      usdc: {
+        contract: "",
+        decimals: 0,
+      },
+    },
+    arbitrum: {
+      name: "",
+      rpc: "",
+      nativeToken: "",
+      usdc: {
+        contract: "",
+        decimals: 0,
       },
     },
   };
