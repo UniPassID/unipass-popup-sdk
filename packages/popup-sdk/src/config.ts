@@ -1,7 +1,7 @@
 import {
+  AppSettings,
   ChainType,
   Environment,
-  AppSettings,
 } from '@unipasswallet/popup-types';
 
 const UP_DOMAIN = 'wallet.unipass.id';
@@ -70,12 +70,16 @@ const NODE_RPC_LIST = {
     polygon: 'https://node.wallet.unipass.id/polygon-mainnet',
     bsc: 'https://node.wallet.unipass.id/bsc-mainnet',
     rangers: 'https://node.wallet.unipass.id/rangers-mainnet',
+    scroll: 'https://node.wallet.unipass.id/scroll-mainnet',
+    arbitrum: 'https://node.wallet.unipass.id/arbitrum-mainnet',
   },
   testnet: {
     eth: 'https://node.wallet.unipass.id/eth-goerli',
     polygon: 'https://node.wallet.unipass.id/polygon-mumbai',
     bsc: 'https://node.wallet.unipass.id/bsc-testnet',
     rangers: 'https://node.wallet.unipass.id/rangers-robin',
+    scroll: 'https://node.wallet.unipass.id/scroll-testnet',
+    arbitrum: 'https://node.wallet.unipass.id/arbitrum-testnet',
   },
 };
 

@@ -125,7 +125,6 @@ export const useIndex = () => {
     },
   };
 
-  // @ts-ignore
   const CHAIN_CONFIGS: {
     [key in ChainType]: {
       name: string;

@@ -69,7 +69,8 @@ export class UPMessage {
   constructor(
     public type: UPMessageType,
     public payload?: string,
-    public appSetting?: AppSettings
+    public appSetting?: AppSettings,
+    public isEIP191Prefix?: boolean
   ) {}
 }
 
