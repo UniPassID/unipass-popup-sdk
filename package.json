@@ -6,7 +6,6 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
-    "examples/*",
     "packages/*"
   ],
   "scripts": {
