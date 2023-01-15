@@ -1,0 +1,15 @@
+{
+  "mode": "pre",
+  "tag": "alpha",
+  "initialVersions": {
+    "demo": "0.0.1",
+    "wallet": "0.0.0",
+    "@unipasswallet/ethereum-provider": "0.0.12",
+    "@unipasswallet/popup-sdk": "0.0.12",
+    "@unipasswallet/popup-types": "0.0.12",
+    "@unipasswallet/popup-utils": "0.0.12"
+  },
+  "changesets": [
+    "nasty-apples-vanish"
+  ]
+}
