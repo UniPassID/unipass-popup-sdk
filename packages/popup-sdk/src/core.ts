@@ -42,13 +42,10 @@ export function unipassHashMessage(message: Bytes | string): string {
 
 export class UniPassPopupSDK {
   private _config: PopupSDKConfig | undefined;
-  private _account: UPAccount | undefined;
   private _provider: JsonRpcProvider | undefined;
   private _auth_provider: JsonRpcProvider | undefined;
-  private _initialized: boolean;
 
   constructor(options: PopupSDKOption) {
-    this._initialized = false;
     this.initConfig(options);
   }
 
@@ -89,7 +86,6 @@ export class UniPassPopupSDK {
 
     this._config.storageType = options.storageType || 'sessionStorage';
 
-    this._initialized = true;
   }
 
   public updateConfig(
@@ -111,38 +107,32 @@ export class UniPassPopupSDK {
   }
 
   /**
-   * initialize Rangers with user's username and email
+   * initialize with user's username and email
    */
   public async login(options?: UPConnectOptions): Promise<UPAccount> {
-    this._account = await connect(this._config!, options);
-    return this._account;
+    return await connect(this._config!, options);
   }
 
   public getAccount(): UPAccount | undefined {
-    if (!this._initialized) {
-      throw new Error(`UniPassPopupSDK is not initialized`);
-    }
-    if (!this._account) {
-      this._account = getLocalAccount(this._config!.storageType);
-    }
-
-    return this._account;
+      const account = getLocalAccount(this._config!.storageType);
+      return account
   }
 
   public async logout() {
     disconnect();
-    this._initialized = false;
-    this._account = undefined;
   }
 
   public getProvider(): JsonRpcProvider {
-    this.checkInitialized();
     return this._provider!;
   }
 
-  private checkInitialized() {
-    if (!this._initialized) {
-      throw new Error(`UniPassPopupSDK is not initialized`);
+  public isLogin() {
+    return !!this.getAccount()
+  }
+
+  private assertLogin() {
+    if (!this.isLogin()) {
+      throw new Error(`user is not login`);
     }
   }
 
@@ -152,8 +142,8 @@ export class UniPassPopupSDK {
    * @returns asset contract address
    */
   public getAddress(): string {
-    this.checkInitialized();
-    return this._account!.address;
+    this.assertLogin();
+    return this.getAccount()!.address;
   }
 
   /**
@@ -166,18 +156,18 @@ export class UniPassPopupSDK {
   public async sendTransaction(
     _transaction: UPTransactionMessage
   ): Promise<string> {
-    this.checkInitialized();
+    this.assertLogin();
     return await sendTransaction(_transaction, this._config!);
   }
 
   public async signMessage(message: BytesLike): Promise<string> {
-    this.checkInitialized();
+    this.assertLogin();
     if (typeof message === 'string') {
       message = toUtf8Bytes(message);
     }
 
     return await authorize(
-      new UPAuthMessage(this._account!.address, hexlify(message)),
+      new UPAuthMessage(this.getAddress(), hexlify(message)),
       this._config!
     );
   }
@@ -194,8 +184,8 @@ export class UniPassPopupSDK {
     _account?: string
   ): Promise<boolean> {
     if (!_account) {
-      this.checkInitialized();
-      _account = this._account!.address;
+      this.assertLogin();
+      _account = this.getAddress();
     }
     const contract = new Contract(
       _account!,
@@ -245,13 +235,13 @@ export class UniPassPopupSDK {
    * @returns The '0x'-prefixed hex encoded signature.
    */
   public async signTypedData<T extends MessageTypes>(data: TypedMessage<T>) {
-    this.checkInitialized();
+    this.assertLogin();
     if (data == null) {
       throw new Error('Missing data parameter');
     }
 
     return await authorize(
-      new UPAuthMessage(this._account!.address, JSON.stringify(data), 'V4'),
+      new UPAuthMessage(this.getAddress(), JSON.stringify(data), 'V4'),
       this._config!
     );
   }
@@ -275,8 +265,8 @@ export class UniPassPopupSDK {
       throw new Error('Missing data parameter');
     }
     if (!_account) {
-      this.checkInitialized();
-      _account = this._account!.address;
+      this.assertLogin();
+      _account = this.getAddress()
     }
     const contract = new Contract(
       _account!,
