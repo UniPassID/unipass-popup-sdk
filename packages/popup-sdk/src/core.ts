@@ -1,26 +1,26 @@
+import { JsonRpcProvider } from '@ethersproject/providers';
 import {
-  UPAuthMessage,
-  UPAccount,
-  UPConnectOptions,
-  UPTransactionMessage,
   MessageTypes,
   TypedMessage,
+  UPAccount,
+  UPAuthMessage,
+  UPConnectOptions,
+  UPTransactionMessage,
 } from '@unipasswallet/popup-types';
 import { encodeTypedDataDigest, TypedData } from '@unipasswallet/popup-utils';
-import config, { PopupSDKConfig, PopupSDKOption } from './config';
 import { BytesLike, Contract } from 'ethers';
-import { connect, disconnect, getLocalAccount } from './connect';
-import { authorize } from './authorize';
 import {
-  hexlify,
-  toUtf8Bytes,
-  keccak256,
   Bytes,
   concat,
+  hexlify,
+  keccak256,
+  toUtf8Bytes,
 } from 'ethers/lib/utils';
-import { JsonRpcProvider } from '@ethersproject/providers';
-import { sendTransaction } from './send-transaction';
 import { getAppSettings, getAuthProviderUrl, getDefaultConfigOption } from '.';
+import { authorize } from './authorize';
+import config, { PopupSDKConfig, PopupSDKOption } from './config';
+import { connect, disconnect, getLocalAccount } from './connect';
+import { sendTransaction } from './send-transaction';
 
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 export const EIP1271_SELECTOR = '0x1626ba7e';
@@ -85,7 +85,6 @@ export class UniPassPopupSDK {
     }
 
     this._config.storageType = options.storageType || 'sessionStorage';
-
   }
 
   public updateConfig(
@@ -114,8 +113,8 @@ export class UniPassPopupSDK {
   }
 
   public getAccount(): UPAccount | undefined {
-      const account = getLocalAccount(this._config!.storageType);
-      return account
+    const account = getLocalAccount(this._config!.storageType);
+    return account;
   }
 
   public async logout() {
@@ -127,7 +126,7 @@ export class UniPassPopupSDK {
   }
 
   public isLogin() {
-    return !!this.getAccount()
+    return !!this.getAccount();
   }
 
   private assertLogin() {
@@ -160,7 +159,10 @@ export class UniPassPopupSDK {
     return await sendTransaction(_transaction, this._config!);
   }
 
-  public async signMessage(message: BytesLike): Promise<string> {
+  public async signMessage(
+    message: BytesLike,
+    isEIP191Prefix = false
+  ): Promise<string> {
     this.assertLogin();
     if (typeof message === 'string') {
       message = toUtf8Bytes(message);
@@ -168,7 +170,8 @@ export class UniPassPopupSDK {
 
     return await authorize(
       new UPAuthMessage(this.getAddress(), hexlify(message)),
-      this._config!
+      this._config!,
+      isEIP191Prefix
     );
   }
 
@@ -266,7 +269,7 @@ export class UniPassPopupSDK {
     }
     if (!_account) {
       this.assertLogin();
-      _account = this.getAddress()
+      _account = this.getAddress();
     }
     const contract = new Contract(
       _account!,

@@ -26,8 +26,8 @@ export class JsonRpcProvider {
     this.returnEmail = returnEmail;
     this.chainId = chainId;
  
-    const domain = 'localhost:1901';
-    const protocol = 'http';
+    const domain = 't.wallet.unipass.vip';
+    const protocol = 'https';
     this.upWallet = new UniPassPopupSDK({
       env: getENVByChainId(chainId),
       chainType: getChainNameByChainId(chainId),

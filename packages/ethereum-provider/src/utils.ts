@@ -1,5 +1,5 @@
-import { utils } from 'ethers';
 import { ChainType, Environment } from '@unipasswallet/popup-types';
+import { utils } from 'ethers';
 
 // supported chain ids, do not change
 // ethereum
@@ -24,6 +24,20 @@ export const SCROLL_TESTNET = 534354;
 // arbitrum
 export const ARBITRUM_TESTNET = 421613;
 export const ARBITRUM_MAINNET = 42161;
+
+export const SUPPORTED_CHAIN_ID = [
+  ETHEREUM_MAINNET,
+  ETHEREUM_GOERLI,
+  POLYGON_MAINNET,
+  POLYGON_MUMBAI,
+  BSC_MAINNET,
+  BSC_TESTNET,
+  RANGERS_MAINNET,
+  RANGERS_ROBIN,
+  SCROLL_TESTNET,
+  ARBITRUM_TESTNET,
+  ARBITRUM_MAINNET,
+];
 
 export const getChainNameByChainId = (id: number | string): ChainType => {
   switch (Number(id)) {

@@ -7,6 +7,7 @@ import {
 import { EventEmitter } from 'events';
 import { JsonRpcProvider } from './json-rpc-provider';
 import { UniPassProviderOptions } from './type';
+import { SUPPORTED_CHAIN_ID } from './utils';
 
 export class UniPassProvider implements IEthereumProvider {
   private account?: UPAccount = undefined;
@@ -16,6 +17,9 @@ export class UniPassProvider implements IEthereumProvider {
   public readonly signer: JsonRpcProvider;
 
   constructor(options: UniPassProviderOptions) {
+    if (!SUPPORTED_CHAIN_ID.includes(options.chainId)) {
+      throw new Error(`Not supported chain id: ${options.chainId}`);
+    }
     this.chainId = options.chainId;
     this.signer = new JsonRpcProvider(
       this.chainId,
