@@ -17,6 +17,7 @@
     "publish": "yarn workspace @unipasswallet/popup-types publish && yarn workspace @unipasswallet/popup-utils publish && yarn workspace @unipasswallet/popup-sdk publish"
   },
   "dependencies": {
+    "@changesets/cli": "^2.26.0",
     "concurrently": "^7.4.0"
   }
 }
