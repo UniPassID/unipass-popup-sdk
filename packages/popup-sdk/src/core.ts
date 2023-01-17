@@ -169,9 +169,13 @@ export class UniPassPopupSDK {
     }
 
     return await authorize(
-      new UPAuthMessage(this.getAddress(), hexlify(message)),
-      this._config!,
-      isEIP191Prefix
+      new UPAuthMessage(
+        this.getAddress(),
+        hexlify(message),
+        'V1',
+        isEIP191Prefix
+      ),
+      this._config!
     );
   }
 
