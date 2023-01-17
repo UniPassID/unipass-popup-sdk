@@ -1,5 +1,14 @@
 # @unipasswallet/popup-sdk
 
+## 0.0.13-alpha.3
+
+### Patch Changes
+
+- refactor payload structure
+- Updated dependencies
+  - @unipasswallet/popup-types@0.0.13-alpha.3
+  - @unipasswallet/popup-utils@0.0.13-alpha.3
+
 ## 0.0.13-alpha.2
 
 ### Patch Changes

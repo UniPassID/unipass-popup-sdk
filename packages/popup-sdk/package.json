@@ -1,5 +1,5 @@
 {
-  "version": "0.0.13-alpha.2",
+  "version": "0.0.13-alpha.3",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -53,8 +53,8 @@
     "typescript": "^4.4.4"
   },
   "dependencies": {
-    "@unipasswallet/popup-types": "^0.0.13-alpha.2",
-    "@unipasswallet/popup-utils": "^0.0.13-alpha.2",
+    "@unipasswallet/popup-types": "^0.0.13-alpha.3",
+    "@unipasswallet/popup-utils": "^0.0.13-alpha.3",
     "buffer": "^6.0.3",
     "ethers": "^5.7.1"
   }

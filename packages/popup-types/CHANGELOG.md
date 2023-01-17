@@ -1,5 +1,11 @@
 # @unipasswallet/popup-types
 
+## 0.0.13-alpha.3
+
+### Patch Changes
+
+- refactor payload structure
+
 ## 0.0.13-alpha.2
 
 ### Patch Changes
