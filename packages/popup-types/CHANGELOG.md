@@ -1,5 +1,11 @@
 # @unipasswallet/popup-types
 
+## 0.0.13-alpha.5
+
+### Patch Changes
+
+- bump version
+
 ## 0.0.13-alpha.4
 
 ### Patch Changes
