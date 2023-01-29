@@ -13,9 +13,9 @@ import {
 export class JsonRpcProvider {
   private appSetting?: Omit<AppSettings, 'chain'>;
   private returnEmail: boolean = false;
+  public chainId: number;
+  public http: providers.JsonRpcProvider;
   public readonly upWallet: UniPassPopupSDK;
-  public readonly chainId: number;
-  public readonly http: providers.JsonRpcProvider;
 
   constructor(
     chainId: number,
@@ -52,7 +52,8 @@ export class JsonRpcProvider {
   public async request(request: RequestArguments): Promise<any> {
     if (request.method.startsWith('eth_signTypedData')) {
       return await this.upWallet.signTypedData(
-        getSignTypedDataParamsData(request.params as string[])
+        getSignTypedDataParamsData(request.params as string[]),
+        true
       );
     } else if (request.method === 'personal_sign') {
       return await this.upWallet.signMessage(
@@ -68,21 +69,6 @@ export class JsonRpcProvider {
         return await this.upWallet.sendTransaction(_params);
       }
       throw new Error('eth_sendTransaction error');
-    } else if (request.method === 'wallet_switchEthereumChain') {
-      const _params =
-        request?.params && Array.isArray(request?.params) && request?.params[0]
-          ? request?.params[0]
-          : undefined;
-      const chainId = _params?.chainId?.startsWith('0x')
-        ? parseInt(_params?.chainId, 16)
-        : _params?.chainId;
-
-      this.upWallet.updateConfig({
-        chainType: getChainNameByChainId(chainId),
-        appSettings: {
-          chain: getChainNameByChainId(chainId),
-        },
-      });
     } else {
       return await this.http.send(
         request.method,
@@ -90,4 +76,15 @@ export class JsonRpcProvider {
       );
     }
   }
+
+  public updateUpWalletConfig = (chainId: number) => {
+    this.upWallet.updateConfig({
+      chainType: getChainNameByChainId(chainId),
+      appSettings: {
+        chain: getChainNameByChainId(chainId),
+      },
+    });
+    this.chainId = chainId;
+    this.http = new providers.JsonRpcProvider(getRPCByChainId(chainId));
+  };
 }

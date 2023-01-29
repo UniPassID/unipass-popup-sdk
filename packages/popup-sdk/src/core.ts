@@ -241,14 +241,22 @@ export class UniPassPopupSDK {
    * @param data - The typed data to sign.
    * @returns The '0x'-prefixed hex encoded signature.
    */
-  public async signTypedData<T extends MessageTypes>(data: TypedMessage<T>) {
+  public async signTypedData<T extends MessageTypes>(
+    data: TypedMessage<T>,
+    isEIP191Prefix = false
+  ) {
     this.assertLogin();
     if (data == null) {
       throw new Error('Missing data parameter');
     }
 
     return await authorize(
-      new UPAuthMessage(this.getAddress(), JSON.stringify(data), 'V4'),
+      new UPAuthMessage(
+        this.getAddress(),
+        JSON.stringify(data),
+        'V4',
+        isEIP191Prefix
+      ),
       this._config!
     );
   }

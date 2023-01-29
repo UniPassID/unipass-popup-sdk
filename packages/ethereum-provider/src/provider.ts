@@ -13,7 +13,7 @@ export class UniPassProvider implements IEthereumProvider {
   private account?: UPAccount = undefined;
 
   public events: EventEmitter = new EventEmitter();
-  public readonly chainId: number;
+  public chainId: number;
   public readonly signer: JsonRpcProvider;
 
   constructor(options: UniPassProviderOptions) {
@@ -37,6 +37,22 @@ export class UniPassProvider implements IEthereumProvider {
         return this.account?.address ? [this.account?.address] : [];
       case 'eth_chainId':
         return this.chainId;
+      case 'wallet_switchEthereumChain':
+        const _params =
+          args?.params && Array.isArray(args?.params) && args?.params[0]
+            ? args?.params[0]
+            : undefined;
+        const chainId = _params?.chainId?.startsWith('0x')
+          ? parseInt(_params?.chainId, 16)
+          : _params?.chainId;
+
+        if (!SUPPORTED_CHAIN_ID.includes(chainId)) {
+          throw new Error(`chainId ${chainId} not supported`);
+        }
+        this.signer.updateUpWalletConfig(chainId);
+        this.chainId = chainId;
+        this.events.emit('chainChanged', _params?.chainId);
+        return;
       default:
         break;
     }
