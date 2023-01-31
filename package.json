@@ -1,19 +1,20 @@
 {
   "name": "@unipass-wallet/web-popup-sdk",
   "version": "1.0.0",
-  "main": "index.js",
-  "author": "johnz",
-  "license": "MIT",
   "private": true,
+  "license": "MIT",
+  "author": "johnz",
+  "main": "index.js",
   "workspaces": [
+    "examples/*",
     "packages/*"
   ],
   "scripts": {
+    "build": "yarn workspace @unipasswallet/popup-types build && yarn workspace @unipasswallet/popup-utils build && yarn workspace @unipasswallet/popup-sdk build && yarn workspace @unipasswallet/ethereum-provider build",
+    "publish": "yarn workspace @unipasswallet/popup-types publish && yarn workspace @unipasswallet/popup-utils publish && yarn workspace @unipasswallet/popup-sdk publish",
     "start": "concurrently  --raw --kill-others \"yarn start:demo\" \"yarn start:wallet\"",
     "start:demo": "yarn workspace demo dev",
-    "start:wallet": "yarn workspace unipass-wallet start:testnet",
-    "build": "yarn workspace @unipasswallet/popup-types build && yarn workspace @unipasswallet/popup-utils build && yarn workspace @unipasswallet/popup-sdk build && yarn workspace @unipasswallet/ethereum-provider build",
-    "publish": "yarn workspace @unipasswallet/popup-types publish && yarn workspace @unipasswallet/popup-utils publish && yarn workspace @unipasswallet/popup-sdk publish"
+    "start:wallet": "yarn workspace unipass-wallet start:testnet"
   },
   "dependencies": {
     "@changesets/cli": "^2.26.0",

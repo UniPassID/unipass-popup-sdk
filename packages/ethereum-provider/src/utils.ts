@@ -39,6 +39,22 @@ export const SUPPORTED_CHAIN_ID = [
   ARBITRUM_MAINNET,
 ];
 
+export const SUPPORTED_MAINNET_CHAIN_ID = [
+  ETHEREUM_MAINNET,
+  POLYGON_MAINNET,
+  BSC_MAINNET,
+  RANGERS_MAINNET,
+  ARBITRUM_MAINNET,
+];
+export const SUPPORTED_TESTNET_CHAIN_ID = [
+  ETHEREUM_GOERLI,
+  POLYGON_MUMBAI,
+  BSC_TESTNET,
+  RANGERS_ROBIN,
+  SCROLL_TESTNET,
+  ARBITRUM_TESTNET,
+];
+
 export const getChainNameByChainId = (id: number | string): ChainType => {
   switch (Number(id)) {
     case ETHEREUM_MAINNET:
@@ -112,6 +128,21 @@ export const getRPCByChainId = (id: number | string): string => {
     default:
       return 'https://node.wallet.unipass.id/polygon-mumbai';
   }
+};
+
+export const isCorrectChainId = (
+  currentChainId: number,
+  chainId: number
+): boolean => {
+  if (SUPPORTED_MAINNET_CHAIN_ID.includes(currentChainId)) {
+    return SUPPORTED_MAINNET_CHAIN_ID.includes(chainId);
+  }
+
+  if (SUPPORTED_TESTNET_CHAIN_ID.includes(currentChainId)) {
+    return SUPPORTED_TESTNET_CHAIN_ID.includes(chainId);
+  }
+
+  return false;
 };
 
 function convertHexToUtf8(value: string) {

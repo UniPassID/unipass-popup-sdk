@@ -7,7 +7,7 @@ import {
 import { EventEmitter } from 'events';
 import { JsonRpcProvider } from './json-rpc-provider';
 import { UniPassProviderOptions } from './type';
-import { SUPPORTED_CHAIN_ID } from './utils';
+import { isCorrectChainId, SUPPORTED_CHAIN_ID } from './utils';
 
 export class UniPassProvider implements IEthereumProvider {
   private account?: UPAccount = undefined;
@@ -42,12 +42,19 @@ export class UniPassProvider implements IEthereumProvider {
           args?.params && Array.isArray(args?.params) && args?.params[0]
             ? args?.params[0]
             : undefined;
-        const chainId = _params?.chainId?.startsWith('0x')
-          ? parseInt(_params?.chainId, 16)
-          : _params?.chainId;
+        const chainId =
+          typeof _params?.chainId === 'string' &&
+          _params?.chainId?.startsWith('0x')
+            ? parseInt(_params?.chainId, 16)
+            : _params?.chainId;
 
         if (!SUPPORTED_CHAIN_ID.includes(chainId)) {
           throw new Error(`chainId ${chainId} not supported`);
+        }
+        if (!isCorrectChainId(this.chainId, chainId)) {
+          throw new Error(
+            'mainnet and testnet cannot be switched to each other'
+          );
         }
         this.signer.updateUpWalletConfig(chainId);
         this.chainId = chainId;

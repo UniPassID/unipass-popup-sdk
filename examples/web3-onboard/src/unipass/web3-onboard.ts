@@ -2,9 +2,6 @@ import { UniPassTheme } from "@unipasswallet/popup-types";
 import { init } from "@web3-onboard/react";
 import unipassModule from ".";
 
-const INFURA_KEY = "2896ff3d0a1143689424a8341cb75c67";
-
-// Import the blocknative icon
 import icon from "./blocknative";
 
 const unipass = unipassModule({
