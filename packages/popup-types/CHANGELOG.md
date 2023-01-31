@@ -1,5 +1,11 @@
 # @unipasswallet/popup-types
 
+## 0.0.13-alpha.6
+
+### Patch Changes
+
+- split mainnet / testnet switch
+
 ## 0.0.13-alpha.5
 
 ### Patch Changes
