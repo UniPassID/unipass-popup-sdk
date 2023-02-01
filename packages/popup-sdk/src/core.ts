@@ -167,15 +167,10 @@ export class UniPassPopupSDK {
    */
   public async signMessage(
     message: BytesLike,
-    options?: { isEIP191Prefix: boolean; onAuthChain: boolean }
+    options?: { isEIP191Prefix?: boolean; onAuthChain?: boolean }
   ): Promise<string> {
     this.assertLogin();
-    let isEIP191Prefix = false,
-      onAuthChain = true;
-    if (options) {
-      isEIP191Prefix = options.isEIP191Prefix;
-      onAuthChain = options.onAuthChain;
-    }
+    const { isEIP191Prefix = false, onAuthChain = true } = options || {};
     if (typeof message === 'string') {
       message = toUtf8Bytes(message);
     }
@@ -257,17 +252,14 @@ export class UniPassPopupSDK {
    */
   public async signTypedData<T extends MessageTypes>(
     data: TypedMessage<T>,
-    options?: { onAuthChain: boolean }
+    options?: { onAuthChain?: boolean }
   ) {
     this.assertLogin();
     if (data == null) {
       throw new Error('Missing data parameter');
     }
 
-    let onAuthChain = true;
-    if (options) {
-      onAuthChain = options.onAuthChain;
-    }
+    const { onAuthChain = true } = options || {};
 
     return await authorize(
       new UPAuthMessage(

@@ -172,28 +172,10 @@ export const useIndex = () => {
         decimals: 6,
       },
     },
-    scroll: {
-      name: "",
-      rpc: "",
-      nativeToken: "",
-      usdc: {
-        contract: "",
-        decimals: 0,
-      },
-    },
-    arbitrum: {
-      name: "",
-      rpc: "",
-      nativeToken: "",
-      usdc: {
-        contract: "",
-        decimals: 0,
-      },
-    },
   };
 
   let upWallet: UniPassPopupSDK;
-  const domain = "testnet.wallet.unipass.id";
+  const domain = "t.wallet.unipass.vip";
   const protocol = "https";
   // const domain = "localhost:1901";
   // const protocol = "http";
