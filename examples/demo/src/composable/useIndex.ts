@@ -193,10 +193,10 @@ export const useIndex = () => {
   };
 
   let upWallet: UniPassPopupSDK;
-  // const domain = "testnet.wallet.unipass.id";
-  // const protocol = "https";
-  const domain = "localhost:1901";
-  const protocol = "http";
+  const domain = "testnet.wallet.unipass.id";
+  const protocol = "https";
+  // const domain = "localhost:1901";
+  // const protocol = "http";
 
   onBeforeMount(() => {
     upWallet = new UniPassPopupSDK({
