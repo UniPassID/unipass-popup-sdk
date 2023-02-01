@@ -1,5 +1,11 @@
 # @unipasswallet/popup-types
 
+## 1.0.1
+
+### Patch Changes
+
+- bump version
+
 ## 1.0.0
 
 ### Major Changes
