@@ -9,7 +9,7 @@
     "start": "npm run dev"
   },
   "dependencies": {
-    "@unipasswallet/ethereum-provider": "0.0.13-alpha.6",
+    "@unipasswallet/ethereum-provider": "1.0.0",
     "@web3-onboard/common": "^2.2.3",
     "@web3-onboard/react": "^2.4.1",
     "antd": "^5.1.4",
