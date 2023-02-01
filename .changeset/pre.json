@@ -1,0 +1,19 @@
+{
+  "mode": "exit",
+  "tag": "alpha",
+  "initialVersions": {
+    "@unipasswallet/ethereum-provider": "0.0.12",
+    "@unipasswallet/popup-sdk": "0.0.12",
+    "@unipasswallet/popup-types": "0.0.12",
+    "@unipasswallet/popup-utils": "0.0.12"
+  },
+  "changesets": [
+    "fresh-beds-beam",
+    "nasty-apples-vanish",
+    "polite-kids-develop",
+    "tiny-elephants-fix",
+    "warm-planets-carry",
+    "wet-jobs-wink",
+    "yellow-spoons-argue"
+  ]
+}

@@ -270,6 +270,8 @@ const explorerDict = {
   rangers: "https://robin-rangersscan.rangersprotocol.com",
   eth: "https://goerli.etherscan.io",
   polygon: "https://mumbai.polygonscan.com",
+  scroll: "",
+  arbitrum: "",
 };
 
 const explorerNative = computed(() => {

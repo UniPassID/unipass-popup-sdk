@@ -1,11 +1,11 @@
-import { useStorage } from './storage';
-import { execPop, UPA_SESSION_KEY } from './bridge';
 import {
   UPAccount,
   UPAuthMessage,
   UPMessage,
 } from '@unipasswallet/popup-types';
+import { execPop, UPA_SESSION_KEY } from './bridge';
 import { PopupSDKConfig } from './config';
+import { useStorage } from './storage';
 
 export const authorize = async (
   message: UPAuthMessage,

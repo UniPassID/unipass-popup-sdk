@@ -1,5 +1,11 @@
 export type Environment = 'test' | 'prod';
-export type ChainType = 'polygon' | 'bsc' | 'rangers' | 'eth';
+export type ChainType =
+  | 'polygon'
+  | 'bsc'
+  | 'rangers'
+  | 'eth'
+  | 'scroll'
+  | 'arbitrum';
 
 export type UPMessageType =
   | 'UP_READY'
@@ -37,7 +43,9 @@ export class UPAuthMessage {
   constructor(
     public readonly from: string,
     public readonly msg: string,
-    public readonly type?: 'V1' | 'V4'
+    public readonly type?: 'V1' | 'V4',
+    public readonly isEIP191Prefix?: boolean,
+    public readonly onAuthChain?: boolean
   ) {}
 }
 

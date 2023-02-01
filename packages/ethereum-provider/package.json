@@ -1,0 +1,61 @@
+{
+  "version": "0.0.13",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
+  },
+  "peerDependencies": {},
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "name": "@unipasswallet/ethereum-provider",
+  "author": "lay2",
+  "module": "dist/ethereum-provider.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/ethereum-provider.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/ethereum-provider.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "dependencies": {
+    "@unipasswallet/popup-types": "0.0.13",
+    "@unipasswallet/popup-sdk": "0.0.13",
+    "events": "^3.3.0",
+    "eip1193-provider": "1.0.1"
+  },
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^8.1.0",
+    "husky": "^8.0.3",
+    "size-limit": "^8.1.0",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.4.1",
+    "typescript": "^4.9.4"
+  }
+}
