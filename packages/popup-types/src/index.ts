@@ -44,7 +44,8 @@ export class UPAuthMessage {
     public readonly from: string,
     public readonly msg: string,
     public readonly type?: 'V1' | 'V4',
-    public readonly isEIP191Prefix?: boolean
+    public readonly isEIP191Prefix?: boolean,
+    public readonly onAuthChain?: boolean
   ) {}
 }
 
@@ -76,8 +77,7 @@ export class UPMessage {
   constructor(
     public type: UPMessageType,
     public payload?: string,
-    public appSetting?: AppSettings,
-    public isEIP191Prefix?: boolean
+    public appSetting?: AppSettings
   ) {}
 }
 

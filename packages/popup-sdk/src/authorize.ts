@@ -9,8 +9,7 @@ import { useStorage } from './storage';
 
 export const authorize = async (
   message: UPAuthMessage,
-  config: PopupSDKConfig,
-  isEIP191Prefix = false
+  config: PopupSDKConfig
 ): Promise<string> => {
   const sessionAccount = useStorage(config.storageType).get(UPA_SESSION_KEY);
   const account = sessionAccount && (JSON.parse(sessionAccount) as UPAccount);
@@ -24,8 +23,7 @@ export const authorize = async (
   const msg = new UPMessage(
     'UP_SIGN_MESSAGE',
     JSON.stringify(message),
-    config?.appSettings,
-    isEIP191Prefix
+    config?.appSettings
   );
 
   try {

@@ -53,12 +53,12 @@ export class JsonRpcProvider {
     if (request.method.startsWith('eth_signTypedData')) {
       return await this.upWallet.signTypedData(
         getSignTypedDataParamsData(request.params as string[]),
-        true
+        { onAuthChain: false }
       );
     } else if (request.method === 'personal_sign') {
       return await this.upWallet.signMessage(
         getSignParamsMessage(request.params as string[]),
-        true
+        { isEIP191Prefix: true, onAuthChain: false }
       );
     } else if (request.method === 'eth_sendTransaction') {
       const _params =

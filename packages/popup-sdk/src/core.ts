@@ -159,11 +159,23 @@ export class UniPassPopupSDK {
     return await sendTransaction(_transaction, this._config!);
   }
 
+  /**
+   * @param message - message will been signed
+   * @param options.isEIP191Prefix - if true, sign with EIP191 prefix
+   * @param options.onAuthChain - if true, sign on auth chain(polygon)
+   * @returns The '0x'-prefixed hex encoded signature.
+   */
   public async signMessage(
     message: BytesLike,
-    isEIP191Prefix = false
+    options?: { isEIP191Prefix: boolean; onAuthChain: boolean }
   ): Promise<string> {
     this.assertLogin();
+    let isEIP191Prefix = false,
+      onAuthChain = true;
+    if (options) {
+      isEIP191Prefix = options.isEIP191Prefix;
+      onAuthChain = options.onAuthChain;
+    }
     if (typeof message === 'string') {
       message = toUtf8Bytes(message);
     }
@@ -173,16 +185,17 @@ export class UniPassPopupSDK {
         this.getAddress(),
         hexlify(message),
         'V1',
-        isEIP191Prefix
+        isEIP191Prefix,
+        onAuthChain
       ),
       this._config!
     );
   }
 
   /**
-   * @param msg the message to be signed
-   * @param sig the signature response returned by UniPass
-   * @param account the account who signed the message
+   * @param msg - the message to be signed
+   * @param sig - the signature response returned by UniPass
+   * @param account - the account who signed the message
    * @returns boolean true: pass verification, false: failed verification
    */
   public async isValidSignature(
@@ -239,15 +252,21 @@ export class UniPassPopupSDK {
    * arrays and recursive data structures.
    *
    * @param data - The typed data to sign.
+   * @param options.onAuthChain - if true, sign on auth chain(polygon)
    * @returns The '0x'-prefixed hex encoded signature.
    */
   public async signTypedData<T extends MessageTypes>(
     data: TypedMessage<T>,
-    isEIP191Prefix = false
+    options?: { onAuthChain: boolean }
   ) {
     this.assertLogin();
     if (data == null) {
       throw new Error('Missing data parameter');
+    }
+
+    let onAuthChain = true;
+    if (options) {
+      onAuthChain = options.onAuthChain;
     }
 
     return await authorize(
@@ -255,7 +274,8 @@ export class UniPassPopupSDK {
         this.getAddress(),
         JSON.stringify(data),
         'V4',
-        isEIP191Prefix
+        false,
+        onAuthChain
       ),
       this._config!
     );
