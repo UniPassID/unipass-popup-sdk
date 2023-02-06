@@ -21,7 +21,9 @@ export class UPAccount {
   constructor(
     public address: string,
     public email?: string,
-    public newborn?: boolean
+    public newborn?: boolean,
+    public message?: string,
+    public signature?: string
   ) {}
 }
 
@@ -92,6 +94,7 @@ export type ConnectType = 'google' | 'email' | 'both';
 export type UPConnectOptions = {
   email?: boolean;
   connectType?: ConnectType;
+  authorize?: boolean;
   eventListener?: UPEventListener;
 };
 

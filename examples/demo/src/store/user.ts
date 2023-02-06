@@ -8,8 +8,10 @@ export const useUserStore = defineStore({
       address: "",
       email: "",
       newborn: false,
-      //
       chainType: "polygon" as ChainType,
+      // connect and auth
+      message: "",
+      signature: "",
     };
   },
   actions: {},

@@ -99,6 +99,12 @@
           <span>Connect UniPass</span>
         </div>
       </div>
+      <div class="oauth-box" @click="connectAndAuth()">
+        <div class="one">
+          <img class="google_icon" src="@/assets/unipass.svg" />
+          <span>Connect and Auth with UniPass</span>
+        </div>
+      </div>
     </div>
     <div class="page-demo">
       <div class="link_head">UniPass Documents</div>
@@ -152,6 +158,7 @@ const {
   returnEmail,
   userStore,
   connect,
+  connectAndAuth,
   chainChange,
 
   CHAIN_CONFIGS,
