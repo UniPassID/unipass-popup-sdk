@@ -1,28 +1,34 @@
-import { computed, onBeforeMount, ref, watch, watchEffect } from "vue";
+import { useUserStore } from "@/store/user";
+import { UniPassPopupSDK } from "@unipasswallet/popup-sdk";
 import {
   ChainType,
   ConnectType,
+  MessageTypes,
+  TypedMessage,
   UniPassTheme,
   UPEvent,
   UPEventType,
-  MessageTypes,
-  TypedMessage,
 } from "@unipasswallet/popup-types";
-import { UniPassPopupSDK } from "@unipasswallet/popup-sdk";
-import { ERC20ABI } from "../assets/erc20.abi";
+import { useClipboard } from "@vueuse/core";
+import { ElMessage } from "element-plus";
+import { Contract } from "ethers";
 import {
-  isAddress,
   formatEther,
-  parseEther,
   formatUnits,
   Interface,
+  isAddress,
+  parseEther,
   parseUnits,
 } from "ethers/lib/utils";
-import { Contract } from "ethers";
-import { ElMessage } from "element-plus";
-import { onMounted } from "vue";
-import { useUserStore } from "@/store/user";
-import { useClipboard } from "@vueuse/core";
+import {
+  computed,
+  onBeforeMount,
+  onMounted,
+  ref,
+  watch,
+  watchEffect,
+} from "vue";
+import { ERC20ABI } from "../assets/erc20.abi";
 
 export const useIndex = () => {
   const userStore = useUserStore();
@@ -125,6 +131,7 @@ export const useIndex = () => {
     },
   };
 
+  // @ts-ignore
   const CHAIN_CONFIGS: {
     [key in ChainType]: {
       name: string;
@@ -175,7 +182,7 @@ export const useIndex = () => {
   };
 
   let upWallet: UniPassPopupSDK;
-  const domain = "testnet.wallet.unipass.id";
+  const domain = "t.wallet.unipass.vip";
   const protocol = "https";
   // const domain = "localhost:1901";
   // const protocol = "http";
@@ -213,6 +220,8 @@ export const useIndex = () => {
     userStore.address = account.address;
     userStore.email = account.email || "";
     userStore.newborn = account.newborn || false;
+    userStore.message = account.message || "";
+    userStore.signature = account.signature || "";
     refreshBalance();
   });
 
@@ -298,6 +307,34 @@ export const useIndex = () => {
       await refreshBalance();
     } catch (err: any) {
       ElMessage.error("user reject connection");
+      console.error(err);
+    }
+  };
+
+  const connectAndAuth = async () => {
+    try {
+      const account = await upWallet.login({
+        email: returnEmail.value,
+        authorize: true,
+        eventListener: (event: UPEvent) => {
+          console.log("event", event);
+          const { type, body } = event;
+          if (type === UPEventType.REGISTER) {
+            console.log("account", body);
+            ElMessage.success("a user register");
+          }
+        },
+      });
+      console.log(account);
+
+      userStore.address = account.address;
+      userStore.email = account.email || "";
+      userStore.newborn = account.newborn || false;
+      userStore.message = account.message || "";
+      userStore.signature = account.signature || "";
+      await refreshBalance();
+    } catch (err: any) {
+      ElMessage.error("user reject connection");
       console.log("connect error", err);
     }
   };
@@ -323,6 +360,7 @@ export const useIndex = () => {
   const refreshBalance = async () => {
     const provider = upWallet.getProvider();
     console.log("provider", provider);
+    if (!userStore.address) return;
     const balance = await provider.getBalance(userStore.address);
     myNativeTokenBalance.value = formatEther(balance);
 
@@ -331,6 +369,7 @@ export const useIndex = () => {
       ERC20ABI,
       upWallet.getProvider()
     );
+    if (!userStore.address) return;
     myTokenBalance.value = formatUnits(
       await tokenContract.balanceOf(userStore.address),
       myChainConfig.value.usdc.decimals
@@ -340,9 +379,9 @@ export const useIndex = () => {
     );
   };
 
-  const logout = () => {
+  const logout = async () => {
     console.log("connect clicked");
-    upWallet.logout();
+    await upWallet.logout();
     userStore.address = "";
   };
 
@@ -498,6 +537,7 @@ export const useIndex = () => {
     myBalanceFormat,
     bindCopy,
     connect,
+    connectAndAuth,
     onAddressChanged,
     logout,
     signMessage,

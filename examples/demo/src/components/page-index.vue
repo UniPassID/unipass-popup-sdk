@@ -58,6 +58,36 @@
             :autosize="{ minRows: 1 }"
           />
         </el-form-item>
+
+        <el-form-item
+          label="Sign With Ethereum message"
+          v-if="userStore.message"
+        >
+          <template #label>
+            <span class="label_s">Sign With Ethereum message</span>
+          </template>
+          <el-input
+            v-model="userStore.message"
+            type="textarea"
+            readonly
+            :autosize="{ minRows: 4 }"
+          />
+        </el-form-item>
+
+        <el-form-item
+          label="Sign With Ethereum Signature"
+          v-if="userStore.signature"
+        >
+          <template #label>
+            <span class="label_s">Sign With Ethereum Signature</span>
+          </template>
+          <el-input
+            v-model="userStore.signature"
+            readonly
+            type="textarea"
+            :autosize="{ minRows: 10 }"
+          />
+        </el-form-item>
       </el-form>
       <button class="polygon_bt" @click="logout">Disconnect</button>
     </div>
@@ -280,9 +310,6 @@ const explorerNative = computed(() => {
 const explorerERC20 = computed(() => {
   return explorerDict[userStore.chainType] + "/tx/" + txHashERC20.value;
 });
-const openWallet = () => {
-  window.open(`${protocol}://${domain}`, "_blank");
-};
 </script>
 
 <style lang="scss">
