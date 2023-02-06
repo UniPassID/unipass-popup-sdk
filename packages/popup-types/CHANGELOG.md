@@ -1,5 +1,11 @@
 # @unipasswallet/popup-types
 
+## 1.0.2
+
+### Patch Changes
+
+- add connect&authorize support for login api
+
 ## 1.0.1
 
 ### Patch Changes

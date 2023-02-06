@@ -1,5 +1,14 @@
 # @unipasswallet/popup-sdk
 
+## 1.0.2
+
+### Patch Changes
+
+- add connect&authorize support for login api
+- Updated dependencies
+  - @unipasswallet/popup-types@1.0.2
+  - @unipasswallet/popup-utils@1.0.2
+
 ## 1.0.1
 
 ### Patch Changes
