@@ -1,5 +1,14 @@
 # @unipasswallet/popup-sdk
 
+## 1.0.3
+
+### Patch Changes
+
+- move signature verification methods to popup-utils packages
+- Updated dependencies
+  - @unipasswallet/popup-types@1.0.3
+  - @unipasswallet/popup-utils@1.0.3
+
 ## 1.0.2
 
 ### Patch Changes
