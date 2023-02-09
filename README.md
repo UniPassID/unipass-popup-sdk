@@ -245,7 +245,13 @@ const verifySig = async () => {
   const message = 'hello world';
   const sig: string;
   try {
-    const ret = await upWallet.isValidSignature(message.value, sig.value, accountAddress);
+      const ret = await verifyMessageSignature(
+        message,
+        sig,
+        address,
+        false,
+        upWallet.getAuthProvider()
+      );    
     if (ret === true) {
       console.success("verify signature success");
     } else {
@@ -323,11 +329,12 @@ const signTypedData = async () => {
 ```tsx
 const verifyTypedSig = async () => {
     try {
-      const ret = await upWallet.isValidTypedSignature(
-        eip712DemoData,
+      const ret = await verifyTypedDataSignature(
+        eip712DemoData as TypedData,
+        eip712Sig,
         address,
-        eip712Sig
-      );
+        upWallet.getAuthProvider()
+      )
       if (ret === true) {
         console.log("verify eip712 signature success");
       } else {

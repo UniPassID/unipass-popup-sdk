@@ -9,6 +9,11 @@ import {
   UPEvent,
   UPEventType,
 } from "@unipasswallet/popup-types";
+import type { TypedData } from "@unipasswallet/popup-utils";
+import {
+  verifyMessageSignature,
+  verifyTypedDataSignature,
+} from "@unipasswallet/popup-utils";
 import { useClipboard } from "@vueuse/core";
 import { ElMessage } from "element-plus";
 import { Contract } from "ethers";
@@ -403,10 +408,12 @@ export const useIndex = () => {
 
   const verifySig = async () => {
     try {
-      const ret = await upWallet.isValidSignature(
+      const ret = await verifyMessageSignature(
         message.value,
         sig.value,
-        userStore.address
+        userStore.address,
+        false,
+        upWallet.getAuthProvider()
       );
       if (ret === true) {
         ElMessage.success("verify signature success");
@@ -433,10 +440,11 @@ export const useIndex = () => {
 
   const verifyTypedSig = async () => {
     try {
-      const ret = await upWallet.isValidTypedSignature(
-        eip712DemoData,
+      const ret = await verifyTypedDataSignature(
+        eip712DemoData as TypedData,
+        eip712Sig.value,
         userStore.address,
-        eip712Sig.value
+        upWallet.getAuthProvider()
       );
       if (ret === true) {
         ElMessage.success("verify eip712 signature success");

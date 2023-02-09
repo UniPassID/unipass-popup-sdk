@@ -125,6 +125,10 @@ export class UniPassPopupSDK {
     return this._provider!;
   }
 
+  public getAuthProvider(): JsonRpcProvider {
+    return this._auth_provider!;
+  }
+
   public isLogin() {
     return !!this.getAccount();
   }
@@ -188,6 +192,8 @@ export class UniPassPopupSDK {
   }
 
   /**
+   * @deprecated a new version signature verification method `verifyMessageSignature` is already provided by the @unipasswallet/popup-utils package
+   * 
    * @param msg - the message to be signed
    * @param sig - the signature response returned by UniPass
    * @param account - the account who signed the message
@@ -274,6 +280,8 @@ export class UniPassPopupSDK {
   }
 
   /**
+   * @deprecated a new version signature verification method `verifyTypedDataSignature` is already provided by the @unipasswallet/popup-utils package
+   * 
    * Valid the address of the account that created the given EIP-712
    * signature. The version provided must match the version used to
    * create the signature.

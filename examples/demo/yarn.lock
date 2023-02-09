@@ -604,27 +604,27 @@
     "@typescript-eslint/types" "5.40.0"
     eslint-visitor-keys "^3.3.0"
 
-"@unipasswallet/popup-sdk@^0.0.13":
-  version "0.0.13"
-  resolved "https://registry.yarnpkg.com/@unipasswallet/popup-sdk/-/popup-sdk-0.0.13.tgz#16a1c93e45129a7a3a2515ff23b647700e89b62f"
-  integrity sha512-Pd+xyo6kd5L/kdnQoaEvmgmdELPMWMCov16fkrU+ljIyVMhd8dbwIWggcnxDpr0V+DP1d+x0Df3hecR5Z6G0Tg==
+"@unipasswallet/popup-sdk@^1.0.0":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@unipasswallet/popup-sdk/-/popup-sdk-1.0.2.tgz#f0159c6690136cd35ada4e2ec1e8432cbd20df54"
+  integrity sha512-BubqrvVMDgF92g75rtyZukiErThn3pRm71zjTj1vugmXVK117YqYw50FhMRcMBw6pXyeiYTT9kzamTKlYasmIg==
   dependencies:
-    "@unipasswallet/popup-types" "^0.0.13"
-    "@unipasswallet/popup-utils" "^0.0.13"
+    "@unipasswallet/popup-types" "^1.0.2"
+    "@unipasswallet/popup-utils" "^1.0.2"
     buffer "^6.0.3"
     ethers "^5.7.1"
 
-"@unipasswallet/popup-types@^0.0.13":
-  version "0.0.13"
-  resolved "https://registry.yarnpkg.com/@unipasswallet/popup-types/-/popup-types-0.0.13.tgz#d02072d91bd19894ac42fe933f9a2c6bb7ac10cd"
-  integrity sha512-Y5BZvX6SE0AikWIbPmtbLm0jzyNSkr6hdCGW8GBNSIz0ejVEXGaNruQRi3Y3ZtMW9B7vFC2QSuSh14NQ78c9XA==
+"@unipasswallet/popup-types@^1.0.0", "@unipasswallet/popup-types@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@unipasswallet/popup-types/-/popup-types-1.0.2.tgz#029c2dd603c1138dce04eb1e23ecf52b3fa13d45"
+  integrity sha512-t6jm/4BMABbZuCw3RMEEboedu1MSSEsZDZ64PHaCnB206uQ2BiMPKGxOpZZsG4MnE+X1lMOScN2wayA3iOJWgA==
 
-"@unipasswallet/popup-utils@^0.0.13":
-  version "0.0.13"
-  resolved "https://registry.yarnpkg.com/@unipasswallet/popup-utils/-/popup-utils-0.0.13.tgz#400e3f2acbd4680e802d3c573b2b1611c43447c8"
-  integrity sha512-NLae5O7xA6hOXRzCFJFbffDWCVp4oRIwL4ck0Gj1E9Yabq06xDWBtfR14lSm2mLUnylJCLIIBw2ZpMrJav0qLA==
+"@unipasswallet/popup-utils@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@unipasswallet/popup-utils/-/popup-utils-1.0.2.tgz#619063b177cb68b70c25ebbc63de2e7f9a8c8fce"
+  integrity sha512-+yr0EXakFuRROmOSZJk2PyBK/BPZXP7YLl8PUtXSiykS8MpmVt2l2nV1HLooV0JAL/mbTf9l0XcwjgNfzTIIfA==
   dependencies:
-    "@unipasswallet/popup-types" "^0.0.13"
+    "@unipasswallet/popup-types" "^1.0.2"
     bn.js "^4.11.8"
     concurrently "^7.4.0"
     ethereum-cryptography "^1.1.2"

@@ -56,3 +56,5 @@ export function postMessage(message: UPMessage) {
     window.opener.postMessage(message, '*');
   }
 }
+
+export * from './verify-sig'
