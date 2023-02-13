@@ -2,6 +2,7 @@ import { UniPassPopupSDK } from '@unipasswallet/popup-sdk';
 import { AppSettings } from '@unipasswallet/popup-types';
 import { RequestArguments } from 'eip1193-provider';
 import { providers } from 'ethers';
+import { RpcUrls } from './type';
 import {
   getChainNameByChainId,
   getENVByChainId,
@@ -13,6 +14,7 @@ import {
 export class JsonRpcProvider {
   private appSetting?: Omit<AppSettings, 'chain'>;
   private returnEmail: boolean = false;
+  private rpcUrls?: RpcUrls;
   public chainId: number;
   public http: providers.JsonRpcProvider;
   public readonly upWallet: UniPassPopupSDK;
@@ -20,11 +22,15 @@ export class JsonRpcProvider {
   constructor(
     chainId: number,
     returnEmail: boolean,
+    rpcUrls?: RpcUrls,
     appSetting?: Omit<AppSettings, 'chain'>
   ) {
     this.appSetting = appSetting;
     this.returnEmail = returnEmail;
     this.chainId = chainId;
+    this.rpcUrls = rpcUrls;
+
+    const nodeRPC = getRPCByChainId(chainId, rpcUrls);
 
     this.upWallet = new UniPassPopupSDK({
       env: getENVByChainId(chainId),
@@ -33,10 +39,11 @@ export class JsonRpcProvider {
         ...this.appSetting,
         chain: getChainNameByChainId(chainId),
       },
+      nodeRPC,
       storageType: 'sessionStorage',
     });
 
-    this.http = new providers.JsonRpcProvider(getRPCByChainId(chainId));
+    this.http = new providers.JsonRpcProvider(nodeRPC);
   }
 
   public async connect() {
@@ -78,13 +85,15 @@ export class JsonRpcProvider {
   }
 
   public updateUpWalletConfig = (chainId: number) => {
+    const nodeRPC = getRPCByChainId(chainId, this.rpcUrls);
     this.upWallet.updateConfig({
       chainType: getChainNameByChainId(chainId),
+      nodeRPC,
       appSettings: {
         chain: getChainNameByChainId(chainId),
       },
     });
     this.chainId = chainId;
-    this.http = new providers.JsonRpcProvider(getRPCByChainId(chainId));
+    this.http = new providers.JsonRpcProvider(nodeRPC);
   };
 }
