@@ -4461,31 +4461,6 @@
     chokidar "3.5.3"
     pino "7.11.0"
 
-"@unipasswallet/ethereum-provider@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@unipasswallet/ethereum-provider/-/ethereum-provider-1.0.0.tgz#88cbe95d946351c0cc1906b770dbdd2317ed1f14"
-  integrity sha512-w2Au+DBPkpqpjbhB90Q9za+xiK8rHXRMczRzhlco8t0PQpLyQ4rNAePyZMkZxBlif+bMQDZgoNZdMKdhTLD2cA==
-  dependencies:
-    "@unipasswallet/popup-sdk" "1.0.0"
-    "@unipasswallet/popup-types" "1.0.0"
-    eip1193-provider "1.0.1"
-    events "^3.3.0"
-
-"@unipasswallet/popup-sdk@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@unipasswallet/popup-sdk/-/popup-sdk-1.0.0.tgz#040043186bc95adade388b27a3a36526c82e95dc"
-  integrity sha512-cWCzCo4h4Vzcf23Cd0xQi8wyEXuFDW/qgxxqh7UD/vr8e4AiGUmXhzobizmHh0KF71IjS1M1wZVmId1Du5UC3w==
-  dependencies:
-    "@unipasswallet/popup-types" "^1.0.0"
-    "@unipasswallet/popup-utils" "^1.0.0"
-    buffer "^6.0.3"
-    ethers "^5.7.1"
-
-"@unipasswallet/popup-types@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@unipasswallet/popup-types/-/popup-types-1.0.0.tgz#13565a8bbc0721b1ea9fe1fe0a5d2b4070d955a0"
-  integrity sha512-7tKa5H6xdrTs4dqMVGW2iQWSYa87BMdWWdVETiQ2uJnw9uDussT5wlB7cnkAomo4t3EWQkv3ut007UJoQf29vQ==
-
 "@unstoppabledomains/resolution@^8.0":
   version "8.5.0"
   resolved "https://registry.yarnpkg.com/@unstoppabledomains/resolution/-/resolution-8.5.0.tgz#7f65146fb3bc69bfae8699c4ed1c61f3d6f0096c"

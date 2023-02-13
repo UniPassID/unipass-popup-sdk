@@ -5,11 +5,18 @@ import unipassModule from ".";
 import icon from "./blocknative";
 
 const unipass = unipassModule({
-  chainId: 80001,
+  chainId: 5,
   returnEmail: true,
   appSettings: {
     appName: "web3-onboard test for unipass",
     theme: UniPassTheme.DARK,
+  },
+  rpcUrls: {
+    mainnet: "https://node.wallet.unipass.id/eth-mainnet",
+    polygon: "https://polygon-mainnet.infura.io/v3/5356162b7e79435cbabea8756d548aab",
+    bscMainnet: "https://node.wallet.unipass.id/bsc-mainnet",
+    rangersMainnet: "https://node.wallet.unipass.id/rangers-mainnet",
+    arbitrumMainnet: "https://node.wallet.unipass.id/arbitrum-mainnet",
   },
 });
 
@@ -40,7 +47,8 @@ export default init({
       id: "0x89",
       token: "MATIC",
       label: "Matic Mainnet",
-      rpcUrl: "https://node.wallet.unipass.id/polygon-mainnet",
+      rpcUrl:
+        "https://polygon-mainnet.infura.io/v3/5356162b7e79435cbabea8756d548aab",
     },
     {
       id: "0x13881",
