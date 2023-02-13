@@ -1,5 +1,17 @@
 # @unipasswallet/ethereum-provider
 
+## 1.1.0
+
+### Minor Changes
+
+- add custom rpc endpoint parameters for ethereum provider
+
+### Patch Changes
+
+- Updated dependencies
+  - @unipasswallet/popup-sdk@1.1.0
+  - @unipasswallet/popup-types@1.1.0
+
 ## 1.0.3
 
 ### Patch Changes
