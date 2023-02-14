@@ -115,48 +115,25 @@ export const getRPCByChainId = (
     case ETHEREUM_MAINNET:
       return rpcUrls?.mainnet ?? 'https://node.wallet.unipass.id/eth-mainnet';
     case POLYGON_MAINNET:
-      return (
-        rpcUrls?.polygon ?? 'https://node.wallet.unipass.id/polygon-mainnet'
-      );
+      return rpcUrls?.polygon ?? 'https://node.wallet.unipass.id/polygon-mainnet';
     case BSC_MAINNET:
-      return (
-        rpcUrls?.bscMainnet ?? 'https://node.wallet.unipass.id/bsc-mainnet'
-      );
+      return rpcUrls?.bscMainnet ?? 'https://node.wallet.unipass.id/bsc-mainnet';
     case RANGERS_MAINNET:
-      return (
-        rpcUrls?.rangersMainnet ??
-        'https://node.wallet.unipass.id/rangers-mainnet'
-      );
+      return rpcUrls?.rangersMainnet ?? 'https://node.wallet.unipass.id/rangers-mainnet';
     case ARBITRUM_MAINNET:
-      return (
-        rpcUrls?.arbitrumMainnet ??
-        'https://node.wallet.unipass.id/arbitrum-mainnet'
-      );
+      return rpcUrls?.arbitrumMainnet ?? 'https://node.wallet.unipass.id/arbitrum-mainnet';
     case ETHEREUM_GOERLI:
       return rpcUrls?.goerli ?? 'https://node.wallet.unipass.id/eth-goerli';
     case POLYGON_MUMBAI:
-      return (
-        rpcUrls?.polygonMumbai ??
-        'https://node.wallet.unipass.id/polygon-mumbai'
-      );
+      return rpcUrls?.polygonMumbai ?? 'https://node.wallet.unipass.id/polygon-mumbai';
     case BSC_TESTNET:
-      return (
-        rpcUrls?.bscTestnet ?? 'https://node.wallet.unipass.id/bsc-testnet'
-      );
+      return rpcUrls?.bscTestnet ?? 'https://node.wallet.unipass.id/bsc-testnet';
     case RANGERS_ROBIN:
-      return (
-        rpcUrls?.rangersRobin ?? 'https://node.wallet.unipass.id/rangers-robin'
-      );
+      return rpcUrls?.rangersRobin ?? 'https://node.wallet.unipass.id/rangers-robin';
     case SCROLL_TESTNET:
-      return (
-        rpcUrls?.scrollTestnet ??
-        'https://node.wallet.unipass.id/scroll-testnet'
-      );
+      return rpcUrls?.scrollTestnet ?? 'https://node.wallet.unipass.id/scroll-testnet';
     case ARBITRUM_TESTNET:
-      return (
-        rpcUrls?.arbitrumTestnet ??
-        'https://node.wallet.unipass.id/arbitrum-testnet'
-      );
+      return rpcUrls?.arbitrumTestnet ?? 'https://node.wallet.unipass.id/arbitrum-testnet';
     default:
       return 'https://node.wallet.unipass.id/polygon-mumbai';
   }
