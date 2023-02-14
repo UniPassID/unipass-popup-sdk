@@ -6,7 +6,6 @@
   "author": "johnz",
   "main": "index.js",
   "workspaces": [
-    "examples/*",
     "packages/*"
   ],
   "scripts": {
