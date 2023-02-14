@@ -1,5 +1,11 @@
 # @unipasswallet/popup-types
 
+## 1.1.1
+
+### Patch Changes
+
+- fix arbitrum chain id bug
+
 ## 1.1.0
 
 ### Minor Changes

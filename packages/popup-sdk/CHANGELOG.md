@@ -1,5 +1,14 @@
 # @unipasswallet/popup-sdk
 
+## 1.1.1
+
+### Patch Changes
+
+- fix arbitrum chain id bug
+- Updated dependencies
+  - @unipasswallet/popup-types@1.1.1
+  - @unipasswallet/popup-utils@1.1.1
+
 ## 1.1.0
 
 ### Minor Changes
