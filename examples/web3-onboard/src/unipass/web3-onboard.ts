@@ -5,7 +5,7 @@ import unipassModule from ".";
 import icon from "./blocknative";
 
 const unipass = unipassModule({
-  chainId: 5,
+  chainId: 42161,
   returnEmail: true,
   appSettings: {
     appName: "web3-onboard test for unipass",
@@ -13,7 +13,8 @@ const unipass = unipassModule({
   },
   rpcUrls: {
     mainnet: "https://node.wallet.unipass.id/eth-mainnet",
-    polygon: "https://polygon-mainnet.infura.io/v3/5356162b7e79435cbabea8756d548aab",
+    polygon:
+      "https://polygon-mainnet.infura.io/v3/5356162b7e79435cbabea8756d548aab",
     bscMainnet: "https://node.wallet.unipass.id/bsc-mainnet",
     rangersMainnet: "https://node.wallet.unipass.id/rangers-mainnet",
     arbitrumMainnet: "https://node.wallet.unipass.id/arbitrum-mainnet",
