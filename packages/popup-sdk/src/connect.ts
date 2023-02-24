@@ -31,7 +31,11 @@ export const getLocalAccount = (
   }
 };
 
-export const disconnect = () => {
+export const disconnect = async (deep: boolean) => {
+  if (deep) {
+    const message = new UPMessage('UP_LOGOUT');
+    await execPop(message);
+  }
   useStorage('localStorage').remove(UPA_SESSION_KEY);
   useStorage('sessionStorage').remove(UPA_SESSION_KEY);
 };

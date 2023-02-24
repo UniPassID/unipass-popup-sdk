@@ -89,7 +89,12 @@
           />
         </el-form-item>
       </el-form>
-      <button class="polygon_bt" @click="logout">Disconnect</button>
+      <button class="polygon_bt" @click="() => logout(false)">
+        Disconnect
+      </button>
+      <button class="polygon_bt" @click="() => logout(true)">
+        Deep Disconnect
+      </button>
     </div>
 
     <div class="page-demo">

@@ -187,10 +187,10 @@ export const useIndex = () => {
   };
 
   let upWallet: UniPassPopupSDK;
-  // const domain = "testnet.wallet.unipass.id";
-  // const protocol = "https";
-  const domain = "localhost:1901";
-  const protocol = "http";
+  const domain = "testnet.wallet.unipass.id";
+  const protocol = "https";
+  // const domain = "localhost:1901";
+  // const protocol = "http";
 
   onBeforeMount(() => {
     upWallet = new UniPassPopupSDK({
@@ -384,9 +384,8 @@ export const useIndex = () => {
     );
   };
 
-  const logout = async () => {
-    console.log("connect clicked");
-    await upWallet.logout();
+  const logout = async (deep = false) => {
+    await upWallet.logout(deep);
     userStore.address = "";
   };
 
@@ -504,7 +503,7 @@ export const useIndex = () => {
       ]);
       const tx = {
         from: userStore.address,
-        to: myChainConfig.value.usdc.contract,
+        to: toAddress.value,
         value: "0x",
         data: erc20TokenData,
       };
