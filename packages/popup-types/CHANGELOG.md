@@ -1,5 +1,11 @@
 # @unipasswallet/popup-types
 
+## 1.1.2
+
+### Patch Changes
+
+- add deep option for logout
+
 ## 1.1.1
 
 ### Patch Changes
