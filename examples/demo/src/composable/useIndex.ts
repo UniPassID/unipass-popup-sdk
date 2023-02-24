@@ -503,7 +503,7 @@ export const useIndex = () => {
       ]);
       const tx = {
         from: userStore.address,
-        to: toAddress.value,
+        to: myChainConfig.value.usdc.contract,
         value: "0x",
         data: erc20TokenData,
       };
