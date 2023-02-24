@@ -117,8 +117,8 @@ export class UniPassPopupSDK {
     return account;
   }
 
-  public async logout() {
-    disconnect();
+  public async logout(deep = false) {
+    await disconnect(deep);
   }
 
   public getProvider(): JsonRpcProvider {

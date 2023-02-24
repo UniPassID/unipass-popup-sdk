@@ -14,6 +14,7 @@ export type UPMessageType =
   | 'UP_SIGN_MESSAGE'
   | 'UP_TRANSACTION'
   | 'UP_LOGIN'
+  | 'UP_LOGOUT'
   | 'UP_EVENT'
   | 'UP_ERROR';
 

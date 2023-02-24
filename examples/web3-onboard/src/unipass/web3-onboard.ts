@@ -5,7 +5,7 @@ import unipassModule from ".";
 import icon from "./blocknative";
 
 const unipass = unipassModule({
-  chainId: 42161,
+  chainId: 80001,
   returnEmail: true,
   appSettings: {
     appName: "web3-onboard test for unipass",
@@ -56,6 +56,18 @@ export default init({
       token: "MATIC",
       label: "Matic Mumbai",
       rpcUrl: "https://node.wallet.unipass.id/polygon-mumbai",
+    },
+    {
+      id: "0x38",
+      token: "BNB",
+      label: "BSC Mainnet",
+      rpcUrl: "https://node.wallet.unipass.id/bsc-mainnet",
+    },
+    {
+      id: "0x61",
+      token: "BNB",
+      label: "BSC Testnet",
+      rpcUrl: "https://node.wallet.unipass.id/bsc-testnet",
     },
   ],
   appMetadata: {

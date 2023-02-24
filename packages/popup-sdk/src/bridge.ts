@@ -48,12 +48,18 @@ export function execPop(
                     return;
                   }
 
+                  if (message.type === "UP_LOGOUT") {
+                    resolve(resp.data)
+                    close();
+                    return
+                  }
+
                   if (
                     message.type === 'UP_TRANSACTION' ||
                     message.type === 'UP_SIGN_MESSAGE'
                   ) {
                     // clear session storage
-                    disconnect();
+                    disconnect(false);
                     reject(`can not authorize without login`);
                     close();
                     break;

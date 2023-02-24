@@ -9,6 +9,7 @@ const UP_DOMAIN = 'wallet.unipass.id';
 export type UP_API_CONFIG = {
   upDomain: string;
   upConnectUrl: string;
+  upLogoutUrl: string;
   upSignMessageUrl: string;
   upTransactionUrl: string;
   upLoadingUrl: string;
@@ -22,6 +23,7 @@ export interface WalletURL {
 var config: UP_API_CONFIG = {
   upDomain: UP_DOMAIN,
   upConnectUrl: `https://${UP_DOMAIN}/connect`,
+  upLogoutUrl: `https://${UP_DOMAIN}/logout`,
   upSignMessageUrl: `https://${UP_DOMAIN}/sign-message`,
   upTransactionUrl: `https://${UP_DOMAIN}/send-transaction`,
   upLoadingUrl: `https://${UP_DOMAIN}/connect/loading`,
@@ -36,6 +38,7 @@ export default (option: WalletURL) => {
   config = {
     upDomain: domain,
     upConnectUrl: `${protocol}://${domain}/connect`,
+    upLogoutUrl: `${protocol}://${domain}/logout`,
     upSignMessageUrl: `${protocol}://${domain}/sign-message`,
     upTransactionUrl: `${protocol}://${domain}/send-transaction`,
     upLoadingUrl: `${protocol}://${domain}/connect/loading`,

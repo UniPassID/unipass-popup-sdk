@@ -41,7 +41,9 @@ function serviceEndPoint(type: UPMessageType, connectType?: ConnectType) {
       return getConfig().upConnectUrl + '?connectType=email';
     }
     return getConfig().upConnectUrl;
-  } else if (type === 'UP_SIGN_MESSAGE') {
+  } else if (type === 'UP_LOGOUT') {
+    return getConfig().upLogoutUrl;
+  }  else if (type === 'UP_SIGN_MESSAGE') {
     return getConfig().upSignMessageUrl;
   } else if (type === 'UP_TRANSACTION') {
     return getConfig().upTransactionUrl;
