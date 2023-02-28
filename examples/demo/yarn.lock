@@ -1070,27 +1070,27 @@
     "@typescript-eslint/types" "5.40.0"
     eslint-visitor-keys "^3.3.0"
 
-"@unipasswallet/popup-sdk@^1.0.0":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@unipasswallet/popup-sdk/-/popup-sdk-1.0.2.tgz#f0159c6690136cd35ada4e2ec1e8432cbd20df54"
-  integrity sha512-BubqrvVMDgF92g75rtyZukiErThn3pRm71zjTj1vugmXVK117YqYw50FhMRcMBw6pXyeiYTT9kzamTKlYasmIg==
+"@unipasswallet/popup-sdk@^1.1.1":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@unipasswallet/popup-sdk/-/popup-sdk-1.1.2.tgz#f00651e51e2ba6148d9a32dfa755fa1a15d885c5"
+  integrity sha512-yDVmTqmClqKuvy6IGbvDC7lE3IlBFJgsEEnaqasDZrMrGpQFmYXPdwKZEoYkuSIH+eE3l0O6FrE9r7JswG37Bg==
   dependencies:
-    "@unipasswallet/popup-types" "^1.0.2"
-    "@unipasswallet/popup-utils" "^1.0.2"
+    "@unipasswallet/popup-types" "^1.1.2"
+    "@unipasswallet/popup-utils" "^1.1.2"
     buffer "^6.0.3"
     ethers "^5.7.1"
 
-"@unipasswallet/popup-types@^1.0.0", "@unipasswallet/popup-types@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@unipasswallet/popup-types/-/popup-types-1.0.2.tgz#029c2dd603c1138dce04eb1e23ecf52b3fa13d45"
-  integrity sha512-t6jm/4BMABbZuCw3RMEEboedu1MSSEsZDZ64PHaCnB206uQ2BiMPKGxOpZZsG4MnE+X1lMOScN2wayA3iOJWgA==
+"@unipasswallet/popup-types@^1.1.1", "@unipasswallet/popup-types@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@unipasswallet/popup-types/-/popup-types-1.1.2.tgz#5bb140fbcfd4f303581677c3d5762be7efb4357f"
+  integrity sha512-1T0IQfE3qJ2oUP/jCPzdDqFU3eF8HHis3Lvzkcw+/vXVEcDDr/8JXlX8NhHxcF6V/gweJjxLqHqCsV56Ai0vhg==
 
-"@unipasswallet/popup-utils@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@unipasswallet/popup-utils/-/popup-utils-1.0.2.tgz#619063b177cb68b70c25ebbc63de2e7f9a8c8fce"
-  integrity sha512-+yr0EXakFuRROmOSZJk2PyBK/BPZXP7YLl8PUtXSiykS8MpmVt2l2nV1HLooV0JAL/mbTf9l0XcwjgNfzTIIfA==
+"@unipasswallet/popup-utils@^1.1.1", "@unipasswallet/popup-utils@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@unipasswallet/popup-utils/-/popup-utils-1.1.2.tgz#f3806d12c6e5e1fa164e824d5444d671bea1f588"
+  integrity sha512-UxuTCpCmwmIcvaok6Qm8imFdNm91Zuj8yCU3hEzlqyNYODr2p9OL5gZr12FhfeCd+xor1v6TjwSOAOXvuqI4kw==
   dependencies:
-    "@unipasswallet/popup-types" "^1.0.2"
+    "@unipasswallet/popup-types" "^1.1.2"
     bn.js "^4.11.8"
     concurrently "^7.4.0"
     ethereum-cryptography "^1.1.2"
