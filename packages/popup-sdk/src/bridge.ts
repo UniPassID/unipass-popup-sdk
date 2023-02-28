@@ -1,4 +1,3 @@
-import { Callbacks, pop } from './pop';
 import {
   ConnectType,
   UPEvent,
@@ -7,6 +6,7 @@ import {
   UPResponse,
 } from '@unipasswallet/popup-types';
 import { disconnect } from './connect';
+import { Callbacks, pop } from './pop';
 
 export const UPA_SESSION_KEY = 'UP-A';
 
@@ -15,8 +15,8 @@ export function execPop(
   connectType?: ConnectType,
   listener?: UPEventListener
 ) {
-  return new Promise((resolve, reject) => {
-    pop(
+  return new Promise(async (resolve, reject) => {
+    await pop(
       message,
       connectType,
       {
@@ -48,10 +48,10 @@ export function execPop(
                     return;
                   }
 
-                  if (message.type === "UP_LOGOUT") {
-                    resolve(resp.data)
+                  if (message.type === 'UP_LOGOUT') {
+                    resolve(resp.data);
                     close();
-                    return
+                    return;
                   }
 
                   if (

@@ -338,9 +338,34 @@ export const useIndex = () => {
       userStore.message = account.message || "";
       userStore.signature = account.signature || "";
       await refreshBalance();
-    } catch (err: any) {
+    } catch (err) {
       ElMessage.error("user reject connection");
       console.log("connect error", err);
+    }
+  };
+
+  const signMessageAfterConnect = async () => {
+    try {
+      const account = await upWallet.login({
+        email: returnEmail.value,
+        eventListener: (event: UPEvent) => {
+          console.log("event", event);
+          const { type, body } = event;
+          if (type === UPEventType.REGISTER) {
+            console.log("account", body);
+            ElMessage.success("a user register");
+          }
+        },
+      });
+      await upWallet.signMessage("Hello World!");
+      console.log("account", account);
+      userStore.address = account.address;
+      userStore.email = account.email || "";
+      userStore.newborn = account.newborn || false;
+      await refreshBalance();
+    } catch (err: any) {
+      ElMessage.error("user reject connection");
+      console.error(err);
     }
   };
 
@@ -545,6 +570,7 @@ export const useIndex = () => {
     bindCopy,
     connect,
     connectAndAuth,
+    signMessageAfterConnect,
     onAddressChanged,
     logout,
     signMessage,

@@ -1,10 +1,10 @@
-import { getConfig } from './config';
-import { renderPop } from './render-pop';
 import {
   ConnectType,
   UPMessage,
   UPMessageType,
 } from '@unipasswallet/popup-types';
+import { getConfig } from './config';
+import { renderPop } from './render-pop';
 
 export interface Callbacks {
   send: (message: UPMessage) => void;
@@ -43,7 +43,7 @@ function serviceEndPoint(type: UPMessageType, connectType?: ConnectType) {
     return getConfig().upConnectUrl;
   } else if (type === 'UP_LOGOUT') {
     return getConfig().upLogoutUrl;
-  }  else if (type === 'UP_SIGN_MESSAGE') {
+  } else if (type === 'UP_SIGN_MESSAGE') {
     return getConfig().upSignMessageUrl;
   } else if (type === 'UP_TRANSACTION') {
     return getConfig().upTransactionUrl;
@@ -54,7 +54,7 @@ function serviceEndPoint(type: UPMessageType, connectType?: ConnectType) {
   throw new Error(`unsupport type ${type}`);
 }
 
-export function pop(
+export async function pop(
   message: UPMessage,
   connectType?: ConnectType,
   opts?: MessageHandler
@@ -68,10 +68,12 @@ export function pop(
 
   console.log('add event listener');
   window.addEventListener('message', internal);
-  const { popup, unmount } = renderPop(
+  const { popup, unmount } = (await renderPop(
     serviceEndPoint(message.type, connectType),
-    onResponse
-  );
+    onResponse,
+    message.appSetting
+  )) as any;
+
   return { send, close };
 
   function internal(e: MessageEvent) {
@@ -104,6 +106,7 @@ export function pop(
   function send(msg: UPMessage) {
     try {
       console.log('post popup msg', msg);
+      console.log('post popup msg2', popup);
       popup?.postMessage(JSON.parse(JSON.stringify(msg || {})), '*');
     } catch (error) {
       console.error('Popup Send Error', msg, error);
