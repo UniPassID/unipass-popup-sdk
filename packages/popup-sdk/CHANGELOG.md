@@ -1,5 +1,14 @@
 # @unipasswallet/popup-sdk
 
+## 1.1.3
+
+### Patch Changes
+
+- fix buffer error
+- Updated dependencies
+  - @unipasswallet/popup-types@1.1.3
+  - @unipasswallet/popup-utils@1.1.3
+
 ## 1.1.2
 
 ### Patch Changes

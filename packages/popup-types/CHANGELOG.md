@@ -1,5 +1,11 @@
 # @unipasswallet/popup-types
 
+## 1.1.3
+
+### Patch Changes
+
+- fix buffer error
+
 ## 1.1.2
 
 ### Patch Changes
