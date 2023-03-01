@@ -55,7 +55,6 @@
   "dependencies": {
     "@unipasswallet/popup-types": "^1.1.2",
     "@unipasswallet/popup-utils": "^1.1.2",
-    "buffer": "^6.0.3",
     "ethers": "^5.7.1"
   }
 }
