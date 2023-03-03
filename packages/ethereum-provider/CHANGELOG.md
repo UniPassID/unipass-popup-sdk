@@ -1,60 +1,13 @@
 # @unipasswallet/ethereum-provider
 
-## 1.1.9
+## 1.1.5-alpha.0
 
 ### Patch Changes
 
-- add configurations param for ethereum-provider initialization
+- add starkey supoort
 - Updated dependencies
-  - @unipasswallet/popup-sdk@1.1.9
-  - @unipasswallet/popup-types@1.1.9
-
-## 1.1.8
-
-### Patch Changes
-
-- add force login option for login api
-- fix dependencies
-- Updated dependencies
-- Updated dependencies
-  - @unipasswallet/popup-types@1.1.8
-  - @unipasswallet/popup-sdk@1.1.8
-
-## 1.1.8-alpha.0
-
-### Patch Changes
-
-- fix dependencies
-- Updated dependencies
-  - @unipasswallet/popup-sdk@1.1.8-alpha.0
-  - @unipasswallet/popup-types@1.1.8-alpha.0
-
-## 1.1.7
-
-### Patch Changes
-
-- add avax and kcc chains support
-- Updated dependencies
-  - @unipasswallet/popup-sdk@1.1.7
-  - @unipasswallet/popup-types@1.1.7
-
-## 1.1.6
-
-### Patch Changes
-
-- add kcc and avax chain
-- Updated dependencies
-  - @unipasswallet/popup-sdk@1.1.6
-  - @unipasswallet/popup-types@1.1.6
-
-## 1.1.5
-
-### Patch Changes
-
-- remove console.log
-- Updated dependencies
-  - @unipasswallet/popup-sdk@1.1.5
-  - @unipasswallet/popup-types@1.1.5
+  - @unipasswallet/popup-types@1.1.5-alpha.0
+  - @unipasswallet/popup-sdk@1.1.5-alpha.0
 
 ## 1.1.4
 
