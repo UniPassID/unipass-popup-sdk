@@ -28,7 +28,9 @@ export class UPAccount {
     public email?: string,
     public newborn?: boolean,
     public message?: string,
-    public signature?: string
+    public signature?: string,
+    public starKeyInfo?: string,
+    public sessionKeyPermit?: string
   ) {}
 }
 
