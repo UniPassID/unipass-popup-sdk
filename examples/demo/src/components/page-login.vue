@@ -27,8 +27,28 @@
           <div class="radio_box2"></div>
           Cassava mode
         </el-radio>
+        <el-radio label="DAOLink">
+          <div class="radio_box">
+            <div class="radio_0"></div>
+          </div>
+          <div class="radio_box2"></div>
+          DAOLink mode
+        </el-radio>
+        <el-radio label="metacene">
+          <div class="radio_box">
+            <div class="radio_0"></div>
+          </div>
+          <div class="radio_box2"></div>
+          Metacene mode
+        </el-radio>
+        <el-radio label="mufex">
+          <div class="radio_box">
+            <div class="radio_0"></div>
+          </div>
+          <div class="radio_box2"></div>
+          mufex mode
+        </el-radio>
       </el-radio-group>
-
       <div class="chain-label">Chain</div>
 
       <el-select

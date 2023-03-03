@@ -18,7 +18,5 @@ declare module '@vue/runtime-core' {
     IconArrow: typeof import('./src/components/icon-arrow.vue')['default']
     PageIndex: typeof import('./src/components/page-index.vue')['default']
     PageLogin: typeof import('./src/components/page-login.vue')['default']
-    RouterLink: typeof import('vue-router')['RouterLink']
-    RouterView: typeof import('vue-router')['RouterView']
   }
 }
