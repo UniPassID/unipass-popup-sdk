@@ -1,5 +1,11 @@
 # @unipasswallet/popup-types
 
+## 1.1.5-alpha.0
+
+### Patch Changes
+
+- add starkey supoort
+
 ## 1.1.4
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @unipasswallet/ethereum-provider
 
+## 1.1.5-alpha.0
+
+### Patch Changes
+
+- add starkey supoort
+- Updated dependencies
+  - @unipasswallet/popup-types@1.1.5-alpha.0
+  - @unipasswallet/popup-sdk@1.1.5-alpha.0
+
 ## 1.1.4
 
 ### Patch Changes
