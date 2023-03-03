@@ -1,5 +1,11 @@
 # @unipasswallet/popup-types
 
+## 1.1.4
+
+### Patch Changes
+
+- optimize popup blocked user experience
+
 ## 1.1.3
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @unipasswallet/popup-sdk
 
+## 1.1.4
+
+### Patch Changes
+
+- optimize popup blocked user experience
+- Updated dependencies
+  - @unipasswallet/popup-types@1.1.4
+  - @unipasswallet/popup-utils@1.1.4
+
 ## 1.1.3
 
 ### Patch Changes
