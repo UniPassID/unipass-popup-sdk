@@ -96,6 +96,8 @@ export type UPConnectOptions = {
   email?: boolean;
   connectType?: ConnectType;
   authorize?: boolean;
+  starKeyMessage?: string;
+  sessionKeyAddress?: string;
   eventListener?: UPEventListener;
 };
 
