@@ -304,7 +304,7 @@ export const useIndex = () => {
           }
         },
         connectType,
-        starKeyMessage: "Hello Stark Key",
+        starkKeyMessage: "Hello Stark Key",
         sessionKeyAddress: "0x0625cCD51134F3B0c537176A5B363CBE81102DC6",
       });
       console.log("account", account);
@@ -323,7 +323,7 @@ export const useIndex = () => {
       const account = await upWallet.login({
         email: returnEmail.value,
         authorize: true,
-        starKeyMessage: "Hello Stark Key",
+        starkKeyMessage: "Hello Stark Key",
         sessionKeyAddress: "0x0625cCD51134F3B0c537176A5B363CBE81102DC6",
         eventListener: (event: UPEvent) => {
           console.log("event", event);

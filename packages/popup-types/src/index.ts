@@ -25,7 +25,7 @@ export class UPAccount {
     public newborn?: boolean,
     public message?: string,
     public signature?: string,
-    public starKeyInfo?: string,
+    public starkKeyInfo?: string,
     public sessionKeyPermit?: string
   ) {}
 }
@@ -98,7 +98,7 @@ export type UPConnectOptions = {
   email?: boolean;
   connectType?: ConnectType;
   authorize?: boolean;
-  starKeyMessage?: string;
+  starkKeyMessage?: string;
   sessionKeyAddress?: string;
   eventListener?: UPEventListener;
 };
