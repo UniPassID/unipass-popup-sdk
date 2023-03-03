@@ -1,5 +1,14 @@
 # @unipasswallet/ethereum-provider
 
+## 1.1.5-alpha.1
+
+### Patch Changes
+
+- update definition
+- Updated dependencies
+  - @unipasswallet/popup-types@1.1.5-alpha.1
+  - @unipasswallet/popup-sdk@1.1.5-alpha.1
+
 ## 1.1.5-alpha.0
 
 ### Patch Changes

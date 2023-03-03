@@ -8,6 +8,7 @@
     "@unipasswallet/popup-utils": "1.1.4"
   },
   "changesets": [
+    "twelve-zoos-shout",
     "violet-lobsters-sniff"
   ]
 }

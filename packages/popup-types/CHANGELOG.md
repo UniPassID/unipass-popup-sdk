@@ -1,5 +1,11 @@
 # @unipasswallet/popup-types
 
+## 1.1.5-alpha.1
+
+### Patch Changes
+
+- update definition
+
 ## 1.1.5-alpha.0
 
 ### Patch Changes
