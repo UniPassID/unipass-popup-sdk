@@ -1,5 +1,11 @@
 # @unipasswallet/popup-types
 
+## 1.1.5-alpha.2
+
+### Patch Changes
+
+- update key name
+
 ## 1.1.5-alpha.1
 
 ### Patch Changes
