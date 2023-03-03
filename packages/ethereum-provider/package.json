@@ -1,5 +1,5 @@
 {
-  "version": "1.1.5-alpha.1",
+  "version": "1.1.5-alpha.2",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -45,8 +45,8 @@
     }
   ],
   "dependencies": {
-    "@unipasswallet/popup-types": "1.1.5-alpha.1",
-    "@unipasswallet/popup-sdk": "1.1.5-alpha.1",
+    "@unipasswallet/popup-types": "1.1.5-alpha.2",
+    "@unipasswallet/popup-sdk": "1.1.5-alpha.2",
     "events": "^3.3.0",
     "eip1193-provider": "1.0.1"
   },
