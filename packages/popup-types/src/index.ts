@@ -101,6 +101,8 @@ export type UPConnectOptions = {
   connectType?: ConnectType;
   authorize?: boolean;
   forceLogin?: boolean;
+  starKeyMessage?: string;
+  sessionKeyAddress?: string;
   eventListener?: UPEventListener;
 };
 
