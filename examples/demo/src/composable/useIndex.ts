@@ -15,7 +15,7 @@ import {
 } from "@unipasswallet/popup-utils";
 import { useClipboard } from "@vueuse/core";
 import { ElMessage } from "element-plus";
-import { Contract } from "ethers";
+import { Contract, Wallet } from "ethers";
 import {
   formatEther,
   formatUnits,
@@ -264,10 +264,10 @@ export const useIndex = () => {
   };
 
   let upWallet: UniPassPopupSDK;
-  // const domain = "testnet.wallet.unipass.id";
-  // const protocol = "https";
-  const domain = "localhost:1901";
-  const protocol = "http";
+  const domain = "testnet.wallet.unipass.id";
+  const protocol = "https";
+  // const domain = "localhost:1901";
+  // const protocol = "http";
 
   onBeforeMount(() => {
     if (sessionStorage.getItem("__toTheme")) {
@@ -386,6 +386,8 @@ export const useIndex = () => {
 
   const connect = async (connectType?: ConnectType) => {
     try {
+      const randomWallet = Wallet.createRandom();
+      const randomPrivateKey = randomWallet.privateKey;
       const account = await upWallet.login({
         email: returnEmail.value,
         forceLogin: forceLogin.value,
@@ -399,9 +401,10 @@ export const useIndex = () => {
         },
         connectType,
         starkKeyMessage: "Hello Stark Key",
-        sessionKeyAddress: "0x0625cCD51134F3B0c537176A5B363CBE81102DC6",
+        sessionKeyAddress: randomWallet.address,
       });
       console.log("account", account);
+      console.log("randomPrivateKey", randomPrivateKey);
       userStore.address = account.address;
       userStore.email = account.email || "";
       userStore.newborn = account.newborn || false;

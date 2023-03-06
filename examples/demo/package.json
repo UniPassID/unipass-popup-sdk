@@ -11,15 +11,16 @@
     "vercel": "yarn run build&&cd dist&&vercel --prod"
   },
   "dependencies": {
-    "@unipasswallet/popup-sdk": "^1.1.7",
-    "@unipasswallet/popup-utils": "^1.1.7",
-    "@unipasswallet/popup-types": "^1.1.7",
+    "@starkware-industries/starkware-crypto-utils": "^0.0.2",
+    "@unipasswallet/popup-sdk": "1.1.5-alpha.1",
+    "@unipasswallet/popup-types": "1.1.5-alpha.1",
+    "@unipasswallet/popup-utils": "1.1.5-alpha.1",
     "element-plus": "^2.2.17",
     "ethers": "^5.7.1",
     "pinia": "^2.0.24",
     "sass": "^1.55.0",
-    "vue-json-viewer": "3.0.4",
-    "vue": "^3.2.38"
+    "vue": "^3.2.38",
+    "vue-json-viewer": "3.0.4"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.4",
