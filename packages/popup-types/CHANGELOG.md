@@ -1,5 +1,11 @@
 # @unipasswallet/popup-types
 
+## 1.1.5-alpha.3
+
+### Patch Changes
+
+- optimize package.json
+
 ## 1.1.5-alpha.2
 
 ### Patch Changes

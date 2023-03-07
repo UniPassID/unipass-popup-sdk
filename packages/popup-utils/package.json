@@ -1,6 +1,6 @@
 {
   "name": "@unipasswallet/popup-utils",
-  "version": "1.1.5-alpha.2",
+  "version": "1.1.5-alpha.3",
   "license": "MIT",
   "author": "johnz",
   "main": "dist/index.js",
@@ -31,7 +31,7 @@
     "trailingComma": "es5"
   },
   "dependencies": {
-    "@unipasswallet/popup-types": "^1.1.5-alpha.2"
+    "@unipasswallet/popup-types": "^1.1.5-alpha.3"
   },
   "devDependencies": {
     "@size-limit/preset-small-lib": "^8.1.0",
