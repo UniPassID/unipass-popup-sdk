@@ -1,5 +1,11 @@
 # @unipasswallet/popup-types
 
+## 1.1.5-beta.0
+
+### Patch Changes
+
+- add iframe method for sdk
+
 ## 1.1.4
 
 ### Patch Changes
