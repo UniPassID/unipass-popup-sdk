@@ -46,7 +46,12 @@ const getAccount = async (
 ): Promise<UPAccount> => {
   try {
     const payload = options ? JSON.stringify(options) : '';
-    const message = new UPMessage('UP_LOGIN', payload, config.appSettings);
+    const message = new UPMessage(
+      'UP_LOGIN',
+      payload,
+      config.windowType,
+      config.appSettings
+    );
 
     const account: UPAccount = (await execPop(
       message,

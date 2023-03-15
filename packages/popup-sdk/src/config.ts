@@ -2,6 +2,7 @@ import {
   AppSettings,
   ChainType,
   Environment,
+  WindowType,
 } from '@unipasswallet/popup-types';
 
 const UP_DOMAIN = 'wallet.unipass.id';
@@ -55,6 +56,7 @@ export interface PopupSDKConfig {
   chainType: ChainType;
   nodeRPC: string;
   storageType: StorageType;
+  windowType: WindowType;
   appSettings?: AppSettings;
 }
 
@@ -124,6 +126,7 @@ export type PopupSDKOption = {
   readonly env?: Environment;
 
   readonly storageType?: StorageType;
+  readonly windowType?: WindowType;
 
   readonly walletUrl?: WalletURL; // UniPass up-core sdk configuration options
 

@@ -6,6 +6,7 @@ import {
   UPAuthMessage,
   UPConnectOptions,
   UPTransactionMessage,
+  WindowType,
 } from '@unipasswallet/popup-types';
 import { encodeTypedDataDigest, TypedData } from '@unipasswallet/popup-utils';
 import { BytesLike, Contract } from 'ethers';
@@ -58,10 +59,12 @@ export class UniPassPopupSDK {
       env: 'prod',
       nodeRPC: '',
       chainType: 'polygon',
+      windowType: WindowType.POPUP,
       storageType: 'sessionStorage',
     };
 
     this._config.env = options.env || 'prod';
+    this._config.windowType = options.windowType || WindowType.POPUP;
     this._config.chainType = options.chainType || 'polygon';
     const defaultConfig = getDefaultConfigOption(
       this._config.env,
@@ -193,7 +196,7 @@ export class UniPassPopupSDK {
 
   /**
    * @deprecated a new version signature verification method `verifyMessageSignature` is already provided by the @unipasswallet/popup-utils package
-   * 
+   *
    * @param msg - the message to be signed
    * @param sig - the signature response returned by UniPass
    * @param account - the account who signed the message
@@ -281,7 +284,7 @@ export class UniPassPopupSDK {
 
   /**
    * @deprecated a new version signature verification method `verifyTypedDataSignature` is already provided by the @unipasswallet/popup-utils package
-   * 
+   *
    * Valid the address of the account that created the given EIP-712
    * signature. The version provided must match the version used to
    * create the signature.

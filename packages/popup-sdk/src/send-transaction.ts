@@ -24,6 +24,7 @@ export const sendTransaction = async (
   const msg = new UPMessage(
     'UP_TRANSACTION',
     JSON.stringify(tx),
+    config.windowType,
     config.appSettings
   );
 

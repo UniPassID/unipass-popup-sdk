@@ -27,6 +27,13 @@
           <div class="radio_box2"></div>
           Cassava mode
         </el-radio>
+        <el-radio label="metacene">
+          <div class="radio_box">
+            <div class="radio_0"></div>
+          </div>
+          <div class="radio_box2"></div>
+          Metaene mode
+        </el-radio>
       </el-radio-group>
 
       <div class="chain-label">Chain</div>
@@ -105,12 +112,12 @@
           <span>Connect and Auth with UniPass</span>
         </div>
       </div>
-      <div class="oauth-box" @click="signMessageAfterConnect()">
+      <!-- <div class="oauth-box" @click="signMessageAfterConnect()">
         <div class="one">
           <img class="google_icon" src="@/assets/unipass.svg" />
           <span>Sign Message immediately after Connect</span>
         </div>
-      </div>
+      </div> -->
     </div>
     <div class="page-demo">
       <div class="link_head">UniPass Documents</div>

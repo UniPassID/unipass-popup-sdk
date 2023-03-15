@@ -8,6 +8,7 @@ import {
   UniPassTheme,
   UPEvent,
   UPEventType,
+  WindowType,
 } from "@unipasswallet/popup-types";
 import type { TypedData } from "@unipasswallet/popup-utils";
 import {
@@ -202,6 +203,7 @@ export const useIndex = () => {
         appIcon: "",
       },
       storageType: "localStorage",
+      windowType: WindowType.IFRAME,
       walletUrl: {
         domain,
         protocol,
@@ -231,19 +233,20 @@ export const useIndex = () => {
   });
 
   watch(toTheme, () => {
-    updateUpWalletConfig();
     sessionStorage.setItem("__toTheme", toTheme.value);
+    updateUpWalletConfig();
   });
   const chainChange = () => {
-    updateUpWalletConfig();
     sessionStorage.setItem("__chainType", userStore.chainType);
+    updateUpWalletConfig();
   };
 
   const updateUpWalletConfig = () => {
     console.log(
       "config updated",
       userStore.chainType,
-      CHAIN_CONFIGS[userStore.chainType].rpc
+      CHAIN_CONFIGS[userStore.chainType].rpc,
+      sessionStorage.getItem("__toTheme") || "cassava"
     );
     upWallet.updateConfig({
       chainType: userStore.chainType as ChainType,
@@ -251,7 +254,7 @@ export const useIndex = () => {
       appSettings: {
         chain: userStore.chainType as ChainType,
         theme: toTheme.value as UniPassTheme,
-        appName: "UniPass Popup Demo",
+        appName: sessionStorage.getItem("__toTheme") || "cassava",
         appIcon: "",
       },
     });

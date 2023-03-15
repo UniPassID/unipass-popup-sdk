@@ -23,6 +23,7 @@ export const authorize = async (
   const msg = new UPMessage(
     'UP_SIGN_MESSAGE',
     JSON.stringify(message),
+    config.windowType,
     config?.appSettings
   );
 

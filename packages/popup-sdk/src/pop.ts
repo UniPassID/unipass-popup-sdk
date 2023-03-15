@@ -2,8 +2,10 @@ import {
   ConnectType,
   UPMessage,
   UPMessageType,
+  WindowType,
 } from '@unipasswallet/popup-types';
 import { getConfig } from './config';
+import { createIframe } from './render-iframe';
 import { renderPop } from './render-pop';
 
 export interface Callbacks {
@@ -68,11 +70,17 @@ export async function pop(
 
   console.log('add event listener');
   window.addEventListener('message', internal);
-  const { popup, unmount } = (await renderPop(
-    serviceEndPoint(message.type, connectType),
-    onResponse,
-    message.appSetting
-  )) as any;
+
+  let renderParams: any;
+  if (message.windowType === WindowType.POPUP) {
+    renderParams = (await renderPop(
+      serviceEndPoint(message.type, connectType),
+      onResponse,
+      message.appSetting
+    )) as any;
+  } else {
+    renderParams = createIframe(serviceEndPoint(message.type, connectType));
+  }
 
   return { send, close };
 
@@ -96,7 +104,7 @@ export async function pop(
   function close() {
     try {
       window.removeEventListener('message', internal);
-      unmount();
+      renderParams?.unmount();
       onClose();
     } catch (error) {
       console.error('Popup Close Error', error);
@@ -105,9 +113,10 @@ export async function pop(
 
   function send(msg: UPMessage) {
     try {
-      console.log('post popup msg', msg);
-      console.log('post popup msg2', popup);
-      popup?.postMessage(JSON.parse(JSON.stringify(msg || {})), '*');
+      renderParams?.popup?.postMessage(
+        JSON.parse(JSON.stringify(msg || {})),
+        '*'
+      );
     } catch (error) {
       console.error('Popup Send Error', msg, error);
     }

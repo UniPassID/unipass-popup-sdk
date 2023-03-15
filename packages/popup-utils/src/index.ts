@@ -8,6 +8,7 @@ export interface TypedData {
   primaryType?: string;
 }
 
+export * from './verify-sig';
 export type { TypedDataDomain, TypedDataField };
 
 export const encodeTypedDataHash = (typedData: TypedData): string => {
@@ -40,9 +41,16 @@ export function registerPopupHandler(_messageHandler: MessageHandler) {
 
   messageHandler = _messageHandler;
   // send Ready message to SDK
-  if (window.opener) {
+  if (window.location !== window.parent.location) {
+    console.log('window.parent success');
+    window.parent.postMessage(new UPMessage('UP_READY'), '*');
+    window.addEventListener('message', _messageHandler, false);
+  } else if (window.opener) {
+    console.log('window.opener success');
     window.opener.postMessage(new UPMessage('UP_READY'), '*');
     window.addEventListener('message', _messageHandler, false);
+  } else {
+    console.log('can not use postMessage');
   }
 }
 
@@ -52,9 +60,13 @@ export function unregisterPopupHandler() {
 
 export function postMessage(message: UPMessage) {
   console.log('window.postMessage', message);
-  if (window.opener) {
+  if (window.location !== window.parent.location) {
+    console.log('use window.parent');
+    window.parent.postMessage(message, '*');
+  } else if (window.opener) {
+    console.log('use window.opener');
     window.opener.postMessage(message, '*');
+  } else {
+    console.log('can not use postMessage');
   }
 }
-
-export * from './verify-sig'

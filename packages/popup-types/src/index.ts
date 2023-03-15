@@ -76,10 +76,16 @@ export type AppSettings = {
   theme?: UniPassTheme;
 };
 
+export enum WindowType {
+  POPUP,
+  IFRAME,
+}
+
 export class UPMessage {
   constructor(
     public type: UPMessageType,
     public payload?: string,
+    public windowType?: WindowType,
     public appSetting?: AppSettings
   ) {}
 }
