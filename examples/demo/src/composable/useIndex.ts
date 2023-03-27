@@ -86,7 +86,7 @@ export const useIndex = () => {
   const chainType = ref<ChainType>("polygon");
 
   const activeTab = ref("sign_transaction");
-  const message = ref("Welcome to UniPass!");
+  const message = ref("Welcome to UniPass!!!");
   const sig = ref("");
   const eip712Sig = ref("");
   const myNativeTokenBalance = ref("0.00");
