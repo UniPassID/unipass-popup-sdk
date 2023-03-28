@@ -1,5 +1,11 @@
 # @unipasswallet/popup-types
 
+## 1.1.5
+
+### Patch Changes
+
+- remove console.log
+
 ## 1.1.4
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @unipasswallet/popup-sdk
 
+## 1.1.5
+
+### Patch Changes
+
+- remove console.log
+- Updated dependencies
+  - @unipasswallet/popup-types@1.1.5
+  - @unipasswallet/popup-utils@1.1.5
+
 ## 1.1.4
 
 ### Patch Changes
