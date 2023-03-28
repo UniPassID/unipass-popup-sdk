@@ -25,7 +25,6 @@ export async function renderPop(
   if (popup == null || popup?.closed) {
     popup = popupWindow(src, POP, window);
     if (popup == null) {
-      console.log('popup window was blocked', onResponse);
       return await createBlockedTip(src, onResponse, appSettings);
     }
   } else if (previousUrl !== src) {

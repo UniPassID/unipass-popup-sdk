@@ -32,11 +32,8 @@ export function execPop(
           const { close } = callbacks;
           try {
             if (typeof e.data !== 'object') return;
-            console.log('[up-core] response', e.data);
             const up_message = e.data as UPMessage;
             const resp = JSON.parse(up_message.payload as string) as UPResponse;
-            console.log(resp);
-
             switch (resp.type) {
               case 'APPROVE':
                 resolve(resp.data);
@@ -83,8 +80,6 @@ export function execPop(
 
           try {
             if (typeof e.data !== 'object') return;
-
-            console.log('[up-core] message', e.data);
             const up_message = e.data as UPMessage;
             const upEvent = JSON.parse(up_message.payload as string) as UPEvent;
 

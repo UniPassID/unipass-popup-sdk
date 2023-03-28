@@ -8,6 +8,7 @@ export interface TypedData {
   primaryType?: string;
 }
 
+export * from './verify-sig';
 export type { TypedDataDomain, TypedDataField };
 
 export const encodeTypedDataHash = (typedData: TypedData): string => {
@@ -51,10 +52,7 @@ export function unregisterPopupHandler() {
 }
 
 export function postMessage(message: UPMessage) {
-  console.log('window.postMessage', message);
   if (window.opener) {
     window.opener.postMessage(message, '*');
   }
 }
-
-export * from './verify-sig'
