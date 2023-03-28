@@ -1,11 +1,11 @@
-import { useStorage } from './storage';
-import { PopupSDKConfig, StorageType } from './config';
-import { execPop, UPA_SESSION_KEY } from './bridge';
 import {
   UPAccount,
   UPConnectOptions,
   UPMessage,
 } from '@unipasswallet/popup-types';
+import { execPop, UPA_SESSION_KEY } from './bridge';
+import { PopupSDKConfig, StorageType } from './config';
+import { useStorage } from './storage';
 
 export const connect = async (
   config: PopupSDKConfig,
@@ -53,7 +53,6 @@ const getAccount = async (
       options?.connectType,
       options?.eventListener
     )) as UPAccount;
-    console.log('connect resp', account);
     if (account && account.address) {
       useStorage(config.storageType).set(
         UPA_SESSION_KEY,

@@ -66,7 +66,6 @@ export async function pop(
   const onReady = opts?.onReady || noop;
   const onResponse = opts?.onResponse || noop;
 
-  console.log('add event listener');
   window.addEventListener('message', internal);
   const { popup, unmount } = (await renderPop(
     serviceEndPoint(message.type, connectType),
@@ -105,8 +104,6 @@ export async function pop(
 
   function send(msg: UPMessage) {
     try {
-      console.log('post popup msg', msg);
-      console.log('post popup msg2', popup);
       popup?.postMessage(JSON.parse(JSON.stringify(msg || {})), '*');
     } catch (error) {
       console.error('Popup Send Error', msg, error);
