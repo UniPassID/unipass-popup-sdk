@@ -5,7 +5,6 @@ import {
   ConnectType,
   MessageTypes,
   TypedMessage,
-  UniPassTheme,
   UPEvent,
   UPEventType,
 } from "@unipasswallet/popup-types";
@@ -244,11 +243,15 @@ export const useIndex = () => {
   // const protocol = "http";
 
   onBeforeMount(() => {
+    let _toTheme: any = toTheme.value;
+    if (toTheme.value === "kcc") {
+      _toTheme = "KCC";
+    }
     upWallet = new UniPassPopupSDK({
       env: "test",
       chainType: userStore.chainType as ChainType,
       appSettings: {
-        theme: toTheme.value as UniPassTheme,
+        theme: _toTheme,
         appName: "UniPass Popup Demo",
         appIcon: "",
       },
