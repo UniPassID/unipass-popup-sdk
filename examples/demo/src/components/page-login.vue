@@ -105,12 +105,6 @@
           <span>Connect and Auth with UniPass</span>
         </div>
       </div>
-      <div class="oauth-box" @click="signMessageAfterConnect()">
-        <div class="one">
-          <img class="google_icon" src="@/assets/unipass.svg" />
-          <span>Sign Message immediately after Connect</span>
-        </div>
-      </div>
     </div>
     <div class="page-demo">
       <div class="link_head">UniPass Documents</div>

@@ -5,7 +5,9 @@ export type ChainType =
   | 'rangers'
   | 'eth'
   | 'scroll'
-  | 'arbitrum';
+  | 'arbitrum'
+  | 'avalanche'
+  | 'kcc';
 
 export type UPMessageType =
   | 'UP_READY'

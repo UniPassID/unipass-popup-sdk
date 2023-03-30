@@ -92,13 +92,12 @@
       <button class="polygon_bt" @click="() => logout(false)">
         Disconnect
       </button>
-      <button class="polygon_bt" @click="() => logout(true)">
-        Deep Disconnect
-      </button>
     </div>
 
     <div class="page-demo">
-      <div class="send_s">Send ETH</div>
+      <div class="send_s">
+        Send {{ CHAIN_CONFIGS[userStore.chainType].nativeToken }}
+      </div>
       <el-form class="body-input" label-position="top">
         <el-form-item label="Your balance" prop="address">
           <template #label>
@@ -305,8 +304,10 @@ const explorerDict = {
   rangers: "https://robin-rangersscan.rangersprotocol.com",
   eth: "https://goerli.etherscan.io",
   polygon: "https://mumbai.polygonscan.com",
-  scroll: "",
-  arbitrum: "",
+  scroll: "https://blockscout.scroll.io",
+  arbitrum: "https://goerli.arbiscan.io/",
+  avalanche: "https://testnet.snowtrace.io",
+  kcc: "https://scan-testnet.kcc.network",
 };
 
 const explorerNative = computed(() => {
