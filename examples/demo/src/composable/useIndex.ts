@@ -41,20 +41,36 @@ export const useIndex = () => {
 
   const options = [
     {
+      value: "eth",
+      label: "Goerli (ChainID 5)",
+    },
+    {
       value: "polygon",
       label: "Mumbai (ChainID 80001)",
     },
     {
       value: "bsc",
-      label: "BSCtestnet (ChainID 97)",
+      label: "BSC testnet (ChainID 97)",
     },
     {
       value: "rangers",
       label: "Rangers robin (ChainID 9527)",
     },
     {
-      value: "eth",
-      label: "Goerli (ChainID 5)",
+      value: "scroll",
+      label: "Scroll testnet (ChainID 534354)",
+    },
+    {
+      value: "arbitrum",
+      label: "Arbitrum testnet (ChainID 421613)",
+    },
+    {
+      value: "kcc",
+      label: "KCC testnet (ChainID 322)",
+    },
+    {
+      value: "avalanche",
+      label: "Avalanche Fuji Testnet (ChainID 43113)",
     },
   ];
   const returnAddress = ref(true);
@@ -136,7 +152,6 @@ export const useIndex = () => {
     },
   };
 
-  // @ts-ignore
   const CHAIN_CONFIGS: {
     [key in ChainType]: {
       name: string;
@@ -181,6 +196,42 @@ export const useIndex = () => {
       nativeToken: "ETH",
       usdc: {
         contract: "0x365E05Fd986245d14c740c139DF8712AD8807874",
+        decimals: 6,
+      },
+    },
+    arbitrum: {
+      name: "Arbitrum-testnet",
+      rpc: "https://node.wallet.unipass.id/arbitrum-testnet",
+      nativeToken: "ETH",
+      usdc: {
+        contract: "0x8667Bfb67d4D9fd1e61168dc872e17f637964547",
+        decimals: 6,
+      },
+    },
+    scroll: {
+      name: "Scroll-testnet",
+      rpc: "https://node.wallet.unipass.id/scroll-testnet",
+      nativeToken: "ETH",
+      usdc: {
+        contract: "0xA0D71B9877f44C744546D649147E3F1e70a93760",
+        decimals: 18,
+      },
+    },
+    kcc: {
+      name: "Kcc-testnet",
+      rpc: "https://node.wallet.unipass.id/kcc-testnet",
+      nativeToken: "KCS",
+      usdc: {
+        contract: "0xd6c7e27a598714c2226404eb054e0c074c906fc9",
+        decimals: 18,
+      },
+    },
+    avalanche: {
+      name: "Avalanche-testnet",
+      rpc: "https://node.wallet.unipass.id/avalanche-testnet",
+      nativeToken: "AVAX",
+      usdc: {
+        contract: "0x5425890298aed601595a70AB815c96711a31Bc65",
         decimals: 6,
       },
     },

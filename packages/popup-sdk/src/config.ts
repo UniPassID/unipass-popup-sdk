@@ -75,6 +75,8 @@ const NODE_RPC_LIST = {
     rangers: 'https://node.wallet.unipass.id/rangers-mainnet',
     scroll: 'https://node.wallet.unipass.id/scroll-mainnet',
     arbitrum: 'https://node.wallet.unipass.id/arbitrum-mainnet',
+    avalanche: 'https://node.wallet.unipass.id/avalanche-mainnet',
+    kcc: 'https://node.wallet.unipass.id/kcc-mainnet',
   },
   testnet: {
     eth: 'https://node.wallet.unipass.id/eth-goerli',
@@ -83,6 +85,8 @@ const NODE_RPC_LIST = {
     rangers: 'https://node.wallet.unipass.id/rangers-robin',
     scroll: 'https://node.wallet.unipass.id/scroll-testnet',
     arbitrum: 'https://node.wallet.unipass.id/arbitrum-testnet',
+    avalanche: 'https://node.wallet.unipass.id/avalanche-testnet',
+    kcc: 'https://node.wallet.unipass.id/kcc-testnet',
   },
 };
 
