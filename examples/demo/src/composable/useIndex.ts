@@ -238,7 +238,7 @@ export const useIndex = () => {
   };
 
   let upWallet: UniPassPopupSDK;
-  const domain = "testnet.wallet.unipass.id";
+  const domain = "t.wallet.unipass.vip";
   const protocol = "https";
   // const domain = "localhost:1901";
   // const protocol = "http";
@@ -296,12 +296,22 @@ export const useIndex = () => {
       userStore.chainType,
       CHAIN_CONFIGS[userStore.chainType].rpc
     );
+    let _toTheme: any = toTheme.value;
+    if (userStore.chainType === "kcc") {
+      _toTheme = "KCC";
+    }
+    console.log(
+      "config updated",
+      userStore.chainType,
+      CHAIN_CONFIGS[userStore.chainType].rpc,
+      _toTheme
+    );
     upWallet.updateConfig({
       chainType: userStore.chainType as ChainType,
       nodeRPC: CHAIN_CONFIGS[userStore.chainType].rpc,
       appSettings: {
         chain: userStore.chainType as ChainType,
-        theme: toTheme.value as UniPassTheme,
+        theme: _toTheme,
         appName: "UniPass Popup Demo",
         appIcon: "",
       },
