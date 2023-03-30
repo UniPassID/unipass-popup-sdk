@@ -5,37 +5,6 @@
       UniPass Demo ({{ CHAIN_CONFIGS[userStore.chainType].name }})
     </div>
     <div class="page-demo">
-      <el-radio-group v-model="toTheme">
-        <el-radio label="dark">
-          <div class="radio_box">
-            <div class="radio_0"></div>
-          </div>
-          <div class="radio_box2"></div>
-          Dark mode
-        </el-radio>
-        <el-radio label="light">
-          <div class="radio_box">
-            <div class="radio_0"></div>
-          </div>
-          <div class="radio_box2"></div>
-          Light mode
-        </el-radio>
-        <el-radio label="cassava">
-          <div class="radio_box">
-            <div class="radio_0"></div>
-          </div>
-          <div class="radio_box2"></div>
-          Cassava mode
-        </el-radio>
-        <el-radio label="metacene">
-          <div class="radio_box">
-            <div class="radio_0"></div>
-          </div>
-          <div class="radio_box2"></div>
-          Metaene mode
-        </el-radio>
-      </el-radio-group>
-
       <div class="chain-label">Chain</div>
 
       <el-select
@@ -73,51 +42,12 @@
       </div>
     </div>
     <div class="page-demo">
-      <div class="st_box">
-        <div class="st"></div>
-        <div class="users">Onboarding users through Google and Email</div>
-        <div class="st"></div>
-      </div>
-
-      <div class="oauth-box" @click="connect('google')">
-        <div class="one">
-          <img class="google_icon" src="@/assets/google.svg" />
-          <span>Continue with Google</span>
-        </div>
-      </div>
-
-      <div class="oauth-box" @click="connect('email')">
-        <div class="one">
-          <img class="google_icon" src="@/assets/email.svg" />
-          <span>Continue with Email</span>
-        </div>
-      </div>
-
-      <div class="divider"></div>
-      <div class="st_box">
-        <div class="st"></div>
-        <div class="users">Connect UniPass through one button</div>
-        <div class="st"></div>
-      </div>
-
       <div class="oauth-box" @click="connect()">
         <div class="one">
           <img class="google_icon" src="@/assets/unipass.svg" />
           <span>Connect UniPass</span>
         </div>
       </div>
-      <div class="oauth-box" @click="connectAndAuth()">
-        <div class="one">
-          <img class="google_icon" src="@/assets/unipass.svg" />
-          <span>Connect and Auth with UniPass</span>
-        </div>
-      </div>
-      <!-- <div class="oauth-box" @click="signMessageAfterConnect()">
-        <div class="one">
-          <img class="google_icon" src="@/assets/unipass.svg" />
-          <span>Sign Message immediately after Connect</span>
-        </div>
-      </div> -->
     </div>
     <div class="page-demo">
       <div class="link_head">UniPass Documents</div>

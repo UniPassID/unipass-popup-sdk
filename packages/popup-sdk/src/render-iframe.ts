@@ -1,4 +1,5 @@
-const FRAME_STYLES = `
+const FRAME = 'UNIPASS_IFRAME';
+const FRAME_STYLES_SHOW = `
   position:fixed;
   top: 0px;
   right: 0px;
@@ -13,15 +14,13 @@ const FRAME_STYLES = `
   color-scheme: light;
 `;
 
-const FRAME = 'UNIPASS_IFRAME';
-
 export function createIframe(src: string) {
   const $frame = document.createElement('iframe');
   $frame.src = src;
   $frame.name = FRAME;
   $frame.id = FRAME;
   $frame.allow = 'usb *; hid *';
-  $frame.style.cssText = FRAME_STYLES;
+  $frame.style.cssText = FRAME_STYLES_SHOW;
   document.body.append($frame);
 
   const unmount = () => {

@@ -5,10 +5,6 @@
     </div>
 
     <div class="page-demo">
-      <a class="polygon_bt" target="_blank" :href="`${protocol}://${domain}`">
-        Open Wallet
-      </a>
-      <br />
       <el-form class="body-input" label-position="top">
         <el-form-item label="Your address" prop="address">
           <template #label>
@@ -92,9 +88,9 @@
       <button class="polygon_bt" @click="() => logout(false)">
         Disconnect
       </button>
-      <button class="polygon_bt" @click="() => logout(true)">
+      <!-- <button class="polygon_bt" @click="() => logout(true)">
         Deep Disconnect
-      </button>
+      </button> -->
     </div>
 
     <div class="page-demo">

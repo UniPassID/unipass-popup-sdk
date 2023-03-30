@@ -188,7 +188,7 @@ export const useIndex = () => {
   };
 
   let upWallet: UniPassPopupSDK;
-  const domain = "testnet.wallet.unipass.id";
+  const domain = "t.wallet.unipass.vip";
   const protocol = "https";
   // const domain = "localhost:1901";
   // const protocol = "http";
@@ -199,7 +199,7 @@ export const useIndex = () => {
       chainType: userStore.chainType as ChainType,
       appSettings: {
         theme: toTheme.value as UniPassTheme,
-        appName: "UniPass Popup Demo",
+        appName: "deherotest",
         appIcon: "",
       },
       storageType: "localStorage",

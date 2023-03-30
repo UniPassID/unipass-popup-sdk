@@ -1070,27 +1070,26 @@
     "@typescript-eslint/types" "5.40.0"
     eslint-visitor-keys "^3.3.0"
 
-"@unipasswallet/popup-sdk@^1.1.1":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@unipasswallet/popup-sdk/-/popup-sdk-1.1.2.tgz#f00651e51e2ba6148d9a32dfa755fa1a15d885c5"
-  integrity sha512-yDVmTqmClqKuvy6IGbvDC7lE3IlBFJgsEEnaqasDZrMrGpQFmYXPdwKZEoYkuSIH+eE3l0O6FrE9r7JswG37Bg==
+"@unipasswallet/popup-sdk@^1.1.4":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@unipasswallet/popup-sdk/-/popup-sdk-1.1.5.tgz#4be2b125c2590346ae33c47330e298077d24f596"
+  integrity sha512-LAYsWcQl+55sPDLhoKQSRE0jPiqhEQptukWC4FqUoNYi7cy0AAmsr/ihR5iPQLu10XuvIsS8FZA+mXVk0FAxoA==
   dependencies:
-    "@unipasswallet/popup-types" "^1.1.2"
-    "@unipasswallet/popup-utils" "^1.1.2"
-    buffer "^6.0.3"
+    "@unipasswallet/popup-types" "^1.1.5"
+    "@unipasswallet/popup-utils" "^1.1.5"
     ethers "^5.7.1"
 
-"@unipasswallet/popup-types@^1.1.1", "@unipasswallet/popup-types@^1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@unipasswallet/popup-types/-/popup-types-1.1.2.tgz#5bb140fbcfd4f303581677c3d5762be7efb4357f"
-  integrity sha512-1T0IQfE3qJ2oUP/jCPzdDqFU3eF8HHis3Lvzkcw+/vXVEcDDr/8JXlX8NhHxcF6V/gweJjxLqHqCsV56Ai0vhg==
+"@unipasswallet/popup-types@^1.1.4", "@unipasswallet/popup-types@^1.1.5":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@unipasswallet/popup-types/-/popup-types-1.1.5.tgz#ea47323bd0da1600c05148d5238185ad132dffd4"
+  integrity sha512-AxD+gmxaWHT7jAFXCHbEZamaOu2LLZcUPCddowJxcdEd1gv0h8KVAbXQ2xCn+zugV5GRQSP1W/05WGRBJdenDA==
 
-"@unipasswallet/popup-utils@^1.1.1", "@unipasswallet/popup-utils@^1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@unipasswallet/popup-utils/-/popup-utils-1.1.2.tgz#f3806d12c6e5e1fa164e824d5444d671bea1f588"
-  integrity sha512-UxuTCpCmwmIcvaok6Qm8imFdNm91Zuj8yCU3hEzlqyNYODr2p9OL5gZr12FhfeCd+xor1v6TjwSOAOXvuqI4kw==
+"@unipasswallet/popup-utils@^1.1.4", "@unipasswallet/popup-utils@^1.1.5":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@unipasswallet/popup-utils/-/popup-utils-1.1.5.tgz#e301df4a01d372e0831db838abd6674a27d46f61"
+  integrity sha512-+CcJ9xq70cbuVZ56fIHMaHgT5NpOAztBzRbAiKeAXFoRXetdNORUfvUc6Dwie+goYQDCaVQWBrgRU4YhMwQ7Hw==
   dependencies:
-    "@unipasswallet/popup-types" "^1.1.2"
+    "@unipasswallet/popup-types" "^1.1.5"
     bn.js "^4.11.8"
     concurrently "^7.4.0"
     ethereum-cryptography "^1.1.2"
@@ -1545,11 +1544,6 @@ balanced-match@^1.0.0:
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.2.tgz#e83e3a7e3f300b34cb9d87f615fa0cbf357690ee"
   integrity sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==
 
-base64-js@^1.3.1:
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.5.1.tgz#1b1b440160a5bf7ad40b650f095963481903930a"
-  integrity sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==
-
 base@^0.11.1:
   version "0.11.2"
   resolved "https://registry.yarnpkg.com/base/-/base-0.11.2.tgz#7bde5ced145b6d551a90db87f83c558b4eb48a8f"
@@ -1678,14 +1672,6 @@ buffer-from@^1.0.0:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/buffer-from/-/buffer-from-1.1.2.tgz#2b146a6fd72e80b4f55d255f35ed59a3a9a41bd5"
   integrity sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==
-
-buffer@^6.0.3:
-  version "6.0.3"
-  resolved "https://registry.yarnpkg.com/buffer/-/buffer-6.0.3.tgz#2ace578459cc8fbe2a70aaa8f52ee63b6a74c6c6"
-  integrity sha512-FTiCpNxtwiZZHEZbcbTIcZjERVICn9yq/pDFkTl95/AxzD1naBctN7YO68riM/gLSDY7sdrMby8hofADYuuqOA==
-  dependencies:
-    base64-js "^1.3.1"
-    ieee754 "^1.2.1"
 
 cache-base@^1.0.1:
   version "1.0.1"
@@ -3145,11 +3131,6 @@ iconv-lite@0.4.24:
   integrity sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==
   dependencies:
     safer-buffer ">= 2.1.2 < 3"
-
-ieee754@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/ieee754/-/ieee754-1.2.1.tgz#8eb7a10a63fff25d15a57b001586d177d1b0d352"
-  integrity sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==
 
 ignore@^5.2.0:
   version "5.2.0"
