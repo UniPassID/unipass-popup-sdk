@@ -1,5 +1,11 @@
 # @unipasswallet/popup-types
 
+## 1.1.6
+
+### Patch Changes
+
+- add kcc and avax chain
+
 ## 1.1.5
 
 ### Patch Changes
