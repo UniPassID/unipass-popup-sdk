@@ -243,10 +243,22 @@ export const useIndex = () => {
   // const protocol = "http";
 
   onBeforeMount(() => {
+    if (sessionStorage.getItem("__toTheme")) {
+      toTheme.value = sessionStorage.getItem("__toTheme") || "dark";
+    }
+    if (sessionStorage.getItem("__chainType")) {
+      userStore.chainType = (sessionStorage.getItem("__chainType") ||
+        "polygon") as ChainType;
+    }
+    console.log("__toTheme", toTheme.value);
+    console.log("__chainType", userStore.chainType);
     let _toTheme: any = toTheme.value;
-    if (toTheme.value === "kcc") {
+    if (userStore.chainType === "kcc") {
       _toTheme = "KCC";
     }
+    console.log("_toTheme:::");
+    console.log(_toTheme);
+
     upWallet = new UniPassPopupSDK({
       env: "test",
       chainType: userStore.chainType as ChainType,
@@ -261,16 +273,6 @@ export const useIndex = () => {
         protocol,
       },
     });
-
-    if (sessionStorage.getItem("__toTheme")) {
-      toTheme.value = sessionStorage.getItem("__toTheme") || "dark";
-    }
-    if (sessionStorage.getItem("__chainType")) {
-      userStore.chainType = (sessionStorage.getItem("__chainType") ||
-        "polygon") as ChainType;
-    }
-    console.log("__toTheme", toTheme.value);
-    console.log("__chainType", userStore.chainType);
   });
 
   onMounted(() => {
