@@ -5,4 +5,4 @@
 "@unipasswallet/popup-sdk": patch
 ---
 
-update iframe
+update version
