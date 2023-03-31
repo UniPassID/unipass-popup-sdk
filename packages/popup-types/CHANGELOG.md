@@ -1,5 +1,18 @@
 # @unipasswallet/popup-types
 
+## 1.1.7-beta.0
+
+### Patch Changes
+
+- update version
+
+## 1.1.6
+
+### Patch Changes
+
+- 4114149: update version
+- update version
+
 ## 1.1.6-beta.0
 
 ### Patch Changes

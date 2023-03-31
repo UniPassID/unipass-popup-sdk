@@ -2,12 +2,12 @@
   "mode": "pre",
   "tag": "beta",
   "initialVersions": {
-    "@unipasswallet/ethereum-provider": "1.1.5",
-    "@unipasswallet/popup-sdk": "1.1.5",
-    "@unipasswallet/popup-types": "1.1.5",
-    "@unipasswallet/popup-utils": "1.1.5"
+    "@unipasswallet/ethereum-provider": "1.1.6",
+    "@unipasswallet/popup-sdk": "1.1.6",
+    "@unipasswallet/popup-types": "1.1.6",
+    "@unipasswallet/popup-utils": "1.1.6"
   },
   "changesets": [
-    "lemon-yaks-call"
+    "curly-days-begin"
   ]
 }

@@ -1,5 +1,25 @@
 # @unipasswallet/popup-sdk
 
+## 1.1.7-beta.0
+
+### Patch Changes
+
+- update version
+- Updated dependencies
+  - @unipasswallet/popup-types@1.1.7-beta.0
+  - @unipasswallet/popup-utils@1.1.7-beta.0
+
+## 1.1.6
+
+### Patch Changes
+
+- 4114149: update version
+- update version
+- Updated dependencies [4114149]
+- Updated dependencies
+  - @unipasswallet/popup-types@1.1.6
+  - @unipasswallet/popup-utils@1.1.6
+
 ## 1.1.6-beta.0
 
 ### Patch Changes
