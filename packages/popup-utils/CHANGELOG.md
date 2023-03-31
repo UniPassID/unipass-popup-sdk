@@ -1,5 +1,13 @@
 # @unipasswallet/popup-utils
 
+## 1.1.5-beta.1
+
+### Patch Changes
+
+- update iframe
+- Updated dependencies
+  - @unipasswallet/popup-types@1.1.5-beta.1
+
 ## 1.1.5-beta.0
 
 ### Patch Changes

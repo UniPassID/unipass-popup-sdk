@@ -8,6 +8,7 @@
     "@unipasswallet/popup-utils": "1.1.4"
   },
   "changesets": [
-    "breezy-paws-sparkle"
+    "breezy-paws-sparkle",
+    "little-foxes-obey"
   ]
 }

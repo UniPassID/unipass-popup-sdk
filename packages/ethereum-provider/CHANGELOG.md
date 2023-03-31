@@ -1,5 +1,14 @@
 # @unipasswallet/ethereum-provider
 
+## 1.1.5-beta.1
+
+### Patch Changes
+
+- update iframe
+- Updated dependencies
+  - @unipasswallet/popup-types@1.1.5-beta.1
+  - @unipasswallet/popup-sdk@1.1.5-beta.1
+
 ## 1.1.5-beta.0
 
 ### Patch Changes
