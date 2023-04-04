@@ -5,13 +5,17 @@ export interface RpcUrls {
   polygon?: string;
   bscMainnet?: string;
   rangersMainnet?: string;
-  arbitrumMainnet?:string;
+  arbitrumMainnet?: string;
+  avalancheMainnet?: string;
+  kccMainnet?: string;
   goerli?: string;
   polygonMumbai?: string;
   bscTestnet?: string;
   rangersRobin?: string;
   scrollTestnet?: string;
   arbitrumTestnet?: string;
+  avalancheTestnet?: string;
+  kccTestnet?: string;
 }
 
 export interface UniPassProviderOptions {

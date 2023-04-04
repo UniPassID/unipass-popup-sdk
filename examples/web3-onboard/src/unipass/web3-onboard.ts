@@ -5,7 +5,7 @@ import unipassModule from ".";
 import icon from "./blocknative";
 
 const unipass = unipassModule({
-  chainId: 80001,
+  chainId: 322,
   returnEmail: true,
   appSettings: {
     appName: "web3-onboard test for unipass",
@@ -18,6 +18,7 @@ const unipass = unipassModule({
     bscMainnet: "https://node.wallet.unipass.id/bsc-mainnet",
     rangersMainnet: "https://node.wallet.unipass.id/rangers-mainnet",
     arbitrumMainnet: "https://node.wallet.unipass.id/arbitrum-mainnet",
+    avalancheTestnet: "https://node.wallet.unipass.id/avalanche-testnet",
   },
 });
 
@@ -68,6 +69,30 @@ export default init({
       token: "BNB",
       label: "BSC Testnet",
       rpcUrl: "https://node.wallet.unipass.id/bsc-testnet",
+    },
+    {
+      id: "0xA869",
+      token: "AVAX",
+      label: "Avalanche Testnet",
+      rpcUrl: "https://node.wallet.unipass.id/avalanche-testnet",
+    },
+    {
+      id: "0xA86A",
+      token: "AVAX",
+      label: "Avalanche Mainnet",
+      rpcUrl: "https://node.wallet.unipass.id/avalanche-mainnet",
+    },
+    {
+      id: "0x142",
+      token: "KCC",
+      label: "KCC Testnet",
+      rpcUrl: "https://node.wallet.unipass.id/kcc-testnet",
+    },
+    {
+      id: "0x141",
+      token: "KCC",
+      label: "KCC Mainnet",
+      rpcUrl: "https://node.wallet.unipass.id/kcc-mainnet",
     },
   ],
   appMetadata: {
