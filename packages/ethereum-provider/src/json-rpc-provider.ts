@@ -31,7 +31,6 @@ export class JsonRpcProvider {
     this.rpcUrls = rpcUrls;
 
     const nodeRPC = getRPCByChainId(chainId, rpcUrls);
-    console.log({ nodeRPC, chainId, rpcUrls });
 
     this.upWallet = new UniPassPopupSDK({
       env: getENVByChainId(chainId),
