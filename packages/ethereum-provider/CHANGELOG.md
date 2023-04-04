@@ -1,5 +1,14 @@
 # @unipasswallet/ethereum-provider
 
+## 1.1.7
+
+### Patch Changes
+
+- add avax and kcc chains support
+- Updated dependencies
+  - @unipasswallet/popup-sdk@1.1.7
+  - @unipasswallet/popup-types@1.1.7
+
 ## 1.1.6
 
 ### Patch Changes
