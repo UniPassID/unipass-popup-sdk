@@ -81,7 +81,10 @@ const checkWalletSignature = async (
     // console.error(e);
   }
 
-  if (!!addr && utils.getAddress(addr) === utils.getAddress(address.toLowerCase())) {
+  if (
+    !!addr &&
+    utils.getAddress(addr) === utils.getAddress(address.toLowerCase())
+  ) {
     return true;
   } else {
     return await checkContractWalletSignature(
