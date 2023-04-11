@@ -98,6 +98,7 @@ export type UPConnectOptions = {
   email?: boolean;
   connectType?: ConnectType;
   authorize?: boolean;
+  forceLogin?: boolean;
   eventListener?: UPEventListener;
 };
 

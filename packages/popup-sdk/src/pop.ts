@@ -32,15 +32,15 @@ const noop = () => {};
 //   return `https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?redirect_uri=${redirectURI}&prompt=consent&response_type=id_token%20token&client_id=${GOOGLE_OAUTH_CONFIG.clientID}&scope=openid%20email&state=af0ifjsldkj&nonce=n-0S6_WzA2Mj&flowName=GeneralOAuthFlow`;
 // };
 
-function serviceEndPoint(type: UPMessageType, connectType?: ConnectType) {
+function serviceEndPoint(type: UPMessageType, connectType?: ConnectType, forceLogin?: boolean) {
   if (type === 'UP_LOGIN') {
     if (connectType === 'google') {
-      return getConfig().upConnectUrl + '?connectType=google';
+      return getConfig().upConnectUrl + `?connectType=google&forceLogin=${forceLogin ? '1' : '0'}`;
     }
     if (connectType === 'email') {
-      return getConfig().upConnectUrl + '?connectType=email';
+      return getConfig().upConnectUrl + `?connectType=email&forceLogin=${forceLogin ? '1' : '0'}`;
     }
-    return getConfig().upConnectUrl;
+    return getConfig().upConnectUrl + `?forceLogin=${forceLogin ? '1' : '0'}`;
   } else if (type === 'UP_LOGOUT') {
     return getConfig().upLogoutUrl;
   } else if (type === 'UP_SIGN_MESSAGE') {
@@ -57,6 +57,7 @@ function serviceEndPoint(type: UPMessageType, connectType?: ConnectType) {
 export async function pop(
   message: UPMessage,
   connectType?: ConnectType,
+  forceLogin?: boolean,
   opts?: MessageHandler
 ) {
   if (message == null) return { send: noop, close: noop };
@@ -68,7 +69,7 @@ export async function pop(
 
   window.addEventListener('message', internal);
   const { popup, unmount } = (await renderPop(
-    serviceEndPoint(message.type, connectType),
+    serviceEndPoint(message.type, connectType, forceLogin),
     onResponse,
     message.appSetting
   )) as any;

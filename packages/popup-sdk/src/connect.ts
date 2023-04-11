@@ -51,6 +51,7 @@ const getAccount = async (
     const account: UPAccount = (await execPop(
       message,
       options?.connectType,
+      options?.forceLogin,
       options?.eventListener
     )) as UPAccount;
     if (account && account.address) {

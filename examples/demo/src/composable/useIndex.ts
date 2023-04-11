@@ -74,6 +74,7 @@ export const useIndex = () => {
   ];
   const returnAddress = ref(true);
   const returnEmail = ref(true);
+  const forceLogin = ref(false);
   const chainType = ref<ChainType>("polygon");
 
   const activeTab = ref("sign_transaction");
@@ -237,10 +238,10 @@ export const useIndex = () => {
   };
 
   let upWallet: UniPassPopupSDK;
-  const domain = "testnet.wallet.unipass.id";
-  const protocol = "https";
-  // const domain = "localhost:1901";
-  // const protocol = "http";
+  // const domain = "testnet.wallet.unipass.id";
+  // const protocol = "https";
+  const domain = "localhost:1901";
+  const protocol = "http";
 
   onBeforeMount(() => {
     if (sessionStorage.getItem("__toTheme")) {
@@ -361,6 +362,7 @@ export const useIndex = () => {
     try {
       const account = await upWallet.login({
         email: returnEmail.value,
+        forceLogin: forceLogin.value,
         eventListener: (event: UPEvent) => {
           console.log("event", event);
           const { type, body } = event;
@@ -619,6 +621,7 @@ export const useIndex = () => {
     options,
     returnAddress,
     returnEmail,
+    forceLogin,
     chainType,
     activeTab,
     message,
