@@ -13,12 +13,14 @@ export const UPA_SESSION_KEY = 'UP-A';
 export function execPop(
   message: UPMessage,
   connectType?: ConnectType,
+  forceLogin?: boolean,
   listener?: UPEventListener
 ) {
   return new Promise(async (resolve, reject) => {
     await pop(
       message,
       connectType,
+      forceLogin,
       {
         async onReady(_, callbacks: Callbacks) {
           const { send } = callbacks;

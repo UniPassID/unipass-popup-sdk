@@ -63,6 +63,14 @@
             style="--el-switch-on-color: #13ce66"
           />
         </div>
+        <div class="return_box">
+          <div class="return_s">forceLogin</div>
+          <el-switch
+            v-model="forceLogin"
+            class="ml-2"
+            style="--el-switch-on-color: #13ce66"
+          />
+        </div>
       </div>
     </div>
     <div class="page-demo">
@@ -156,6 +164,7 @@ const {
   options,
   returnAddress,
   returnEmail,
+  forceLogin,
   userStore,
   connect,
   connectAndAuth,
