@@ -1,5 +1,25 @@
 # @unipasswallet/popup-sdk
 
+## 1.1.8
+
+### Patch Changes
+
+- add force login option for login api
+- fix dependencies
+- Updated dependencies
+- Updated dependencies
+  - @unipasswallet/popup-types@1.1.8
+  - @unipasswallet/popup-utils@1.1.8
+
+## 1.1.8-alpha.0
+
+### Patch Changes
+
+- fix dependencies
+- Updated dependencies
+  - @unipasswallet/popup-types@1.1.8-alpha.0
+  - @unipasswallet/popup-utils@1.1.8-alpha.0
+
 ## 1.1.7
 
 ### Patch Changes
