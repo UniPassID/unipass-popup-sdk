@@ -64,12 +64,20 @@ export const useIndex = () => {
       label: "Arbitrum testnet (ChainID 421613)",
     },
     {
+      value: "avalanche",
+      label: "Avalanche Fuji Testnet (ChainID 43113)",
+    },
+    {
       value: "kcc",
       label: "KCC testnet (ChainID 322)",
     },
     {
-      value: "avalanche",
-      label: "Avalanche Fuji Testnet (ChainID 43113)",
+      value: "platon",
+      label: "PlatON Testnet (ChainID 2206132)",
+    },
+    {
+      value: "okc",
+      label: "OKC Testnet (ChainID 65)",
     },
   ];
   const returnAddress = ref(true);
@@ -82,7 +90,7 @@ export const useIndex = () => {
   const eip712Sig = ref("");
   const myNativeTokenBalance = ref("0.00");
   const myTokenBalance = ref("0.00");
-  const toAddress = ref("0x61E428AaB6347765eFc549eae7bd740aA886A707");
+  const toAddress = ref("0x2B6c74b4e8631854051B1A821029005476C3AF06");
   const toAmount = ref("0.01");
   const txHashNative = ref("");
   const txHashERC20 = ref("");
@@ -231,6 +239,24 @@ export const useIndex = () => {
       nativeToken: "AVAX",
       usdc: {
         contract: "0x5425890298aed601595a70AB815c96711a31Bc65",
+        decimals: 6,
+      },
+    },
+    platon: {
+      name: "PlatON-testnet",
+      rpc: "https://node.wallet.unipass.id/platon-testnet",
+      nativeToken: "LAT",
+      usdc: {
+        contract: "0xEd5e318045D33611E877C25F7aFE6e98e2c2933C",
+        decimals: 6,
+      },
+    },
+    okc: {
+      name: "OKC-testnet",
+      rpc: "https://node.wallet.unipass.id/okc-testnet",
+      nativeToken: "OKT",
+      usdc: {
+        contract: "0x6b2b3F5a58c4C258f63b948566581787E45D651E",
         decimals: 6,
       },
     },

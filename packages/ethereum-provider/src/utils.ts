@@ -34,6 +34,14 @@ export const AVALANCHE_MAINNET = 43114;
 export const KCC_TESTNET = 322;
 export const KCC_MAINNET = 321;
 
+// okc
+export const OKC_TESTNET = 65;
+export const OKC_MAINNET = 66;
+
+// platon
+export const PLATON_TESTNET = 2206132;
+export const PLATON_MAINNET = 210425;
+
 export const SUPPORTED_CHAIN_ID = [
   ETHEREUM_MAINNET,
   ETHEREUM_GOERLI,
@@ -50,6 +58,9 @@ export const SUPPORTED_CHAIN_ID = [
   AVALANCHE_MAINNET,
   KCC_TESTNET,
   KCC_MAINNET,
+  OKC_TESTNET,
+  OKC_MAINNET,
+  PLATON_TESTNET,
 ];
 
 export const SUPPORTED_MAINNET_CHAIN_ID = [
@@ -60,6 +71,8 @@ export const SUPPORTED_MAINNET_CHAIN_ID = [
   ARBITRUM_MAINNET,
   AVALANCHE_MAINNET,
   KCC_MAINNET,
+  OKC_MAINNET,
+  PLATON_MAINNET,
 ];
 export const SUPPORTED_TESTNET_CHAIN_ID = [
   ETHEREUM_GOERLI,
@@ -70,6 +83,8 @@ export const SUPPORTED_TESTNET_CHAIN_ID = [
   ARBITRUM_TESTNET,
   AVALANCHE_TESTNET,
   KCC_TESTNET,
+  OKC_MAINNET,
+  PLATON_TESTNET,
 ];
 
 export const getChainNameByChainId = (id: number | string): ChainType => {
@@ -100,9 +115,18 @@ export const getChainNameByChainId = (id: number | string): ChainType => {
     case AVALANCHE_TESTNET:
     case AVALANCHE_MAINNET:
       return 'avalanche';
+
     case KCC_TESTNET:
     case KCC_MAINNET:
       return 'kcc';
+
+    case OKC_TESTNET:
+    case OKC_MAINNET:
+      return 'okc';
+
+    case PLATON_TESTNET:
+    case PLATON_MAINNET:
+      return 'platon';
 
     default:
       return 'polygon';
@@ -118,6 +142,8 @@ export const getENVByChainId = (id: number | string): Environment => {
     case ARBITRUM_MAINNET:
     case AVALANCHE_MAINNET:
     case KCC_MAINNET:
+    case PLATON_MAINNET:
+    case OKC_MAINNET:
       return 'prod';
     case ETHEREUM_GOERLI:
     case POLYGON_MUMBAI:
@@ -127,6 +153,8 @@ export const getENVByChainId = (id: number | string): Environment => {
     case ARBITRUM_TESTNET:
     case AVALANCHE_TESTNET:
     case KCC_TESTNET:
+    case PLATON_TESTNET:
+    case OKC_TESTNET:
       return 'test';
     default:
       return 'test';
@@ -168,6 +196,15 @@ export const getRPCByChainId = (
       return (
         rpcUrls?.kccMainnet ?? 'https://node.wallet.unipass.id/kcc-mainnet'
       );
+    case PLATON_MAINNET:
+      return (
+        rpcUrls?.platonMainnet ??
+        'https://node.wallet.unipass.id/platon-mainnet'
+      );
+    case OKC_MAINNET:
+      return (
+        rpcUrls?.platonMainnet ?? 'https://node.wallet.unipass.id/okc-mainnet'
+      );
     case ETHEREUM_GOERLI:
       return rpcUrls?.goerli ?? 'https://node.wallet.unipass.id/eth-goerli';
     case POLYGON_MUMBAI:
@@ -201,6 +238,15 @@ export const getRPCByChainId = (
     case KCC_TESTNET:
       return (
         rpcUrls?.kccTestnet ?? 'https://node.wallet.unipass.id/kcc-testnet'
+      );
+    case PLATON_TESTNET:
+      return (
+        rpcUrls?.platonTestnet ??
+        'https://node.wallet.unipass.id/platon-testnet'
+      );
+    case OKC_TESTNET:
+      return (
+        rpcUrls?.okcTestnet ?? 'https://node.wallet.unipass.id/okc-testnet'
       );
     default:
       return 'https://node.wallet.unipass.id/polygon-mumbai';

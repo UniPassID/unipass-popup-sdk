@@ -8,6 +8,8 @@ export interface RpcUrls {
   arbitrumMainnet?: string;
   avalancheMainnet?: string;
   kccMainnet?: string;
+  platonMainnet?: string;
+  okcMainnet?: string;
   goerli?: string;
   polygonMumbai?: string;
   bscTestnet?: string;
@@ -16,6 +18,8 @@ export interface RpcUrls {
   arbitrumTestnet?: string;
   avalancheTestnet?: string;
   kccTestnet?: string;
+  platonTestnet?: string;
+  okcTestnet?: string;
 }
 
 export interface UniPassProviderOptions {
