@@ -7,7 +7,9 @@ export type ChainType =
   | 'scroll'
   | 'arbitrum'
   | 'avalanche'
-  | 'kcc';
+  | 'kcc'
+  | 'platon'
+  | 'okc';
 
 export type UPMessageType =
   | 'UP_READY'

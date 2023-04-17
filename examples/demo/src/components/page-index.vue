@@ -308,6 +308,8 @@ const explorerDict = {
   arbitrum: "https://goerli.arbiscan.io/",
   avalanche: "https://testnet.snowtrace.io",
   kcc: "https://scan-testnet.kcc.network",
+  platon: "https://devnet2scan.platon.network",
+  okc: "https://www.oklink.com/okc-test",
 };
 
 const explorerNative = computed(() => {
