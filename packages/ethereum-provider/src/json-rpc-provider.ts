@@ -14,6 +14,7 @@ import {
 export class JsonRpcProvider {
   private appSetting?: Omit<AppSettings, 'chain'>;
   private returnEmail: boolean = false;
+  private onAuthChain: boolean = false;
   private rpcUrls?: RpcUrls;
   public chainId: number;
   public http: providers.JsonRpcProvider;
@@ -22,11 +23,13 @@ export class JsonRpcProvider {
   constructor(
     chainId: number,
     returnEmail: boolean,
+    onAuthChain?: boolean,
     rpcUrls?: RpcUrls,
     appSetting?: Omit<AppSettings, 'chain'>
   ) {
     this.appSetting = appSetting;
     this.returnEmail = returnEmail;
+    this.onAuthChain = !!onAuthChain;
     this.chainId = chainId;
     this.rpcUrls = rpcUrls;
 
@@ -60,12 +63,12 @@ export class JsonRpcProvider {
     if (request.method.startsWith('eth_signTypedData')) {
       return await this.upWallet.signTypedData(
         getSignTypedDataParamsData(request.params as string[]),
-        { onAuthChain: false }
+        { onAuthChain: this.onAuthChain }
       );
     } else if (request.method === 'personal_sign') {
       return await this.upWallet.signMessage(
         getSignParamsMessage(request.params as string[]),
-        { isEIP191Prefix: true, onAuthChain: false }
+        { isEIP191Prefix: true, onAuthChain: this.onAuthChain }
       );
     } else if (request.method === 'eth_sendTransaction') {
       const _params =
