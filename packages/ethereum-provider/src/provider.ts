@@ -24,6 +24,7 @@ export class UniPassProvider implements IEthereumProvider {
     this.signer = new JsonRpcProvider(
       this.chainId,
       options.returnEmail,
+      options.onAuthChain,
       options.rpcUrls,
       options.appSettings
     );

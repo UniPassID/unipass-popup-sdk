@@ -21,6 +21,7 @@ export interface RpcUrls {
 export interface UniPassProviderOptions {
   chainId: number;
   returnEmail: boolean;
+  onAuthChain?: boolean;
   appSettings?: Omit<AppSettings, 'chain'>;
   rpcUrls?: RpcUrls;
 }
