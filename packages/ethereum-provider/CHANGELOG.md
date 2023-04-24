@@ -1,5 +1,14 @@
 # @unipasswallet/ethereum-provider
 
+## 1.1.9
+
+### Patch Changes
+
+- add configurations param for ethereum-provider initialization
+- Updated dependencies
+  - @unipasswallet/popup-sdk@1.1.9
+  - @unipasswallet/popup-types@1.1.9
+
 ## 1.1.8
 
 ### Patch Changes
