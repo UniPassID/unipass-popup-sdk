@@ -24,7 +24,7 @@ export class UniPassProvider implements IEthereumProvider {
     this.signer = new JsonRpcProvider(
       this.chainId,
       options.returnEmail,
-      options.onAuthChain,
+      options.configurations,
       options.rpcUrls,
       options.appSettings
     );
@@ -86,8 +86,8 @@ export class UniPassProvider implements IEthereumProvider {
     callback: (error: Error | null, response: any) => void
   ): void {
     this.request(args)
-      .then((response) => callback(null, response))
-      .catch((error) => callback(error, undefined));
+      .then(response => callback(null, response))
+      .catch(error => callback(error, undefined));
   }
 
   public async enable(): Promise<ProviderAccounts> {

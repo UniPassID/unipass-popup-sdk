@@ -18,10 +18,14 @@ export interface RpcUrls {
   kccTestnet?: string;
 }
 
+export interface Configurations {
+  onAuthChain?: boolean;
+}
+
 export interface UniPassProviderOptions {
   chainId: number;
   returnEmail: boolean;
-  onAuthChain?: boolean;
+  configurations?: Configurations;
   appSettings?: Omit<AppSettings, 'chain'>;
   rpcUrls?: RpcUrls;
 }

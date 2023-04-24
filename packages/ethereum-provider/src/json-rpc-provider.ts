@@ -2,7 +2,7 @@ import { UniPassPopupSDK } from '@unipasswallet/popup-sdk';
 import { AppSettings } from '@unipasswallet/popup-types';
 import { RequestArguments } from 'eip1193-provider';
 import { providers } from 'ethers';
-import { RpcUrls } from './type';
+import { Configurations, RpcUrls } from './type';
 import {
   getChainNameByChainId,
   getENVByChainId,
@@ -14,7 +14,7 @@ import {
 export class JsonRpcProvider {
   private appSetting?: Omit<AppSettings, 'chain'>;
   private returnEmail: boolean = false;
-  private onAuthChain: boolean = false;
+  private configurations: Configurations = { onAuthChain: true };
   private rpcUrls?: RpcUrls;
   public chainId: number;
   public http: providers.JsonRpcProvider;
@@ -23,13 +23,15 @@ export class JsonRpcProvider {
   constructor(
     chainId: number,
     returnEmail: boolean,
-    onAuthChain?: boolean,
+    configurations?: Configurations,
     rpcUrls?: RpcUrls,
     appSetting?: Omit<AppSettings, 'chain'>
   ) {
     this.appSetting = appSetting;
     this.returnEmail = returnEmail;
-    this.onAuthChain = !!onAuthChain;
+    if (configurations) {
+      this.configurations = { ...this.configurations, ...configurations };
+    }
     this.chainId = chainId;
     this.rpcUrls = rpcUrls;
 
@@ -63,12 +65,12 @@ export class JsonRpcProvider {
     if (request.method.startsWith('eth_signTypedData')) {
       return await this.upWallet.signTypedData(
         getSignTypedDataParamsData(request.params as string[]),
-        { onAuthChain: this.onAuthChain }
+        { onAuthChain: this.configurations.onAuthChain }
       );
     } else if (request.method === 'personal_sign') {
       return await this.upWallet.signMessage(
         getSignParamsMessage(request.params as string[]),
-        { isEIP191Prefix: true, onAuthChain: this.onAuthChain }
+        { isEIP191Prefix: true, onAuthChain: this.configurations.onAuthChain }
       );
     } else if (request.method === 'eth_sendTransaction') {
       const _params =
