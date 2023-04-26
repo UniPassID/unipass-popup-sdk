@@ -93,7 +93,7 @@
       </button> -->
     </div>
 
-    <div class="page-demo">
+    <!-- <div class="page-demo">
       <div class="send_s">Send ETH</div>
       <el-form class="body-input" label-position="top">
         <el-form-item label="Your balance" prop="address">
@@ -262,7 +262,7 @@
           Verify Typed Data
         </button>
       </template>
-    </div>
+    </div> -->
   </div>
 </template>
 

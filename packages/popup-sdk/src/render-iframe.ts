@@ -1,3 +1,5 @@
+import { WindowSettings } from '@unipasswallet/popup-types';
+
 const FRAME = 'UNIPASS_IFRAME';
 const FRAME_STYLES_SHOW = `
   position:fixed;
@@ -14,14 +16,26 @@ const FRAME_STYLES_SHOW = `
   color-scheme: light;
 `;
 
-export function createIframe(src: string) {
+export function createIframe(src: string, windowSettings?: WindowSettings) {
   const $frame = document.createElement('iframe');
   $frame.src = src;
   $frame.name = FRAME;
   $frame.id = FRAME;
   $frame.allow = 'usb *; hid *';
-  $frame.style.cssText = FRAME_STYLES_SHOW;
-  document.body.append($frame);
+  $frame.style.cssText = windowSettings?.styles || FRAME_STYLES_SHOW;
+
+  if (!windowSettings?.getContainer) {
+    document.body.append($frame);
+  } else if (typeof windowSettings.getContainer === 'string') {
+    const container = document.querySelector(windowSettings.getContainer);
+    if (container) {
+      document.querySelector(windowSettings.getContainer)?.append($frame);
+    } else {
+      throw new Error(`Can not find element: ${windowSettings.getContainer}`);
+    }
+  } else {
+    windowSettings.getContainer.append($frame);
+  }
 
   const unmount = () => {
     const frame = document.getElementById(FRAME);

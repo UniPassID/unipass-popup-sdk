@@ -65,6 +65,7 @@ export class UniPassPopupSDK {
 
     this._config.env = options.env || 'prod';
     this._config.windowType = options.windowType || WindowType.POPUP;
+    this._config.windowSettings = options.windowSettings;
     this._config.chainType = options.chainType || 'polygon';
     const defaultConfig = getDefaultConfigOption(
       this._config.env,

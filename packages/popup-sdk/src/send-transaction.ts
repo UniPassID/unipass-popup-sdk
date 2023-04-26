@@ -25,6 +25,7 @@ export const sendTransaction = async (
     'UP_TRANSACTION',
     JSON.stringify(tx),
     config.windowType,
+    config.windowSettings,
     config.appSettings
   );
 

@@ -41,6 +41,10 @@
         </div>
       </div>
     </div>
+    <div
+      class="unipass-iframe-container"
+      style="width: 440px; margin: 30px auto"
+    ></div>
     <div class="page-demo">
       <div class="oauth-box" @click="connect()">
         <div class="one">

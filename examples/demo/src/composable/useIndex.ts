@@ -188,7 +188,7 @@ export const useIndex = () => {
   };
 
   let upWallet: UniPassPopupSDK;
-  const domain = "t.wallet.unipass.vip";
+  const domain = "testnet.wallet.unipass.id";
   const protocol = "https";
   // const domain = "localhost:1901";
   // const protocol = "http";
@@ -204,6 +204,19 @@ export const useIndex = () => {
       },
       storageType: "localStorage",
       windowType: WindowType.IFRAME,
+      windowSettings: {
+        styles: `
+        height: 315px;
+        width: 457px;
+        display:block;
+        background:rgba(0,0,0,0.25);
+        box-sizing: border-box;
+        color-scheme: light;
+        border: none;
+        outline: none;
+      `,
+        getContainer: ".unipass-iframe-container",
+      },
       walletUrl: {
         domain,
         protocol,

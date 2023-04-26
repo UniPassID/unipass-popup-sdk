@@ -79,7 +79,10 @@ export async function pop(
       message.appSetting
     )) as any;
   } else {
-    renderParams = createIframe(serviceEndPoint(message.type, connectType));
+    renderParams = createIframe(
+      serviceEndPoint(message.type, connectType),
+      message.windowSetting
+    );
   }
 
   return { send, close };

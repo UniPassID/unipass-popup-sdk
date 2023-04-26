@@ -81,11 +81,17 @@ export enum WindowType {
   IFRAME,
 }
 
+export interface WindowSettings {
+  styles?: string;
+  getContainer?: HTMLElement | string;
+}
+
 export class UPMessage {
   constructor(
     public type: UPMessageType,
     public payload?: string,
     public windowType?: WindowType,
+    public windowSetting?: WindowSettings,
     public appSetting?: AppSettings
   ) {}
 }

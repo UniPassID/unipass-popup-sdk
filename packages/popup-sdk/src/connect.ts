@@ -50,6 +50,7 @@ const getAccount = async (
       'UP_LOGIN',
       payload,
       config.windowType,
+      config.windowSettings,
       config.appSettings
     );
 

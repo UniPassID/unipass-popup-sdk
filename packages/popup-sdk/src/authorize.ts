@@ -24,6 +24,7 @@ export const authorize = async (
     'UP_SIGN_MESSAGE',
     JSON.stringify(message),
     config.windowType,
+    config.windowSettings,
     config?.appSettings
   );
 
