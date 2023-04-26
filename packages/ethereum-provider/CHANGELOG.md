@@ -1,5 +1,17 @@
 # @unipasswallet/ethereum-provider
 
+## 1.2.0-beta.1
+
+### Minor Changes
+
+- add custom UI style for iframe
+
+### Patch Changes
+
+- Updated dependencies
+  - @unipasswallet/popup-types@1.2.0-beta.1
+  - @unipasswallet/popup-sdk@1.2.0-beta.1
+
 ## 1.1.7-beta.0
 
 ### Patch Changes

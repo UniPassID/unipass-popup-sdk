@@ -8,6 +8,7 @@
     "@unipasswallet/popup-utils": "1.1.6"
   },
   "changesets": [
-    "curly-days-begin"
+    "curly-days-begin",
+    "ten-trees-glow"
   ]
 }
