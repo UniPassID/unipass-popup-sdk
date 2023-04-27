@@ -1,5 +1,14 @@
 # @unipasswallet/popup-sdk
 
+## 1.1.10
+
+### Patch Changes
+
+- add okc and platon support
+- Updated dependencies
+  - @unipasswallet/popup-types@1.1.10
+  - @unipasswallet/popup-utils@1.1.10
+
 ## 1.1.9
 
 ### Patch Changes

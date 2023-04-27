@@ -1,5 +1,11 @@
 # @unipasswallet/popup-types
 
+## 1.1.10
+
+### Patch Changes
+
+- add okc and platon support
+
 ## 1.1.9
 
 ### Patch Changes
