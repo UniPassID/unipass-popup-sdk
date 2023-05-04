@@ -30,20 +30,44 @@ export const useIndex = () => {
 
   const options = [
     {
+      value: "eth",
+      label: "Ethereum (ChainID 1)",
+    },
+    {
       value: "polygon",
-      label: "Polygon mainnet (ChainID 137)",
+      label: "Polygon Mainnet (ChainID 137)",
     },
     {
       value: "bsc",
-      label: "BSC mainnet (ChainID 56)",
+      label: "BSC Mainnet (ChainID 56)",
     },
     {
       value: "rangers",
-      label: "Rangers mainnet (ChainID 9527)",
+      label: "Rangers Mainnet (ChainID 9527)",
     },
     {
-      value: "eth",
-      label: "Ethereum (ChainID 1)",
+      value: "scroll",
+      label: "Scroll Mainnet (ChainID 2025)",
+    },
+    {
+      value: "arbitrum",
+      label: "Arbitrum Mainnet (ChainID 42161)",
+    },
+    {
+      value: "avalanche",
+      label: "Avalanche Fuji Mainnet (ChainID 43114)",
+    },
+    {
+      value: "kcc",
+      label: "KCC Mainnet (ChainID 321)",
+    },
+    {
+      value: "platon",
+      label: "PlatON Mainnet (ChainID 210425)",
+    },
+    {
+      value: "okc",
+      label: "OKC Mainnet (ChainID 66)",
     },
   ];
   const returnAddress = ref(true);
@@ -126,7 +150,6 @@ export const useIndex = () => {
     },
   };
 
-  // @ts-ignore
   const CHAIN_CONFIGS: {
     [key in ChainType]: {
       name: string;
@@ -172,6 +195,60 @@ export const useIndex = () => {
       usdc: {
         contract: "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
         decimals: 6,
+      },
+    },
+    arbitrum: {
+      name: "Arbitrum-mainnet",
+      rpc: "https://node.wallet.unipass.id/arbitrum-mainnet",
+      nativeToken: "ETH",
+      usdc: {
+        contract: "0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8",
+        decimals: 6,
+      },
+    },
+    scroll: {
+      name: "Scroll-mainnet",
+      rpc: "https://node.wallet.unipass.id/scroll-mainnet",
+      nativeToken: "ETH",
+      usdc: {
+        contract: "0xA0D71B9877f44C744546D649147E3F1e70a93760",
+        decimals: 18,
+      },
+    },
+    kcc: {
+      name: "Kcc-mainnet",
+      rpc: "https://node.wallet.unipass.id/kcc-mainnet",
+      nativeToken: "KCS",
+      usdc: {
+        contract: "0x980a5afef3d17ad98635f6c5aebcbaeded3c3430",
+        decimals: 18,
+      },
+    },
+    avalanche: {
+      name: "Avalanche-mainnet",
+      rpc: "https://node.wallet.unipass.id/avalanche-mainnet",
+      nativeToken: "AVAX",
+      usdc: {
+        contract: "0xb97ef9ef8734c71904d8002f8b6bc66dd9c48a6e",
+        decimals: 6,
+      },
+    },
+    platon: {
+      name: "PlatON-mainnet",
+      rpc: "https://node.wallet.unipass.id/platon-mainnet",
+      nativeToken: "LAT",
+      usdc: {
+        contract: "0x81ECac0D6Be0550A00FF064a4f9dd2400585FE9c",
+        decimals: 6,
+      },
+    },
+    okc: {
+      name: "OKC-mainnet",
+      rpc: "https://node.wallet.unipass.id/okc-mainnet",
+      nativeToken: "OKT",
+      usdc: {
+        contract: "0xc946DAf81b08146B1C7A8Da2A851Ddf2B3EAaf85",
+        decimals: 18,
       },
     },
   };
