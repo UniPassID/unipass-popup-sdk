@@ -63,6 +63,10 @@
             style="--el-switch-on-color: #13ce66"
           />
         </div>
+        <div class="return_box">
+          <div class="return_s">App Name</div>
+          <input v-model="appName" />
+        </div>
       </div>
     </div>
     <div class="page-demo">
@@ -146,6 +150,7 @@ import IconArrow from "./icon-arrow.vue";
 import { useIndex } from "../composable/useIndex";
 
 const {
+  appName,
   toTheme,
   options,
   returnAddress,

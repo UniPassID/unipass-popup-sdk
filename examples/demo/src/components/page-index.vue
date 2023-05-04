@@ -243,6 +243,7 @@ const {
   domain,
   protocol,
   message,
+  appName,
   sig,
   eip712Sig,
   toAddress,
@@ -273,9 +274,11 @@ const explorerDict = {
 };
 
 const explorerNative = computed(() => {
+  // @ts-ignore
   return explorerDict[userStore.chainType] + "/tx/" + txHashNative.value;
 });
 const explorerERC20 = computed(() => {
+  // @ts-ignore
   return explorerDict[userStore.chainType] + "/tx/" + txHashERC20.value;
 });
 const openWallet = () => {

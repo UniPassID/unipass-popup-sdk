@@ -31,19 +31,19 @@ export const useIndex = () => {
   const options = [
     {
       value: "polygon",
-      label: "Mumbai (ChainID 80001)",
+      label: "Polygon mainnet (ChainID 137)",
     },
     {
       value: "bsc",
-      label: "BSCtestnet (ChainID 97)",
+      label: "BSC mainnet (ChainID 56)",
     },
     {
       value: "rangers",
-      label: "Rangers robin (ChainID 9527)",
+      label: "Rangers mainnet (ChainID 9527)",
     },
     {
       value: "eth",
-      label: "Goerli (ChainID 5)",
+      label: "Ethereum (ChainID 1)",
     },
   ];
   const returnAddress = ref(true);
@@ -60,6 +60,7 @@ export const useIndex = () => {
   const toAmount = ref("0.01");
   const txHashNative = ref("");
   const txHashERC20 = ref("");
+  const appName = ref("UniPass Wallet Demo");
   const eip712DemoData: TypedMessage<MessageTypes> = {
     types: {
       EIP712Domain: [
@@ -125,6 +126,7 @@ export const useIndex = () => {
     },
   };
 
+  // @ts-ignore
   const CHAIN_CONFIGS: {
     [key in ChainType]: {
       name: string;
@@ -186,7 +188,7 @@ export const useIndex = () => {
       chainType: userStore.chainType as ChainType,
       appSettings: {
         theme: toTheme.value as UniPassTheme,
-        appName: "UniPass Popup Demo",
+        appName: appName.value,
         appIcon: "",
       },
       storageType: "localStorage",
@@ -225,6 +227,10 @@ export const useIndex = () => {
     sessionStorage.setItem("__chainType", userStore.chainType);
   };
 
+  watch(appName, () => {
+    updateUpWalletConfig();
+  });
+
   const updateUpWalletConfig = () => {
     console.log(
       "config updated",
@@ -237,7 +243,7 @@ export const useIndex = () => {
       appSettings: {
         chain: userStore.chainType as ChainType,
         theme: toTheme.value as UniPassTheme,
-        appName: "UniPass Popup Demo",
+        appName: appName.value,
         appIcon: "",
       },
     });
@@ -480,6 +486,7 @@ export const useIndex = () => {
     protocol,
     toTheme,
     options,
+    appName,
     returnAddress,
     returnEmail,
     chainType,
