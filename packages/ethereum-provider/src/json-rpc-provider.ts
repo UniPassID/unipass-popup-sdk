@@ -14,7 +14,9 @@ import {
 export class JsonRpcProvider {
   private appSetting?: Omit<AppSettings, 'chain'>;
   private returnEmail: boolean = false;
-  private configurations: Configurations = { onAuthChain: true };
+  private configurations: Configurations = {
+    onAuthChain: true,
+  };
   private rpcUrls?: RpcUrls;
   public chainId: number;
   public http: providers.JsonRpcProvider;
@@ -54,7 +56,10 @@ export class JsonRpcProvider {
   public async connect() {
     const account = this.upWallet.getAccount();
     if (account) return account;
-    return await this.upWallet.login({ email: this.returnEmail });
+    return await this.upWallet.login({
+      email: this.returnEmail,
+      starkKeyMessage: this.configurations.starkKeyMessage,
+    });
   }
 
   public async disconnect() {

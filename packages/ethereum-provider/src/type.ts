@@ -24,6 +24,7 @@ export interface RpcUrls {
 
 export interface Configurations {
   onAuthChain?: boolean;
+  starkKeyMessage?: string;
 }
 
 export interface UniPassProviderOptions {
