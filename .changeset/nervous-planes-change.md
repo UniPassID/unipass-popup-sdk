@@ -5,4 +5,4 @@
 "@unipasswallet/popup-sdk": patch
 ---
 
-optimize package.json
+add starkKey support for ethereum-provider

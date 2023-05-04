@@ -1,5 +1,14 @@
 # @unipasswallet/popup-sdk
 
+## 1.1.5-alpha.4
+
+### Patch Changes
+
+- add starkKey support for ethereum-provider
+- Updated dependencies
+  - @unipasswallet/popup-types@1.1.5-alpha.4
+  - @unipasswallet/popup-utils@1.1.5-alpha.4
+
 ## 1.1.5-alpha.3
 
 ### Patch Changes

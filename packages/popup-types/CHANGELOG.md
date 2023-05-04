@@ -1,5 +1,11 @@
 # @unipasswallet/popup-types
 
+## 1.1.5-alpha.4
+
+### Patch Changes
+
+- add starkKey support for ethereum-provider
+
 ## 1.1.5-alpha.3
 
 ### Patch Changes
