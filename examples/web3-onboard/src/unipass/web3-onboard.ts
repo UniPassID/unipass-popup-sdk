@@ -11,6 +11,12 @@ const unipass = unipassModule({
     appName: "web3-onboard test for unipass",
     theme: UniPassTheme.DARK,
   },
+  configurations: {
+    walletUrl: {
+      domain: "t.wallet.unipass.vip",
+      protocol: "https",
+    },
+  },
   rpcUrls: {
     mainnet: "https://node.wallet.unipass.id/eth-mainnet",
     polygon:
