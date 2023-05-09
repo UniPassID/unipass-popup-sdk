@@ -1,3 +1,4 @@
+import { WalletURL } from '@unipasswallet/popup-sdk';
 import { AppSettings } from '@unipasswallet/popup-types';
 
 export interface RpcUrls {
@@ -24,6 +25,7 @@ export interface RpcUrls {
 
 export interface Configurations {
   onAuthChain?: boolean;
+  walletUrl?: WalletURL;
 }
 
 export interface UniPassProviderOptions {
