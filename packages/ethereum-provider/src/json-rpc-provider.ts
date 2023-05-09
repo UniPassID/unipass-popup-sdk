@@ -46,6 +46,7 @@ export class JsonRpcProvider {
       },
       nodeRPC,
       storageType: 'sessionStorage',
+      walletUrl: this.configurations.walletUrl,
     });
 
     this.http = new providers.JsonRpcProvider(nodeRPC);
