@@ -10,12 +10,15 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
-    "@unipasswallet/popup-sdk": "^1.1.9",
-    "@unipasswallet/popup-types": "^1.1.9",
-    "@unipasswallet/popup-utils": "^1.1.9",
-    "pinia": "^2.0.21",
-    "vue": "^3.2.38",
-    "vue-router": "^4.1.5"
+    "@unipasswallet/popup-sdk": "^1.1.11",
+    "@unipasswallet/popup-types": "^1.1.11",
+    "@unipasswallet/popup-utils": "^1.1.11",
+    "element-plus": "^2.2.17",
+    "ethers": "^5.7.1",
+    "pinia": "^2.0.24",
+    "sass": "^1.55.0",
+    "vue-json-viewer": "3.0.4",
+    "vue": "^3.2.38"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.4",
@@ -29,6 +32,8 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^2.7.1",
     "typescript": "~4.7.4",
+    "unplugin-auto-import": "^0.11.2",
+    "unplugin-vue-components": "^0.22.7",
     "vite": "^3.0.9",
     "vue-tsc": "^0.40.7"
   }

@@ -283,3 +283,26 @@ export const MAINNET_CHAIN_CONFIGS: ChainConfig = {
     },
   },
 };
+
+export const WALLET_URL = [
+  {
+    env: "test",
+    type: "testnet",
+    url: "t.wallet.unipass.vip",
+  },
+  {
+    env: "testnet",
+    type: "testnet",
+    url: "testnet.wallet.unipass.id",
+  },
+  {
+    env: "preview",
+    type: "mainnet",
+    url: "m.wallet.unipass.vip",
+  },
+  {
+    env: "mainnet",
+    type: "mainnet",
+    url: "wallet.unipass.id",
+  },
+];

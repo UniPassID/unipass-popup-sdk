@@ -30,14 +30,24 @@ import {
   watchEffect,
 } from "vue";
 import { ERC20ABI } from "../utils/erc20.abi";
-import { TESTNET_CHAIN_CONFIGS } from "../utils/chain-config";
+import {
+  TESTNET_CHAIN_CONFIGS,
+  MAINNET_CHAIN_CONFIGS,
+  TESTNET_CHAIN_OPTIONS,
+  MAINNET_CHAIN_OPTIONS,
+} from "../utils/chain-config";
 import { eip712DemoData } from "@/utils/constants";
 
 export const useIndex = () => {
   const userStore = useUserStore();
+
   const currentEnv = ref("testnet");
   const toTheme = ref("dark");
 
+  const chain_configs = ref(TESTNET_CHAIN_CONFIGS);
+  const chain_options = ref(TESTNET_CHAIN_OPTIONS);
+
+  const currentEnvType = ref("testnet");
   const returnAddress = ref(true);
   const returnEmail = ref(true);
   const forceLogin = ref(false);
@@ -102,17 +112,25 @@ export const useIndex = () => {
     updateUpWalletConfig();
     sessionStorage.setItem("__toTheme", toTheme.value);
   });
+
+  watch(currentEnv, (value) => {
+    if (value === "testnet") {
+      chain_configs.value = TESTNET_CHAIN_CONFIGS;
+      chain_options.value = TESTNET_CHAIN_OPTIONS;
+    }
+    if (value === "mainnet") {
+      chain_configs.value = MAINNET_CHAIN_CONFIGS;
+      chain_options.value = MAINNET_CHAIN_OPTIONS;
+    }
+    updateUpWalletConfig();
+  });
+
   const chainChange = () => {
     updateUpWalletConfig();
     sessionStorage.setItem("__chainType", userStore.chainType);
   };
 
   const updateUpWalletConfig = () => {
-    console.log(
-      "config updated",
-      userStore.chainType,
-      TESTNET_CHAIN_CONFIGS[userStore.chainType].rpc
-    );
     let _toTheme: any = toTheme.value;
     if (userStore.chainType === "kcc") {
       _toTheme = "KCC";
@@ -120,12 +138,12 @@ export const useIndex = () => {
     console.log(
       "config updated",
       userStore.chainType,
-      TESTNET_CHAIN_CONFIGS[userStore.chainType].rpc,
+      chain_configs.value[userStore.chainType].rpc,
       _toTheme
     );
     upWallet.updateConfig({
       chainType: userStore.chainType as ChainType,
-      nodeRPC: TESTNET_CHAIN_CONFIGS[userStore.chainType].rpc,
+      nodeRPC: chain_configs.value[userStore.chainType].rpc,
       appSettings: {
         chain: userStore.chainType as ChainType,
         theme: _toTheme,
@@ -136,7 +154,7 @@ export const useIndex = () => {
   };
 
   const myChainConfig = computed(() => {
-    const config = TESTNET_CHAIN_CONFIGS[userStore.chainType];
+    const config = chain_configs.value[userStore.chainType];
     return config;
   });
 
@@ -402,6 +420,7 @@ export const useIndex = () => {
 
   return {
     currentEnv,
+    currentEnvType,
     domain,
     protocol,
     toTheme,
@@ -439,6 +458,7 @@ export const useIndex = () => {
     myNativeTokenBalance,
     myTokenBalance,
     chainChange,
-    TESTNET_CHAIN_CONFIGS,
+    chain_configs,
+    chain_options,
   };
 };

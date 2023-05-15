@@ -2,7 +2,7 @@
   <div id="page-login">
     <i class="background-logo iconfont icon-logo"></i>
     <div class="head">
-      UniPass Demo ({{ CHAIN_CONFIGS[userStore.chainType].name }})
+      UniPass Demo ({{ chain_configs[userStore.chainType].name }})
     </div>
     <div class="page-demo">
       <el-radio-group v-model="currentEnv">
@@ -22,6 +22,23 @@
         </el-radio>
       </el-radio-group>
     </div>
+    <div class="page-demo">
+      <el-radio-group v-model="currentEnvType">
+        <el-radio
+          v-for="item in WALLET_URL"
+          :key="item.env"
+          :label="item.env"
+          :disabled="item.type !== currentEnv"
+        >
+          <div class="radio_box">
+            <div class="radio_0"></div>
+          </div>
+          <div class="radio_box2"></div>
+          {{ item.env }}
+        </el-radio>
+      </el-radio-group>
+    </div>
+
     <div class="page-demo">
       <el-radio-group v-model="toTheme">
         <el-radio label="dark">
@@ -56,7 +73,7 @@
         @change="chainChange"
       >
         <el-option
-          v-for="item in options"
+          v-for="item in chain_options"
           :key="item.value"
           :label="item.label"
           :value="item.value"
@@ -91,6 +108,7 @@
         </div>
       </div>
     </div>
+
     <div class="page-demo">
       <div class="st_box">
         <div class="st"></div>
@@ -132,6 +150,7 @@
         </div>
       </div>
     </div>
+
     <div class="page-demo">
       <div class="link_head">UniPass Documents</div>
       <div class="box">
@@ -175,9 +194,11 @@
 <script setup lang="ts">
 import IconArrow from "./icon-arrow.vue";
 import { useIndex } from "../composable/useIndex";
+import { WALLET_URL } from "../utils/chain-config";
 
 const {
   currentEnv,
+  currentEnvType,
   toTheme,
   returnAddress,
   returnEmail,
@@ -187,6 +208,8 @@ const {
   connectAndAuth,
   signMessageAfterConnect,
   chainChange,
+  chain_configs,
+  chain_options,
 } = useIndex();
 </script>
 
