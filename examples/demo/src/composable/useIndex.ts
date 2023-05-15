@@ -201,6 +201,7 @@ export const useIndex = () => {
         theme: toTheme.value as UniPassTheme,
         appName: "deherotest",
         appIcon: "",
+        distinctId: "F53A58ED-E5DA-4F18-B082-7E1228746E88",
       },
       storageType: "localStorage",
       windowType: WindowType.IFRAME,

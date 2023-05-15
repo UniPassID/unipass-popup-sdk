@@ -74,6 +74,7 @@ export type AppSettings = {
   appName?: string;
   appIcon?: string;
   theme?: UniPassTheme;
+  [key: string]: any;
 };
 
 export enum WindowType {
