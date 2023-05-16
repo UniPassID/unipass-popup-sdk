@@ -1,5 +1,13 @@
 # @unipasswallet/popup-utils
 
+## 1.2.0-beta.2
+
+### Patch Changes
+
+- add analystic event
+- Updated dependencies
+  - @unipasswallet/popup-types@1.2.0-beta.2
+
 ## 1.2.0-beta.1
 
 ### Minor Changes
